@@ -36,12 +36,6 @@ void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate) {
 			}
 		}
 	}
-	if (bullet_[0].isAlive) {
-		Novice::ScreenPrintf(0, 0, "bullet:1,happy");
-	}
-	if (bullet_[1].isAlive) {
-		Novice::ScreenPrintf(0, 20, "bullet:2,happy");
-	}
 }
 
 void Bullet::Move() {
