@@ -2,6 +2,6 @@
 #include "Struct.h"
 class Enemy
 {
-	
+private:	
 };
 
