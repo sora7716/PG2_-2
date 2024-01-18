@@ -3,7 +3,7 @@
 #include "Struct.h"
 #include "Rendering.h"
 
-const int BULLET_NUM  = 2;
+const int BULLET_NUM  = 100;
 const int BULLET_SIZE = 16;
 
 typedef struct BulletObject {
@@ -31,7 +31,7 @@ public:
 	/// セッターbulletのtranslate
 	/// </summary>
 	/// <param name="translate"></param>
-	void SetTranslate(Vector2 translate);
+	Vector2 SetTranslate(Vector2 translate);
 	
 	/// <summary>
 	/// 攻撃をしたかどうか

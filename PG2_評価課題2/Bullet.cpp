@@ -20,10 +20,9 @@ Bullet::Bullet() {
 	texture_ = Novice::LoadTexture("white1x1.png");
 }
 
-void Bullet::SetTranslate(Vector2 tranlate) {
-	for (int i = 0; i < BULLET_NUM; i++) {
-		bullet_[i].affine.translate = tranlate;
-	}
+Vector2 Bullet::SetTranslate(Vector2 tranlate) {
+	Vector2 result = tranlate;
+	return result;
 }
 
 void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate) {
@@ -31,7 +30,7 @@ void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate) {
 		for (int i = 0; i < BULLET_NUM; i++) {
 			if (!bullet_[i].isAlive) {
 				bullet_[i].isAlive = true;
-				SetTranslate(translate);
+				bullet_[i].affine.translate = SetTranslate(translate);
 				break;
 			}
 		}
@@ -40,9 +39,12 @@ void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate) {
 
 void Bullet::Move() {
 	for (int i = 0; i < BULLET_NUM; i++) {
-		bullet_[i].affine.translate.y += bullet_[i].speed;
-		if (bullet_[i].affine.translate.y > 720) {
-			bullet_[i].isAlive = false;
+		if (bullet_[i].isAlive) {
+			bullet_[i].affine.translate.y += bullet_[i].speed;
+			if (bullet_[i].affine.translate.y > 720) {
+				bullet_[i].isAlive = false;
+				bullet_[i].affine.translate = { 0 };
+			}
 		}
 	}
 }
