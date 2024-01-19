@@ -66,7 +66,7 @@ public:
 	/// <summary>
 	/// wvpVpマトリックスの作成
 	/// </summary>
-	void wvpVpMatrix();
+	void MakeWvpVp();
 
 	/// <summary>
 	/// トランスフォーム

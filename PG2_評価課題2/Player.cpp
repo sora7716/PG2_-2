@@ -50,7 +50,7 @@ void Player::MakeWorldMatrix() {
 	worldMatrix_ = MakeAffineMatrix(affine_);
 }
 
-void Player::wvpVpMatrix() {
+void Player::MakeWvpVp() {
   wvpVpMatrix_ = Multiply(worldMatrix_, vpVpMatrix_);
 }
 
@@ -171,7 +171,7 @@ void Player::Update(char* keys, char* preKeys) {
 	OrthoMatrix();//正射影行列の作成
 	ViewportMatrix();//viewportマトリックスの作成
 	vpVpMatrix();//ワールドマトリックス以外をかけている
-	wvpVpMatrix();//最後にワールドマトリックスをかけている
+	MakeWvpVp();//最後にワールドマトリックスをかけている
 #pragma endregion
 
 	CameraTest();
