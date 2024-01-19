@@ -1,20 +1,28 @@
-#include "Enemy.h"
+﻿#include "Enemy.h"
 
-void Enemy::MakeWorldMatrix(EnemyObject enemy) {
-	enemy.worldMatrix = MakeAffineMatrix(enemy.affine);
+void Enemy::MakeWorldMatrix() {
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		enemy_[i].worldMatrix = MakeAffineMatrix(enemy_[i].affine);
+	}
 }
 
-void Enemy::MakeWvpVp(EnemyObject enemy) {
-	enemy.wvpVpMatrix = Multiply(enemy.worldMatrix, vpVpMatrix_);
+void Enemy::MakeWvpVp(Matrix3x3 vpVpMatrix) {
+	for (int i = 0; i < ENEMY_NUM; i++) {
+	enemy_[i].wvpVpMatrix = Multiply(enemy_[i].worldMatrix, vpVpMatrix);
+	}
 }
 
-void Enemy::EnemyTransform(EnemyObject enemy) {
-	enemy.screen.leftTop     = TransForm(enemy.local.leftTop,     enemy.wvpVpMatrix);
-	enemy.screen.leftBottom  = TransForm(enemy.local.leftBottom,  enemy.wvpVpMatrix);
-	enemy.screen.rightTop    = TransForm(enemy.local.rightTop,    enemy.wvpVpMatrix);
-	enemy.screen.rightBottom = TransForm(enemy.local.rightBottom, enemy.wvpVpMatrix);
+void Enemy::EnemyTransform(Matrix3x3 vpVpMatrix) {
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		enemy_[i].screen.leftTop     = TransForm(enemy_[i].local.leftTop,     vpVpMatrix);
+		enemy_[i].screen.leftBottom  = TransForm(enemy_[i].local.leftBottom,  vpVpMatrix);
+		enemy_[i].screen.rightTop    = TransForm(enemy_[i].local.rightTop,    vpVpMatrix);
+		enemy_[i].screen.rightBottom = TransForm(enemy_[i].local.rightBottom, vpVpMatrix);
+	}
 }
 
-void Enemy::Update(EnemyObject enemy) {
-
+void Enemy::Update(char* keys, char* preKeys, Matrix3x3 vpVpMatrix) {
+	if (keys[DIK_A] && preKeys[DIK_A]) {
+		vpVpMatrix = { 100 };
+	}
 }

@@ -116,6 +116,7 @@ public:
 
 #pragma region テスト
 	float SetPositionY() { return affine_.translate.y; };
+	Matrix3x3 GetVpVpMatrix() { return vpVpMatrix_; };
 #pragma endregion
 };
 

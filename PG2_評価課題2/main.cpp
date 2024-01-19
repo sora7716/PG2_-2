@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "EnemyDown.h"
 
 const char kWindowTitle[] = "GC1A_01_イイヅカ_ソラ_title";
 
@@ -13,7 +14,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char preKeys[256] = {0};
 
 	Player* player = new Player;
-
+	Enemy* enemy   = new EnemyDown;
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -27,6 +28,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 		player->Update(keys,preKeys);
+		enemy->Update(keys, preKeys,player->GetVpVpMatrix());
 		///
 		/// ↑更新処理ここまで
 		///

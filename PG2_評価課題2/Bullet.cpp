@@ -20,8 +20,8 @@ Bullet::Bullet() {
 	texture_ = Novice::LoadTexture("white1x1.png");
 }
 
-Vector2 Bullet::SetTranslate(Vector2 tranlate) {
-	Vector2 result = tranlate;
+Vector2 Bullet::SetTranslate(Vector2 translate) {
+	Vector2 result = translate;
 	return result;
 }
 

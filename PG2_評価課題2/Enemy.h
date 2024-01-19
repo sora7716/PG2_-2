@@ -1,7 +1,12 @@
-#pragma once
+﻿#pragma once
 #include "Struct.h"
-#include "Camera.h"
+#include <Novice.h>
+#include "Rendering.h"
 
+const int ENEMY_NUM = 1;//エネミーの数
+
+const int ENEMY_SIZE = 32;
+//エネミーに使う型
 typedef struct EnemyObject {
 	Vertex local;
 	Affine affine;
@@ -14,17 +19,19 @@ typedef struct EnemyObject {
 	bool isAlive;
 }EnemyObject;
 
-class Enemy:public Camera
+class Enemy:public Rendering
 {
-
 protected:
+	EnemyObject enemy_[ENEMY_NUM];
+	int texture_;
+public:
 
-	void MakeWorldMatrix(EnemyObject enemy);
+	void MakeWorldMatrix();
 
-	void MakeWvpVp(EnemyObject enemy);
+	void MakeWvpVp(Matrix3x3 vpVpMatrix);
 
-	void EnemyTransform(EnemyObject enemy);
+	void EnemyTransform(Matrix3x3 vpVpMatrix);
 
-	virtual void Update(EnemyObject enemy);
+	virtual void Update(char* keys, char* preKeys, Matrix3x3 vpVpMatrix);
 };
 
