@@ -5,7 +5,7 @@
 const char kWindowTitle[] = "GC1A_01_イイヅカ_ソラ_title";
 
 const int KYES_NUM = 256;
-class GameUpdate
+class GameUpdate:public Novice
 {
 private:
 
@@ -27,15 +27,8 @@ public:
 	~GameUpdate();
 
 	/// <summary>
-	///キーの取得 
+	/// ゲームループ
 	/// </summary>
-	void GetHitKeyStateAll();
-	
-	/// <summary>
-	/// preKeysの取得
-	/// </summary>
-	void Memcpy();
-
 	void GameLoop();
 
 };

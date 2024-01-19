@@ -2,7 +2,7 @@
 
 GameUpdate::GameUpdate() {
 
-	Novice::Initialize(kWindowTitle, (int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
+	Initialize(kWindowTitle, (int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
 	for (int i = 0; i < KYES_NUM; i++) {
 		keys_[i]    = { 0 };
 		preKeys_[i] = { 0 };
@@ -16,19 +16,12 @@ GameUpdate::~GameUpdate(){
 	delete enemy_;
 }
 
-void GameUpdate::GetHitKeyStateAll(){
-	Novice::GetHitKeyStateAll(keys_);
-}
-
-void GameUpdate::Memcpy() {
-	memcpy(preKeys_, keys_, 256);
-}
-
 void GameUpdate::GameLoop() {
-	while (Novice::ProcessMessage() == 0) {
+	while (ProcessMessage() == 0) {
 		// フレームの開始
-		Novice::BeginFrame();
-
+		BeginFrame();
+		memcpy(preKeys_, keys_, 256);
+		GetHitKeyStateAll(keys_);
 		///
 		/// ↓更新処理ここから
 		///
@@ -47,7 +40,7 @@ void GameUpdate::GameLoop() {
 		///
 
 		// フレームの終了
-		Novice::EndFrame();
+		EndFrame();
 
 		// ESCキーが押されたらループを抜ける
 		if (preKeys_[DIK_ESCAPE] == 0 && keys_[DIK_ESCAPE] != 0) {
@@ -55,3 +48,4 @@ void GameUpdate::GameLoop() {
 		}
 	}
 }
+
