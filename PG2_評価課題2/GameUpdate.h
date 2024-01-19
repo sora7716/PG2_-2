@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 #include "Player.h"
 #include "EnemyDown.h"
 
-const char kWindowTitle[] = "GC1A_01_�C�C�d�J_�\��_title";
+const char kWindowTitle[] = "GC1A_01_イイヅカ_ソラ_title";
 
 const int KYES_NUM = 256;
 class GameUpdate
@@ -16,7 +16,27 @@ private:
 	Enemy* enemy_;
 
 public:
+	/// <summary>
+	/// コンストラクター
+	/// </summary>
 	GameUpdate();
+
+	/// <summary>
+	/// デストラクター
+	/// </summary>
+	~GameUpdate();
+
+	/// <summary>
+	///キーの取得 
+	/// </summary>
+	void GetHitKeyStateAll();
+	
+	/// <summary>
+	/// preKeysの取得
+	/// </summary>
+	void Memcpy();
+
+	void GameLoop();
 
 };
 
