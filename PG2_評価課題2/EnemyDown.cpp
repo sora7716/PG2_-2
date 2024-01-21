@@ -3,7 +3,7 @@
 EnemyDown::EnemyDown() {
 	srand((unsigned int)time(nullptr));
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		enemy_[i].affine = { {1,1},0,{0,0} };
+		enemy_[i].affine = { {1,1},0,{0,1000} };
 		enemy_[i].local = {
 		{ -ENEMY_SIZE / 2.0f ,-ENEMY_SIZE / 2.0f  },
 		{ -ENEMY_SIZE / 2.0f , ENEMY_SIZE / 2.0f  },
@@ -73,7 +73,6 @@ void EnemyDown::EnemyDraw() {
 				0, 0, 1, 1, texture_, BLUE);
 		}
 	}
-	Novice::ScreenPrintf(0, 0, "%f", enemy_[0].screen.leftBottom.y);
 }
 
 void EnemyDown::Destroy(Bullet* bullet) {
@@ -99,7 +98,6 @@ void EnemyDown::Destroy(Bullet* bullet) {
 			}
 		}
 	}
-	Novice::ScreenPrintf(0, 20, "%d", enemy_[0].isDeath);
 }
 
 void EnemyDown::Update(Matrix3x3 vpVpMatrix, Bullet* bullet) {

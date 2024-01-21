@@ -32,12 +32,15 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void Updating();
+	void MainUpdating();
 	
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Drawing();
+	void MainDrawing();
+
+
+	void MainLoop();
 
 	/// <summary>
 	/// ゲームループ

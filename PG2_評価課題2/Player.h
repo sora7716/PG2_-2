@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Bullet.h"
 #include "Collision.h"
+#include "EnemyDown.h"
 
 const float PLAYER_SIZE = 32;
 
@@ -89,7 +90,7 @@ public:
 	/// キー入力でプレイヤーを動かす
 	/// </summary>
 	/// <param name="keys"></param>
-	
+	void PlayerMove(char *keys);
 
 #pragma region 単位ベクトル
 	/// <summary>
@@ -117,20 +118,25 @@ public:
 	/// レンダリングパイプラインをまとめている
 	/// </summary>
 	void RenderingPipeline();
+	
+	/// <summary>
+	/// シェイクするときの幅と実行しているときの時間
+	/// </summary>
+	void ShakeRange();
 
 	/// <summary>
 	/// シェイク
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void PlayerShake(char *keys,char *preKeys);
+	void PlayerShake(Enemy*enemy);
 
 	/// <summary>
 	/// 更新処理をまとめてる
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="texture"></param>
-	void Update(char* keys, char* preKeys);
+	void Update(char* keys, char* preKeys,Enemy*enemy);
 
 		
 	/// <summary>

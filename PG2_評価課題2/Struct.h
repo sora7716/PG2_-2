@@ -15,6 +15,8 @@ typedef struct VectorInt {
 
 typedef struct ShakeObject {
 	VectorInt position;
+	int range;
+	bool isScale;
 	bool isShake;
 }ShakeObject;
 
