@@ -19,8 +19,9 @@ typedef struct BulletObject {
 class Bullet:public Rendering
 {
 private:
-	BulletObject bullet_[BULLET_NUM];
 	int texture_;
+public :
+	BulletObject bullet_[BULLET_NUM];
 public:
 	/// <summary>
 	/// コンストラクター

@@ -26,3 +26,9 @@ typedef struct Affine {
 	float theta;
 	Vector2 translate;
 }Affine;
+
+typedef struct Speed {
+	float growing;
+	float rotation;
+	Vector2 velocity;
+}Speed;

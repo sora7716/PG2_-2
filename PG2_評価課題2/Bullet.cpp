@@ -41,7 +41,7 @@ void Bullet::Move() {
 	for (int i = 0; i < BULLET_NUM; i++) {
 		if (bullet_[i].isAlive) {
 			bullet_[i].affine.translate.y += bullet_[i].speed;
-			if (bullet_[i].affine.translate.y > 720) {
+			if (bullet_[i].affine.translate.y >= 600) {
 				bullet_[i].isAlive = false;
 				bullet_[i].affine.translate = { 0 };
 			}
@@ -95,3 +95,4 @@ void Bullet::BulletDrawSprite(Matrix3x3 vpVpMatrix) {
 	BulletTransform();
 	BulletDraw();
 }
+

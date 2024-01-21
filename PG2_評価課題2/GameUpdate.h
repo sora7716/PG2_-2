@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Player.h"
 #include "EnemyDown.h"
+#include "Bullet.h"
 
 const char kWindowTitle[] = "GC1A_01_イイヅカ_ソラ_title";
 

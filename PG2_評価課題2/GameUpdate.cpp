@@ -26,7 +26,7 @@ void GameUpdate::GameLoop() {
 		/// ↓更新処理ここから
 		///
 		player_->Update(keys_, preKeys_);
-		enemy_->Update(keys_, preKeys_, player_->GetVpVpMatrix());
+		enemy_->Update(player_->GetVpVpMatrix(), player_->GetBullet());
 		///
 		/// ↑更新処理ここまで
 		///

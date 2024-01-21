@@ -114,6 +114,13 @@ public:
 	/// <param name="texture"></param>
 	void Update(char* keys, char* preKeys);
 
+		
+	/// <summary>
+	/// ゲッター
+	/// </summary>
+	/// <returns></returns>
+	Bullet* GetBullet() { return bullet_; };
+
 #pragma region テスト
 	float SetPositionY() { return affine_.translate.y; };
 	Matrix3x3 GetVpVpMatrix() { return vpVpMatrix_; };

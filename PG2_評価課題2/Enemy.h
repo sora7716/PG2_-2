@@ -1,7 +1,12 @@
 ﻿#pragma once
-#include "Struct.h"
 #include <Novice.h>
+#include <stdlib.h>
+#include <time.h>
+#include "Struct.h"
 #include "Rendering.h"
+#include "Enemy.h"
+#include "Bullet.h"
+#include "Collision.h"
 
 const int ENEMY_NUM = 1;//エネミーの数
 
@@ -10,21 +15,25 @@ const int ENEMY_SIZE = 32;//エネミーのピクセル数
 typedef struct EnemyObject {
 	Vertex local;
 	Affine affine;
-	float speed;
-	float theta;
-	float scale;
+	Speed shapes;
+	Vector2 tempSpeed;
 	Matrix3x3 worldMatrix;
 	Matrix3x3 wvpVpMatrix;
 	Vertex screen;
 	bool isAlive;
+	bool isDeath;//当たったかどうのフラグ
 }EnemyObject;
 
-class Enemy:public Rendering
+class Enemy :public Rendering
 {
 protected:
 	EnemyObject enemy_[ENEMY_NUM];//エネミーの変数
 	int texture_;//テクスチャ1
+	Collision* collision_;;
 public:
+
+	~Enemy();
+
 	/// <summary>
 	/// ワールドマトリックスの作成
 	/// </summary>
@@ -40,7 +49,7 @@ public:
 	/// スクリーン座標に変換
 	/// </summary>
 	/// <param name="vpVpMatrix"></param>
-	void EnemyTransform(Matrix3x3 vpVpMatrix);
+	void EnemyTransform();
 
 	/// <summary>
 	/// 更新処理
@@ -48,6 +57,6 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="vpVpMatrix"></param>
-	virtual void Update(char* keys, char* preKeys, Matrix3x3 vpVpMatrix);
+	virtual void Update(Matrix3x3 vpVpMatrix, Bullet* bullet);
 };
 

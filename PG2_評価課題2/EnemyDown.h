@@ -18,12 +18,7 @@ public:
 	/// </summary>
 	void EnemyTranslate();
 
-	/// <summary>
-	/// エネミーの削除
-	/// </summary>
-	/// <param name="keys"></param>
-	/// <param name="preKeys"></param>
-	void Destroy(char*keys,char*preKeys);
+	int Direction();
 
 	/// <summary>
 	/// エネミーの描画
@@ -31,11 +26,18 @@ public:
 	void EnemySprite();
 
 	/// <summary>
+	/// エネミーの削除
+	/// </summary>
+	/// <param name="keys"></param>
+	/// <param name="preKeys"></param>
+	void Destroy(Bullet* bullet);
+
+	/// <summary>
 	/// 更新処理
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="vpVpMatrix"></param>
-	void Update(char* keys, char* preKeys, Matrix3x3 vpVpMatrix)override;
+	void Update(Matrix3x3 vpVpMatrix,Bullet*bullet)override;
 };
 
