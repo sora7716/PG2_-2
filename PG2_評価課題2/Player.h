@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Camera.h"
 #include "Bullet.h"
+#include "Collision.h"
 
 const float PLAYER_SIZE = 32;
 
@@ -106,6 +107,10 @@ public:
 	/// <param name="keys"></param>
 	void Transfer(char* keys);
 
+	/// <summary>
+	/// レンダリングパイプラインをまとめている
+	/// </summary>
+	void RenderingPipeline();
 
 	/// <summary>
 	/// 更新処理をまとめてる
@@ -116,14 +121,24 @@ public:
 
 		
 	/// <summary>
-	/// ゲッター
+	///		Bulletのインスタンスのゲッター
 	/// </summary>
 	/// <returns></returns>
 	Bullet* GetBullet() { return bullet_; };
 
+	/// <summary>
+	/// プレイヤーのテクスチャのゲッター
+	/// </summary>
+	/// <returns></returns>
+	int GetPlayerTexture() { return texture_; };
+	
+	/// <summary>
+	/// vpVpマトリックスのゲッター
+	/// </summary>
+	/// <returns></returns>
+	Matrix3x3 GetVpVpMatrix() { return vpVpMatrix_; };
 #pragma region テスト
 	float SetPositionY() { return affine_.translate.y; };
-	Matrix3x3 GetVpVpMatrix() { return vpVpMatrix_; };
 #pragma endregion
 };
 

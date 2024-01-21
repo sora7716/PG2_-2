@@ -16,6 +16,10 @@ void Enemy::MakeWvpVp(Matrix3x3 vpVpMatrix) {
 	}
 }
 
+void Enemy::EnemyDraw() {
+
+}
+
 void Enemy::EnemyTransform() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		enemy_[i].screen.leftTop     = TransForm(enemy_[i].local.leftTop,     enemy_[i].wvpVpMatrix);

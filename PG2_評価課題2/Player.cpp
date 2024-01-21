@@ -39,11 +39,12 @@ Player::Player() {
 	texture_ = Novice::LoadTexture("white1x1.png");
 
 	//包含
-	bullet_ = new Bullet;
+	bullet_ = new Bullet;//弾
 }
 
 Player::~Player() {
 	delete bullet_;
+	delete collision_;
 }
 
 void Player::MakeWorldMatrix() {
@@ -152,16 +153,7 @@ void Player::Transfer(char *keys) {
 	PlayerTranslate();
 }
 
-void Player::Update(char* keys, char* preKeys) {
-
-#pragma region プレイヤー
-	Transfer(keys);//移動
-	bullet_->Attack(keys, preKeys, affine_.translate);//攻撃
-#pragma endregion 
-
-	CameraMove(keys);//カメラの移動
-
-#pragma region レンダリングパイプライン
+void Player::RenderingPipeline() {
 	//アフィン変換↓
 	MakeWorldMatrix();//ワールドマトリックスの作成
 	CameraMatrix();   //カメラマトリックスの作成
@@ -172,13 +164,22 @@ void Player::Update(char* keys, char* preKeys) {
 	ViewportMatrix();//viewportマトリックスの作成
 	vpVpMatrix();//ワールドマトリックス以外をかけている
 	MakeWvpVp();//最後にワールドマトリックスをかけている
-#pragma endregion
+}
 
+void Player::Update(char* keys, char* preKeys) {
+
+#pragma region プレイヤー
+	Transfer(keys);//移動
+	bullet_->Attack(keys, preKeys, affine_.translate);//攻撃
+#pragma endregion 
+
+	CameraMove(keys);//カメラの移動
+
+	RenderingPipeline();
+
+	//後で消すやつ↓
 	CameraTest();
+	//後で消すやつ↑
 	
 	PlayerTransform();//ワールド座標に変換
-	//描画処理↓
-	PlayerDraw(texture_);
-	bullet_->BulletDrawSprite(vpVpMatrix_);
-	//描画処理↑
 }

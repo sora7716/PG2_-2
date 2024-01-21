@@ -28,6 +28,18 @@ public:
 	~GameUpdate();
 
 	/// <summary>
+	/// 更新処理
+	/// </summary>
+	/// <param name="keys"></param>
+	/// <param name="preKeys"></param>
+	void Updating();
+	
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	void Drawing();
+
+	/// <summary>
 	/// ゲームループ
 	/// </summary>
 	void GameLoop();

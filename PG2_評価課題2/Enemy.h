@@ -52,6 +52,11 @@ public:
 	void EnemyTransform();
 
 	/// <summary>
+	/// 仮想の関数
+	/// </summary>
+	virtual void EnemyDraw();
+
+	/// <summary>
 	/// 更新処理
 	/// </summary>
 	/// <param name="keys"></param>

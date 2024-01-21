@@ -8,6 +8,11 @@ typedef struct Vector2 {
 	float y;
 }Vector2;
 
+typedef struct VectorInt {
+	int x;
+	int y;
+}VectorInt;
+
 typedef struct Matrix3x3 {
 
 	float m[3][3];

@@ -62,7 +62,7 @@ int EnemyDown::Direction() {
 	return 1;
 }
 
-void EnemyDown::EnemySprite() {
+void EnemyDown::EnemyDraw() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (enemy_[i].isAlive) {
 			Novice::DrawQuad(
@@ -109,5 +109,4 @@ void EnemyDown::Update(Matrix3x3 vpVpMatrix, Bullet* bullet) {
     MakeWorldMatrix();
     MakeWvpVp(vpVpMatrix);
     EnemyTransform();
-	EnemySprite();
 }

@@ -16,6 +16,17 @@ GameUpdate::~GameUpdate(){
 	delete enemy_;
 }
 
+void GameUpdate::Updating() {
+	player_->Update(keys_, preKeys_);
+	enemy_->Update(player_->GetVpVpMatrix(), player_->GetBullet());
+}
+
+void GameUpdate::Drawing() {
+	player_->PlayerDraw(player_->GetPlayerTexture());
+	player_->GetBullet()->BulletDrawSprite(player_->GetVpVpMatrix());
+	enemy_->EnemyDraw();
+}
+
 void GameUpdate::GameLoop() {
 	while (ProcessMessage() == 0) {
 		// フレームの開始
@@ -25,8 +36,7 @@ void GameUpdate::GameLoop() {
 		///
 		/// ↓更新処理ここから
 		///
-		player_->Update(keys_, preKeys_);
-		enemy_->Update(player_->GetVpVpMatrix(), player_->GetBullet());
+		Updating();
 		///
 		/// ↑更新処理ここまで
 		///
@@ -34,7 +44,7 @@ void GameUpdate::GameLoop() {
 		///
 		/// ↓描画処理ここから
 		///
-
+		Drawing();
 		///
 		/// ↑描画処理ここまで
 		///

@@ -23,7 +23,7 @@ public:
 	/// <summary>
 	/// エネミーの描画
 	/// </summary>
-	void EnemySprite();
+	void EnemyDraw()override;
 
 	/// <summary>
 	/// エネミーの削除
