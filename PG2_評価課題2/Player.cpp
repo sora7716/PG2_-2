@@ -40,7 +40,10 @@ Player::Player() {
 
 	//シェイク
 	srand((unsigned int)time(nullptr));
-	shake = {};
+	shake.position = {};
+	shake.range = 0;
+	shake.isScale = false;
+	shake.isShake = false;
 
 	//包含
 	bullet_ = new Bullet;//弾
@@ -69,10 +72,10 @@ void Player::PlayerTransform() {
 
 void Player::PlayerDraw(int texture) {
 	Novice::DrawQuad(
-		(int)screen_.leftTop.x     + shake.x,     (int)screen_.leftTop.y     + shake.y,
-		(int)screen_.leftBottom.x  + shake.x,     (int)screen_.leftBottom.y  + shake.y,
-		(int)screen_.rightTop.x    + shake.x,     (int)screen_.rightTop.y    + shake.y,
-		(int)screen_.rightBottom.x + shake.x,     (int)screen_.rightBottom.y + shake.y,
+		(int)screen_.leftTop.x     + shake.position.x,     (int)screen_.leftTop.y     + shake.position.y,
+		(int)screen_.leftBottom.x  + shake.position.x,     (int)screen_.leftBottom.y  + shake.position.y,
+		(int)screen_.rightTop.x    + shake.position.x,     (int)screen_.rightTop.y    + shake.position.y,
+		(int)screen_.rightBottom.x + shake.position.x,     (int)screen_.rightBottom.y + shake.position.y,
 		0, 0, 1, 1, texture, WHITE);
 }
 
@@ -171,17 +174,46 @@ void Player::RenderingPipeline() {
 	MakeWvpVp();//最後にワールドマトリックスをかけている
 }
 
-void Player::PlayerShake(char* keys, char* preKeys) {
-	if (keys[DIK_R] && !preKeys[DIK_R]) {
-		
+void Player::ShakeRange() {
+	if (shake.isScale) {
+		if (shake.range <= 25) {
+			shake.range++;
+		}
+		else {
+			shake.isScale = false;
+		}
+	}
+	else {
+		if (shake.range > 1) {
+			shake.range--;
+		}
+		else {
+			shake.isShake = false;
+			shake.position = {};
+		}
 	}
 }
 
-void Player::Update(char* keys, char* preKeys) {
+void Player::PlayerShake(Enemy*enemy) {
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		if (collision_->Box(enemy->enemy_[i].affine.translate,affine_.translate,ENEMY_SIZE, PLAYER_SIZE)) {
+			shake.isShake = true;
+			shake.isScale = true;
+		}
+	}
+	ShakeRange();
+	if (shake.isShake) {
+		shake.position = { rand() % shake.range - shake.range/2,rand() % shake.range - shake.range / 2 };
+	}
+	Novice::ScreenPrintf(0, 0, "%d", shake.range);
+}
+
+void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
 
 #pragma region プレイヤー
 	Transfer(keys);//移動
 	bullet_->Attack(keys, preKeys, affine_.translate);//攻撃
+	PlayerShake(enemy);
 #pragma endregion 
 
 	CameraMove(keys);//カメラの移動

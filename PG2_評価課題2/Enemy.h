@@ -10,7 +10,7 @@
 
 const int ENEMY_NUM = 1;//エネミーの数
 
-const int ENEMY_SIZE = 32;//エネミーのピクセル数
+const float ENEMY_SIZE = 32;//エネミーのピクセル数
 //エネミーに使う型
 typedef struct EnemyObject {
 	Vertex local;
@@ -27,9 +27,10 @@ typedef struct EnemyObject {
 class Enemy :public Rendering
 {
 protected:
-	EnemyObject enemy_[ENEMY_NUM];//エネミーの変数
 	int texture_;//テクスチャ1
-	Collision* collision_;;
+	Collision* collision_;
+public:
+	EnemyObject enemy_[ENEMY_NUM];//エネミーの変数
 public:
 
 	~Enemy();

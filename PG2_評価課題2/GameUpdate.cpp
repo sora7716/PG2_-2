@@ -16,15 +16,20 @@ GameUpdate::~GameUpdate(){
 	delete enemy_;
 }
 
-void GameUpdate::Updating() {
-	player_->Update(keys_, preKeys_);
+void GameUpdate::MainUpdating() {
+	player_->Update(keys_, preKeys_,enemy_);
 	enemy_->Update(player_->GetVpVpMatrix(), player_->GetBullet());
 }
 
-void GameUpdate::Drawing() {
+void GameUpdate::MainDrawing() {
 	player_->PlayerDraw(player_->GetPlayerTexture());
 	player_->GetBullet()->BulletDrawSprite(player_->GetVpVpMatrix());
 	enemy_->EnemyDraw();
+}
+
+void GameUpdate::MainLoop() {
+	MainUpdating();//更新処理
+	MainDrawing(); //描画処理
 }
 
 void GameUpdate::GameLoop() {
@@ -33,21 +38,11 @@ void GameUpdate::GameLoop() {
 		BeginFrame();
 		memcpy(preKeys_, keys_, 256);
 		GetHitKeyStateAll(keys_);
-		///
-		/// ↓更新処理ここから
-		///
-		Updating();
-		///
-		/// ↑更新処理ここまで
-		///
 
-		///
-		/// ↓描画処理ここから
-		///
-		Drawing();
-		///
-		/// ↑描画処理ここまで
-		///
+		//ゲームのループ↓
+		MainLoop();
+		//ゲームのループ↑
+		
 
 		// フレームの終了
 		EndFrame();
