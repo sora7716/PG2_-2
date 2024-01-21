@@ -38,8 +38,13 @@ Player::Player() {
 	//テクスチャ
 	texture_ = Novice::LoadTexture("white1x1.png");
 
+	//シェイク
+	srand((unsigned int)time(nullptr));
+	shake = {};
+
 	//包含
 	bullet_ = new Bullet;//弾
+	collision_ = new Collision;//当たり判定
 }
 
 Player::~Player() {
@@ -64,14 +69,14 @@ void Player::PlayerTransform() {
 
 void Player::PlayerDraw(int texture) {
 	Novice::DrawQuad(
-		(int)screen_.leftTop.x,     (int)screen_.leftTop.y,
-		(int)screen_.leftBottom.x,  (int)screen_.leftBottom.y,
-		(int)screen_.rightTop.x,    (int)screen_.rightTop.y,
-		(int)screen_.rightBottom.x, (int)screen_.rightBottom.y,
+		(int)screen_.leftTop.x     + shake.x,     (int)screen_.leftTop.y     + shake.y,
+		(int)screen_.leftBottom.x  + shake.x,     (int)screen_.leftBottom.y  + shake.y,
+		(int)screen_.rightTop.x    + shake.x,     (int)screen_.rightTop.y    + shake.y,
+		(int)screen_.rightBottom.x + shake.x,     (int)screen_.rightBottom.y + shake.y,
 		0, 0, 1, 1, texture, WHITE);
 }
 
-void Player::PlayerMove(char keys[]) {
+void Player::PlayerMove(char *keys) {
 #pragma region 移動
 	if (keys[DIK_A])
 	{
@@ -164,6 +169,12 @@ void Player::RenderingPipeline() {
 	ViewportMatrix();//viewportマトリックスの作成
 	vpVpMatrix();//ワールドマトリックス以外をかけている
 	MakeWvpVp();//最後にワールドマトリックスをかけている
+}
+
+void Player::PlayerShake(char* keys, char* preKeys) {
+	if (keys[DIK_R] && !preKeys[DIK_R]) {
+		
+	}
 }
 
 void Player::Update(char* keys, char* preKeys) {

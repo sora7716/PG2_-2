@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <stdlib.h>
+#include <time.h>
 #include "Camera.h"
 #include "Bullet.h"
 #include "Collision.h"
@@ -12,7 +14,7 @@ typedef struct MoveObject {
 }MoveObject;
 
 
-class Player:public Camera
+class Player :public Camera
 {
 private:
 
@@ -44,8 +46,12 @@ private:
 	//テクスチャ
 	int texture_;
 
+	//シェイク用のランド
+	ShakeObject shake;
+
 	//包含↓
 	Bullet* bullet_;//弾
+	Collision* collision_;
 	//包含↑
 
 public:
@@ -83,7 +89,7 @@ public:
 	/// キー入力でプレイヤーを動かす
 	/// </summary>
 	/// <param name="keys"></param>
-	void PlayerMove(char keys[]);
+	
 
 #pragma region 単位ベクトル
 	/// <summary>
@@ -111,6 +117,13 @@ public:
 	/// レンダリングパイプラインをまとめている
 	/// </summary>
 	void RenderingPipeline();
+
+	/// <summary>
+	/// シェイク
+	/// </summary>
+	/// <param name="keys"></param>
+	/// <param name="preKeys"></param>
+	void PlayerShake(char *keys,char *preKeys);
 
 	/// <summary>
 	/// 更新処理をまとめてる
