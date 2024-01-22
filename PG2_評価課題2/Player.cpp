@@ -196,7 +196,7 @@ void Player::ShakeRange() {
 
 void Player::PlayerShake(Enemy*enemy) {
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (collision_->Box(enemy->enemy_[i].affine.translate,affine_.translate,ENEMY_SIZE, PLAYER_SIZE)) {
+		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate,affine_.translate,ENEMY_SIZE, PLAYER_SIZE)) {
 			shake.isShake = true;
 			shake.isScale = true;
 		}

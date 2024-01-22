@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include "Player.h"
-#include "EnemyDown.h"
-#include "Bullet.h"
+#include "MainScene.h"
 
 const char kWindowTitle[] = "GC1A_01_イイヅカ_ソラ_title";
 
@@ -13,9 +11,7 @@ private:
 	char keys_[KYES_NUM];
 	char preKeys_[KYES_NUM];
 
-	Player* player_;
-	Enemy* enemy_;
-
+	MainScene* gameScene;
 public:
 	/// <summary>
 	/// コンストラクター
@@ -26,21 +22,6 @@ public:
 	/// デストラクター
 	/// </summary>
 	~GameUpdate();
-
-	/// <summary>
-	/// 更新処理
-	/// </summary>
-	/// <param name="keys"></param>
-	/// <param name="preKeys"></param>
-	void MainUpdating();
-	
-	/// <summary>
-	/// 描画処理
-	/// </summary>
-	void MainDrawing();
-
-
-	void MainLoop();
 
 	/// <summary>
 	/// ゲームループ

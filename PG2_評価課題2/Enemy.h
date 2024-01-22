@@ -29,7 +29,6 @@ class Enemy :public Rendering
 protected:
 	int texture_;//テクスチャ1
 	Collision* collision_;
-public:
 	EnemyObject enemy_[ENEMY_NUM];//エネミーの変数
 public:
 
@@ -64,5 +63,11 @@ public:
 	/// <param name="preKeys"></param>
 	/// <param name="vpVpMatrix"></param>
 	virtual void Update(Matrix3x3 vpVpMatrix, Bullet* bullet);
+
+	/// <summary>
+	/// enemy_のゲッター
+	/// </summary>
+	/// <returns></returns>
+	EnemyObject* GetEnemyObject() { return enemy_; };
 };
 
