@@ -7,29 +7,11 @@ GameUpdate::GameUpdate() {
 		keys_[i]    = { 0 };
 		preKeys_[i] = { 0 };
 	}
-	player_ = new Player;
-	enemy_ = new EnemyDown;
+	gameScene = new MainScene;
 }
 
 GameUpdate::~GameUpdate(){
-	delete player_;
-	delete enemy_;
-}
-
-void GameUpdate::MainUpdating() {
-	player_->Update(keys_, preKeys_,enemy_);
-	enemy_->Update(player_->GetVpVpMatrix(), player_->GetBullet());
-}
-
-void GameUpdate::MainDrawing() {
-	player_->PlayerDraw(player_->GetPlayerTexture());
-	player_->GetBullet()->BulletDrawSprite(player_->GetVpVpMatrix());
-	enemy_->EnemyDraw();
-}
-
-void GameUpdate::MainLoop() {
-	MainUpdating();//更新処理
-	MainDrawing(); //描画処理
+	delete gameScene;
 }
 
 void GameUpdate::GameLoop() {
@@ -40,7 +22,7 @@ void GameUpdate::GameLoop() {
 		GetHitKeyStateAll(keys_);
 
 		//ゲームのループ↓
-		MainLoop();
+		gameScene->MainLoop(keys_,preKeys_);
 		//ゲームのループ↑
 		
 
@@ -53,4 +35,3 @@ void GameUpdate::GameLoop() {
 		}
 	}
 }
-

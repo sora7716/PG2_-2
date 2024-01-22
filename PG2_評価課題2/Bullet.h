@@ -10,6 +10,7 @@ typedef struct BulletObject {
 	Vertex local;
 	Affine affine;
 	float speed;
+	float rotation;
 	Matrix3x3 worldMatrix;
 	Matrix3x3 wvpVpMatrix;
 	Vertex screen;
@@ -20,8 +21,8 @@ class Bullet:public Rendering
 {
 private:
 	int texture_;
-public :
 	BulletObject bullet_[BULLET_NUM];
+
 public:
 	/// <summary>
 	/// コンストラクター
@@ -67,5 +68,10 @@ public:
 	/// </summary>
 	void BulletDrawSprite(Matrix3x3 vpVpMatrix);
 
+	/// <summary>
+	/// bulletのゲッター
+	/// </summary>
+	/// <returns></returns>
+	BulletObject* GetBulletObject() { return bullet_; };
 };
 

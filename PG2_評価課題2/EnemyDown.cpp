@@ -78,10 +78,10 @@ void EnemyDown::EnemyDraw() {
 void EnemyDown::Destroy(Bullet* bullet) {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		for (int j = 0; j < BULLET_NUM; j++) {
-			if (collision_->Box(enemy_[i].affine.translate, bullet->bullet_[j].affine.translate, ENEMY_SIZE, BULLET_SIZE)) {
+			if (collision_->Box(enemy_[i].affine.translate, bullet->GetBulletObject()[j].affine.translate, ENEMY_SIZE, BULLET_SIZE)) {
 				enemy_[i].isDeath = true;
-				bullet->bullet_[j].isAlive = false;
-				bullet->bullet_[j].affine.translate = { 0 };
+				bullet->GetBulletObject()[j].isAlive = false;
+				bullet->GetBulletObject()[j].affine.translate = { 0 };
 			}
 			if (enemy_[i].isDeath) {
 				enemy_[i].shapes.velocity = { 0,0 };

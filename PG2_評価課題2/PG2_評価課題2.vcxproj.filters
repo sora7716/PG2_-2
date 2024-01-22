@@ -14,6 +14,15 @@
     <Filter Include="KamataEngine\Adapter">
       <UniqueIdentifier>{c6468eb4-788b-4a83-b207-a5f4804e56c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{5d327d53-127d-478b-ab79-9930f41c0892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Object">
+      <UniqueIdentifier>{c0120a5c-32fa-4034-acbf-aab801fbf8e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Process">
+      <UniqueIdentifier>{f55595f9-751d-41f0-bba1-352932e97adf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -28,39 +37,47 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp">
       <Filter>KamataEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp">
       <Filter>KamataEngine\Adapter</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.cpp">
-      <Filter>KamataEngine</Filter>
     </ClCompile>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp">
       <Filter>KamataEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyDown.cpp">
+    <ClCompile Include="TitleScene.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
     <ClCompile Include="GameUpdate.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Main\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDown.cpp">
+      <Filter>Main\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Main\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Main\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Main\Process</Filter>
+    </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>KamataEngine</Filter>
+      <Filter>Main\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering.cpp">
+      <Filter>Main\Process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,18 +148,38 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector2.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector3.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector4.h" />
-    <ClInclude Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h">
       <Filter>KamataEngine\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Rendering.h" />
     <ClInclude Include="Struct.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyDown.h" />
-    <ClInclude Include="GameUpdate.h" />
-    <ClInclude Include="Collision.h" />
+    <ClInclude Include="MainScene.h" />
+    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="GameUpdate.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.h">
+      <Filter>KamataEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Main\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDown.h">
+      <Filter>Main\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Main\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Main\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Main\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Main\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering.h">
+      <Filter>Main\Process</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@ Bullet::Bullet() {
 		  {  BULLET_SIZE / 2.0f , BULLET_SIZE / 2.0f  },
 		};
 		bullet_[i].speed       = 10;
+		bullet_[i].rotation    = 10.0f;
 		bullet_[i].isAlive     = false;
 		bullet_[i].worldMatrix = {};
 		bullet_[i].screen      = {};
@@ -41,6 +42,7 @@ void Bullet::Move() {
 	for (int i = 0; i < BULLET_NUM; i++) {
 		if (bullet_[i].isAlive) {
 			bullet_[i].affine.translate.y += bullet_[i].speed;
+			bullet_[i].affine.theta += bullet_[i].rotation;
 			if (bullet_[i].affine.translate.y >= 600) {
 				bullet_[i].isAlive = false;
 				bullet_[i].affine.translate = { 0 };
