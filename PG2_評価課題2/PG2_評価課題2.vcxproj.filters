@@ -79,6 +79,12 @@
     <ClCompile Include="Rendering.cpp">
       <Filter>Main\Process</Filter>
     </ClCompile>
+    <ClCompile Include="SceneSwitch.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -181,5 +187,7 @@
     <ClInclude Include="Rendering.h">
       <Filter>Main\Process</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSwitch.h" />
+    <ClInclude Include="Particle.h" />
   </ItemGroup>
 </Project>
