@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <Novice.h>
-#include "Struct.h"
 #include "Rendering.h"
 
 const int BULLET_NUM  = 100;
@@ -28,6 +27,11 @@ public:
 	/// コンストラクター
 	/// </summary>
 	Bullet();
+
+	/// <summary>
+	/// デストラクター
+	/// </summary>
+	~Bullet();
 
 	/// <summary>
 	/// セッターbulletのtranslate

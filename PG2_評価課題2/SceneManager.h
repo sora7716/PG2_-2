@@ -6,7 +6,7 @@ enum Scene {
 	game,
 	end,
 };
-class SceneSwitch
+class SceneManager
 {
 private:
 	Scene scene;
@@ -19,12 +19,12 @@ public:
 	/// <summary>
 	/// コンストラクター
 	/// </summary>
-	SceneSwitch();
+	SceneManager();
 
 	/// <summary>
 	/// デストラクター
 	/// </summary>
-	~SceneSwitch();
+	~SceneManager();
 
 	/// <summary>
 	/// シーン切り替え

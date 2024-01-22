@@ -1,18 +1,18 @@
-﻿#include "SceneSwitch.h"
+﻿#include "SceneManager.h"
 
-SceneSwitch::SceneSwitch() {
+SceneManager::SceneManager() {
 	scene      = title;
 	preScene   = scene;
 	mainScene  = new MainScene;
 	titleScene = new TitleScene;
 }
 
-SceneSwitch::~SceneSwitch() {
+SceneManager::~SceneManager() {
 	delete mainScene;
 	delete titleScene;
 }
 
-void SceneSwitch::Scene(char* keys, char* preKeys) {
+void SceneManager::Scene(char* keys, char* preKeys) {
 	preScene = scene;
 	if (scene == title) {
 		titleScene->TitleDraw();
@@ -22,7 +22,7 @@ void SceneSwitch::Scene(char* keys, char* preKeys) {
 	}
 }
 
-void SceneSwitch::Movement(char* keys, char* preKeys) {
+void SceneManager::Movement(char* keys, char* preKeys) {
 	if (scene == title && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
 		scene = game;
 	}
@@ -31,7 +31,7 @@ void SceneSwitch::Movement(char* keys, char* preKeys) {
 	}
 }
 
-void SceneSwitch::Ini() {
+void SceneManager::Ini() {
 	if (scene !=preScene ) {
 		if (scene == title) {
 			titleScene = new TitleScene;
@@ -43,7 +43,7 @@ void SceneSwitch::Ini() {
 	preScene = scene;
 }
 
-void SceneSwitch::Update(char* keys, char* preKeys) {
+void SceneManager::Update(char* keys, char* preKeys) {
 	Ini();
 	Scene(keys, preKeys);
 	Movement(keys, preKeys);
