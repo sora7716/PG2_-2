@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "MainScene.h"
+#include "SceneSwitch.h"
 
 const char kWindowTitle[] = "GC1A_01_イイヅカ_ソラ_title";
 
@@ -11,7 +11,7 @@ private:
 	char keys_[KYES_NUM];
 	char preKeys_[KYES_NUM];
 
-	MainScene* gameScene;
+	SceneSwitch* sceneSwitch;
 public:
 	/// <summary>
 	/// コンストラクター
