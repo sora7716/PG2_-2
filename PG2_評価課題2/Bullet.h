@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include "Struct.h"
 #include "Rendering.h"
+#include "Particle.h"
 
 const int BULLET_NUM  = 100;
 const int BULLET_SIZE = 16;
@@ -22,12 +23,17 @@ class Bullet:public Rendering
 private:
 	int texture_;
 	BulletObject bullet_[BULLET_NUM];
-
+	Particle* particle_;
 public:
 	/// <summary>
 	/// コンストラクター
 	/// </summary>
 	Bullet();
+
+	/// <summary>
+	/// デストラクター
+	/// </summary>
+	~Bullet();
 
 	/// <summary>
 	/// セッターbulletのtranslate
@@ -54,7 +60,7 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="translate"></param>
-	void Attack(char* keys, char* preKeys, Vector2 translate);
+	void Attack(char* keys, char* preKeys, Vector2 translate, Matrix3x3 vpVpMatrix);
 	
 #pragma region 描画
 	void MakeWorleMatrix();

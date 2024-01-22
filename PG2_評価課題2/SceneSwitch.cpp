@@ -1,7 +1,7 @@
 ﻿#include "SceneSwitch.h"
 
 SceneSwitch::SceneSwitch() {
-	scene      = title;
+	scene      = game;
 	preScene   = scene;
 	mainScene  = new MainScene;
 	titleScene = new TitleScene;

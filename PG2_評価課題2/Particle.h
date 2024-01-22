@@ -1,9 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include <stdlib.h>
 #include <time.h>
 #include "Rendering.h"
+#include <Novice.h>
 
 const int PARTICLE_NUM = 100;
+const int PARTICLE_SIZE = 16;
 
 typedef struct ParticleObject {
 	Affine affine;
@@ -13,6 +15,7 @@ typedef struct ParticleObject {
 	VectorInt random;
 	Matrix3x3 worldMatrix;
 	Matrix3x3 wvpVpMatrix;
+	Vertex local;
 	Vertex screen;
 	bool isAlive;
 }ParticleObject;
@@ -21,20 +24,32 @@ class Particle:public Rendering
 {
 private:
 	ParticleObject particle_[PARTICLE_NUM];
+	int texture_;
 public:
 	/// <summary>
-	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^[
+	/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 	/// </summary>
 	Particle();
 
 	/// <summary>
-	/// ƒp[ƒeƒBƒNƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚ÌƒZƒbƒ^[
+	/// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã®ã‚»ãƒƒã‚¿ãƒ¼
 	/// </summary>
 	/// <param name="position"></param>
 	Vector2 SetPosition(Vector2 translate);
 
 	void Spawn(Vector2 translate);
 
-	void Effect
+	void Movement(Vector2 translate);
+
+	void Update(Vector2 translate);
+
+#pragma region æç”»
+	void MakeWorleMatrix();
+	void wvpVpMatrix(Matrix3x3 vpVpMatrix);
+	void ParticleTransform();
+	void ParticleQuad();
+#pragma endregion 
+
+	void DrawParticle(Matrix3x3 vpVpMatrix);
 };
 

@@ -19,6 +19,11 @@ Bullet::Bullet() {
 		bullet_[i].wvpVpMatrix = {};
 	}
 	texture_ = Novice::LoadTexture("white1x1.png");
+	particle_ = new Particle;
+}
+
+Bullet::~Bullet() {
+	delete particle_;
 }
 
 Vector2 Bullet::SetTranslate(Vector2 translate) {
@@ -51,9 +56,13 @@ void Bullet::Move() {
 	}
 }
 
-void Bullet::Attack(char* keys, char* preKeys, Vector2 translate) {
+void Bullet::Attack(char* keys, char* preKeys, Vector2 translate,Matrix3x3 vpVpMatrix) {
 	IsShot(keys,preKeys,translate);
 	Move();
+	for (int i = 0; i < BULLET_NUM; i++) {
+		particle_->Update(bullet_[i].affine.translate);
+		particle_->DrawParticle(vpVpMatrix);
+	}
 }
 
 void Bullet::MakeWorleMatrix() {

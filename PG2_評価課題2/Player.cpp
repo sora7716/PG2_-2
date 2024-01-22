@@ -212,7 +212,7 @@ void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
 
 #pragma region プレイヤー
 	Transfer(keys);//移動
-	bullet_->Attack(keys, preKeys, affine_.translate);//攻撃
+	bullet_->Attack(keys, preKeys, affine_.translate,vpVpMatrix_);//攻撃
 	PlayerShake(enemy);
 #pragma endregion 
 
