@@ -5,6 +5,9 @@
 #include "Bullet.h"
 #include "Collision.h"
 #include "EnemyDown.h"
+#include "Particle.h"
+
+const float PLAYER_SIZE = 64;
 
 typedef struct MoveObject {
 	Vector2 vector;
@@ -51,6 +54,7 @@ private:
 	//包含↓
 	Bullet* bullet_;//弾
 	Collision* collision_;
+	Particle* particle_;
 	//包含↑
 
 public:
@@ -154,6 +158,13 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Matrix3x3 GetVpVpMatrix() { return vpVpMatrix_; };
+
+	/// <summary>
+	/// パーティクルのゲッター
+	/// </summary>
+	/// <returns></returns>
+	Particle* GetParticle() { return particle_; };
+
 #pragma region テスト
 	float SetPositionY() { return affine_.translate.y; };
 #pragma endregion

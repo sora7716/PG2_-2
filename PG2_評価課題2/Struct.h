@@ -1,7 +1,5 @@
 #pragma once
 
-const float PLAYER_SIZE = 64;
-
 const float SCREEN_WIDTH  = 1280;
 const float SCREEN_HEIGHT = 720;
 

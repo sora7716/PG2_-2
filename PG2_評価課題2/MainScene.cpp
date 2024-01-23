@@ -12,6 +12,7 @@ MainScene::~MainScene() {
 
 void MainScene::MainUpdating(char *keys,char *preKeys) {
 	player_->Update(keys, preKeys, enemy_);
+	player_->GetParticle()->DrawParticle(player_->GetVpVpMatrix());
 	enemy_->Update(player_->GetVpVpMatrix(), player_->GetBullet());
 }
 

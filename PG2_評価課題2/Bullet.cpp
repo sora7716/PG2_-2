@@ -70,7 +70,7 @@ void Bullet::Attack(char* keys, char* preKeys, Vector2 translate,Matrix3x3 vpVpM
 	Move();
 	for (int i = 0; i < BULLET_NUM; i++) {
 		if (bullet_[i].isAlive) {
-			particle_->Update(bullet_[i].affine.translate);
+			particle_->Update(bullet_[i].affine.translate,BULLET_SIZE,0xFF7007FF);
 			particle_->DrawParticle(vpVpMatrix);
 		}
 	}
