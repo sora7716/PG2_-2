@@ -6,8 +6,6 @@
 #include "Collision.h"
 #include "EnemyDown.h"
 
-const float PLAYER_SIZE = 32;
-
 typedef struct MoveObject {
 	Vector2 vector;
 	Vector2 distance;

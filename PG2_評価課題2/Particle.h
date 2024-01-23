@@ -4,8 +4,8 @@
 #include "Rendering.h"
 #include <Novice.h>
 
-const int PARTICLE_NUM = 10;
-const int PARTICLE_SIZE = 16;
+const int PARTICLE_NUM = 5000;
+const int PARTICLE_SIZE = 7;
 
 typedef struct ParticleObject {
 	Affine affine;

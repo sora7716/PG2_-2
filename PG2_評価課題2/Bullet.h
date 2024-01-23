@@ -18,11 +18,12 @@ typedef struct BulletObject {
 	bool isAlive;
 }BulletObject;
 
-class Bullet:public Rendering
+class Bullet:public Rendering 
 {
 private:
 	int texture_;
 	BulletObject bullet_[BULLET_NUM];
+	int shotTime_;
 	Particle* particle_;
 public:
 	/// <summary>
@@ -41,6 +42,8 @@ public:
 	/// <param name="translate"></param>
 	Vector2 SetTranslate(Vector2 translate);
 	
+	void ShotTime();
+
 	/// <summary>
 	/// 攻撃をしたかどうか
 	/// </summary>

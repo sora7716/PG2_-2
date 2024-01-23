@@ -4,7 +4,7 @@ Particle::Particle() {
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		particle_[i].affine       = { {1,1},0,{0,0} };
 		particle_[i].velocity     = {};
-		particle_[i].acceleration = {0,-0.3f};
+		particle_[i].acceleration = {0,-0.7f};
 		particle_[i].radius       = 0;
 		particle_[i].random       = {};
 		particle_[i].worldMatrix  = {};
@@ -31,10 +31,14 @@ Vector2 Particle::SetPosition(Vector2 translate) {
 void Particle::Spawn(Vector2 translate) {
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		if (!particle_[i].isAlive) {
-			particle_[i].isAlive = true;
-			particle_[i].color = WHITE;
-			particle_[i].velocity.y = 0;
-			particle_[i].affine.translate = SetPosition(translate);
+			particle_[i].isAlive          = true;
+			particle_[i].velocity.y       = 0;
+			particle_[i].color            = 0xFF7007FF;
+			particle_[i].random.x         = rand() % (int)PLAYER_SIZE/2 + (int)SetPosition(translate).x+45 - (int)PLAYER_SIZE;
+			particle_[i].random.y         = rand() % (int)PLAYER_SIZE/2 + (int)SetPosition(translate).y+45 - (int)PLAYER_SIZE;
+			particle_[i].radius           = rand() % 2 + 1;
+			particle_[i].affine.scale     = { (float)particle_[i].radius ,(float)particle_[i].radius };
+			particle_[i].affine.translate = { (float)particle_[i].random.x,(float)particle_[i].random.y };
 			break;
 		}
 	}
@@ -53,8 +57,8 @@ void Particle::Movement(Vector2 translate) {
 
 void Particle::ColorSubtract() {
 	for (int i = 0; i < PARTICLE_NUM; i++) {
-		if (particle_[i].color > 0xFFFFFF00) {
-			particle_[i].color -= 0x00000003;
+		if (particle_[i].color > 0xFF700700) {
+			particle_[i].color -= 0x00000001;
 		}
 		else {
 			particle_[i].isAlive = false;
@@ -92,10 +96,10 @@ void Particle::ParticleQuad(){
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		if (particle_[i].isAlive) {
 			Novice::DrawQuad(
-				(int)particle_[i].screen.leftTop.x,     (int)particle_[i].screen.leftTop.y,
-				(int)particle_[i].screen.rightTop.x,    (int)particle_[i].screen.rightTop.y,
-				(int)particle_[i].screen.leftBottom.x,  (int)particle_[i].screen.leftBottom.y,
-				(int)particle_[i].screen.rightBottom.x, (int)particle_[i].screen.rightBottom.y,
+				(int)particle_[i].screen.leftTop.x ,     (int)particle_[i].screen.leftTop.y,
+				(int)particle_[i].screen.rightTop.x ,    (int)particle_[i].screen.rightTop.y,
+				(int)particle_[i].screen.leftBottom.x ,  (int)particle_[i].screen.leftBottom.y,
+				(int)particle_[i].screen.rightBottom.x , (int)particle_[i].screen.rightBottom.y,
 				0, 0, 1, 1, texture_, particle_[i].color
 			);
 		}
