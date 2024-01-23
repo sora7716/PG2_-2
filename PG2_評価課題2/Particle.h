@@ -4,7 +4,7 @@
 #include "Rendering.h"
 #include <Novice.h>
 
-const int PARTICLE_NUM = 100;
+const int PARTICLE_NUM = 10;
 const int PARTICLE_SIZE = 16;
 
 typedef struct ParticleObject {
@@ -18,6 +18,7 @@ typedef struct ParticleObject {
 	Vertex local;
 	Vertex screen;
 	bool isAlive;
+	unsigned int color;
 }ParticleObject;
 
 class Particle:public Rendering
@@ -40,6 +41,8 @@ public:
 	void Spawn(Vector2 translate);
 
 	void Movement(Vector2 translate);
+
+	void ColorSubtract();
 
 	void Update(Vector2 translate);
 

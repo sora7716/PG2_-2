@@ -23,6 +23,9 @@
     <Filter Include="Main\Process">
       <UniqueIdentifier>{f55595f9-751d-41f0-bba1-352932e97adf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\Game">
+      <UniqueIdentifier>{bdefbdb9-c93f-4362-9ea7-ec009b6b6fd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -42,18 +45,6 @@
     </ClCompile>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp">
       <Filter>KamataEngine\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUpdate.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.cpp">
       <Filter>KamataEngine</Filter>
@@ -79,11 +70,23 @@
     <ClCompile Include="Rendering.cpp">
       <Filter>Main\Process</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSwitch.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>KamataEngine</Filter>
+      <Filter>Main\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Main\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSwitch.cpp">
+      <Filter>Main\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Main\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUpdate.cpp">
+      <Filter>Main\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,12 +160,7 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h">
       <Filter>KamataEngine\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Struct.h" />
     <ClInclude Include="MainScene.h" />
-    <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="GameUpdate.h">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.h">
       <Filter>KamataEngine</Filter>
     </ClInclude>
@@ -187,7 +185,20 @@
     <ClInclude Include="Rendering.h">
       <Filter>Main\Process</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSwitch.h" />
-    <ClInclude Include="Particle.h" />
+    <ClInclude Include="Particle.h">
+      <Filter>Main\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Main\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>Main\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitch.h">
+      <Filter>Main\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUpdate.h">
+      <Filter>Main\Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

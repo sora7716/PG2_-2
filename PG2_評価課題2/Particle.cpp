@@ -17,6 +17,7 @@ Particle::Particle() {
 		  {  PARTICLE_SIZE / 2.0f , PARTICLE_SIZE / 2.0f  },
 		};
 		particle_[i].isAlive      = false;
+		particle_[i].color        = WHITE;
 	}
 	srand((unsigned int)time(nullptr));
 	texture_ = Novice::LoadTexture("white1x1.png");
@@ -31,6 +32,8 @@ void Particle::Spawn(Vector2 translate) {
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		if (!particle_[i].isAlive) {
 			particle_[i].isAlive = true;
+			particle_[i].color = WHITE;
+			particle_[i].velocity.y = 0;
 			particle_[i].affine.translate = SetPosition(translate);
 			break;
 		}
@@ -42,9 +45,19 @@ void Particle::Movement(Vector2 translate) {
 		if (particle_[i].isAlive) {
 			particle_[i].affine.translate.y += particle_[i].velocity.y;
 			particle_[i].velocity.y += particle_[i].acceleration.y;
-			if (particle_[i].affine.translate.y >= translate.y) {
-				particle_[i].isAlive = false;
-			}
+			ColorSubtract();
+		}
+	}
+	Novice::ScreenPrintf(0, 0, "%f", translate.y);
+}
+
+void Particle::ColorSubtract() {
+	for (int i = 0; i < PARTICLE_NUM; i++) {
+		if (particle_[i].color > 0xFFFFFF00) {
+			particle_[i].color -= 0x00000003;
+		}
+		else {
+			particle_[i].isAlive = false;
 		}
 	}
 }
@@ -83,7 +96,7 @@ void Particle::ParticleQuad(){
 				(int)particle_[i].screen.rightTop.x,    (int)particle_[i].screen.rightTop.y,
 				(int)particle_[i].screen.leftBottom.x,  (int)particle_[i].screen.leftBottom.y,
 				(int)particle_[i].screen.rightBottom.x, (int)particle_[i].screen.rightBottom.y,
-				0, 0, 1, 1, texture_, RED
+				0, 0, 1, 1, texture_, particle_[i].color
 			);
 		}
 	}

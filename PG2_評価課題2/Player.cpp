@@ -205,10 +205,11 @@ void Player::PlayerShake(Enemy*enemy) {
 	if (shake.isShake) {
 		shake.position = { rand() % shake.range - shake.range/2,rand() % shake.range - shake.range / 2 };
 	}
-	Novice::ScreenPrintf(0, 0, "%d", shake.range);
 }
 
 void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
+	//レンダリングパイプライン
+	RenderingPipeline();
 
 #pragma region プレイヤー
 	Transfer(keys);//移動
@@ -218,9 +219,7 @@ void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
 
 	CameraMove(keys);//カメラの移動
 
-	RenderingPipeline();
-
-	//後で消すやつ↓
+	//後で消すやつ↓(テストプレイの時だけ使ってる)
 	CameraTest();
 	//後で消すやつ↑
 	
