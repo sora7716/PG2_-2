@@ -134,6 +134,9 @@ void Camera::CameraMove(char keys[]) {
 	if (Camera::isRotation&&affine_.theta<=1.56f) {
 		affine_.theta += theta_;
 	}
+	if (!Camera::isRotation && affine_.theta > 0.0f) {
+		affine_.theta -= theta_;
+	}
 }
 
 void Camera::CameraTest(){

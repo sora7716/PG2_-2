@@ -9,6 +9,7 @@ private:
 	Player* player_;
 	Enemy* enemyDown_;
 	Enemy* enemyLeft_;
+	bool isEnemyLeftMove_;
 	int count_;
 public:
 	/// <summary>

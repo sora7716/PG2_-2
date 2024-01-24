@@ -4,6 +4,7 @@ MainScene::MainScene() {
 	player_ = new Player;
 	enemyDown_ = new EnemyDown;
 	enemyLeft_ = new EnemyLeft;
+	isEnemyLeftMove_ = false;
 }
 
 MainScene::~MainScene() {
@@ -26,6 +27,9 @@ void MainScene::MainUpdating(char *keys,char *preKeys) {
 	enemyLeft_->IsDeath();
 	enemyDown_->Update(player_->GetVpVpMatrix());
 	if (Camera::isRotation) {
+		isEnemyLeftMove_ = true;
+	}
+	if (isEnemyLeftMove_) {
 		enemyLeft_->Update(player_->GetVpVpMatrix());
 
 	}
