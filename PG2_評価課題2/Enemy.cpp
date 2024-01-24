@@ -8,10 +8,12 @@ Enemy::Enemy()
 	collision_ = nullptr;
 	addTime_ = 0;
 	tempAddTime_ = 0;
+	particle_ = nullptr;
 }
 
 Enemy::~Enemy() {
 	delete collision_;
+	delete particle_;
 }
 
 void Enemy::AddTime() {

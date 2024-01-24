@@ -21,9 +21,15 @@ EnemyLeft::EnemyLeft() {
 	texture_ = Novice::LoadTexture("white1x1.png");
 	spawnNum_ = 1;
 	direction_ = 0;
-	addTime_ = 1200;
+	addTime_ = 950;
 	tempAddTime_ = addTime_;
 	collision_ = new Collision;
+	particle_ = new Particle({ 0,0.7f });
+}
+
+EnemyLeft::~EnemyLeft() {
+	delete collision_;
+	delete particle_;
 }
 
 void EnemyLeft::EnemySpawn(){
@@ -51,6 +57,7 @@ void EnemyLeft::EnemyTranslate(){
 				enemy_[i].isAlive = false;
 				direction_ = 0;
 			}
+			particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y + 16 }, ENEMY_SIZE * enemy_[i].affine.scale.x, 0xFFFFFFFF);
 		}
 	}
 }
@@ -83,10 +90,6 @@ void EnemyLeft::Destroy(Bullet* bullet, Vector2 translate){
 
 }
 
-EnemyLeft::~EnemyLeft() {
-	delete collision_;
-}
-
 void EnemyLeft::IsDeath() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (enemy_[i].isDeath) {
@@ -113,5 +116,6 @@ void EnemyLeft::Update(Matrix3x3 vpVpMatrix){
 	MakeWorldMatrix();
 	MakeWvpVp(vpVpMatrix);
 	EnemyTransform();
+	particle_->DrawParticle(vpVpMatrix);
 }
 

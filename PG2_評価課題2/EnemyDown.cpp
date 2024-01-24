@@ -24,10 +24,12 @@ EnemyDown::EnemyDown() {
 	addTime_ = 2000;
 	tempAddTime_ = addTime_;
 	collision_ = new Collision;
+	particle_ = new Particle({0,0.7f});
 }
 
 EnemyDown::~EnemyDown() {
 	delete collision_;
+	delete particle_;
 }
 
 void EnemyDown::EnemySpawn() {
@@ -60,6 +62,7 @@ void EnemyDown::EnemyTranslate() {
 					enemy_[i].isAlive = false;
 					direction_ = 0;
 				}
+				particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y+16 }, ENEMY_SIZE * enemy_[i].affine.scale.x,0xFFFFFFFF);
 			}
 		}
 
@@ -116,4 +119,5 @@ void EnemyDown::Update(Matrix3x3 vpVpMatrix) {
     MakeWorldMatrix();
     MakeWvpVp(vpVpMatrix);
     EnemyTransform();
+	particle_->DrawParticle(vpVpMatrix);
 }

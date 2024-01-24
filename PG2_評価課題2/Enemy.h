@@ -2,11 +2,11 @@
 #include <Novice.h>
 #include <stdlib.h>
 #include <time.h>
-#include "Struct.h"
 #include "Rendering.h"
 #include "Enemy.h"
 #include "Bullet.h"
 #include "Collision.h"
+#include "Particle.h"
 
 const int ENEMY_NUM = 8;//エネミーの数
 
@@ -34,6 +34,7 @@ protected:
 	EnemyObject enemy_[ENEMY_NUM];//エネミーの変数
 	float addTime_;
 	float tempAddTime_;
+	Particle* particle_;
 public:
 	/// <summary>
 	/// コンストラクター

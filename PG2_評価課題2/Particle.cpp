@@ -28,7 +28,10 @@ Vector2 Particle::SetPosition(Vector2 translate) {
 	return result;
 }
 
-void Particle::Spawn(Vector2 translate,int size,unsigned int color) {
+void Particle::Spawn(Vector2 translate,float size,unsigned int color) {
+	if (size < 1) {
+		size = 1.0f;
+	}
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		if (!particle_[i].isAlive) {
 			particle_[i].isAlive          = true;
@@ -42,6 +45,7 @@ void Particle::Spawn(Vector2 translate,int size,unsigned int color) {
 			break;
 		}
 	}
+	Novice::ScreenPrintf(0, 0, "%f", size);
 }
 
 void Particle::Movement(unsigned int color) {
@@ -67,7 +71,7 @@ void Particle::ColorSubtract(unsigned int color) {
 	}
 }
 
-void Particle::Update(Vector2 translate,int size,unsigned int color) {
+void Particle::Update(Vector2 translate,float size,unsigned int color) {
 	Spawn(translate,size, color);
 	Movement(color);
 }

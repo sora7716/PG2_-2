@@ -11,7 +11,7 @@ private:
 	char keys_[KYES_NUM];
 	char preKeys_[KYES_NUM];
 
-	SceneSwitch* sceneSwitch;
+	SceneSwitch* sceneSwitch_;
 public:
 	/// <summary>
 	/// コンストラクター

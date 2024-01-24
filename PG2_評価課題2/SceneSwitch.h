@@ -9,11 +9,11 @@ enum Scene {
 class SceneSwitch
 {
 private:
-	Scene scene;
-	Scene preScene;
+	Scene scene_;
+	Scene preScene_;
 
-	TitleScene* titleScene;
-	MainScene*  mainScene;
+	TitleScene* titleScene_;
+	MainScene*  mainScene_;
 public:
 
 	/// <summary>
@@ -47,5 +47,11 @@ public:
 	/// 上記の関数をまとめた
 	/// </summary>
 	void Update(char* keys, char* prekeys);
+
+	/// <summary>
+	/// メインシーンクラスのゲッター
+	/// </summary>
+	/// <returns></returns>
+	MainScene* GetMainScene() { return mainScene_; };
 };
 

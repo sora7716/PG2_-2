@@ -25,7 +25,10 @@ void MainScene::MainUpdating(char *keys,char *preKeys) {
 	enemyDown_->IsDeath();
 	enemyLeft_->IsDeath();
 	enemyDown_->Update(player_->GetVpVpMatrix());
-	enemyLeft_->Update(player_->GetVpVpMatrix());
+	if (Camera::isRotation) {
+		enemyLeft_->Update(player_->GetVpVpMatrix());
+
+	}
 }
 
 void MainScene::MainDrawing() {

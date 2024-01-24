@@ -1,46 +1,46 @@
 ﻿#include "SceneSwitch.h"
 
 SceneSwitch::SceneSwitch() {
-	scene      = game;
-	preScene   = scene;
-	mainScene  = new MainScene;
-	titleScene = new TitleScene;
+	scene_      = game;
+	preScene_   = scene_;
+	mainScene_  = new MainScene;
+	titleScene_ = new TitleScene;
 }
 
 SceneSwitch::~SceneSwitch() {
-	delete mainScene;
-	delete titleScene;
+	delete mainScene_;
+	delete titleScene_;
 }
 
 void SceneSwitch::Scene(char* keys, char* preKeys) {
-	preScene = scene;
-	if (scene == title) {
-		titleScene->TitleDraw();
+	preScene_ = scene_;
+	if (scene_ == title) {
+		titleScene_->TitleDraw();
 	}
-	else if (scene == game) {
-		mainScene->MainLoop(keys,preKeys);
+	else if (scene_ == game) {
+		mainScene_->MainLoop(keys,preKeys);
 	}
 }
 
 void SceneSwitch::Movement(char* keys, char* preKeys) {
-	if (scene == title && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
-		scene = game;
+	if (scene_ == title && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+		scene_ = game;
 	}
-	else if (scene == game && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
-		scene = title;
+	else if (scene_ == game && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+		scene_ = title;
 	}
 }
 
 void SceneSwitch::Ini() {
-	if (scene !=preScene ) {
-		if (scene == title) {
-			titleScene = new TitleScene;
+	if (scene_ !=preScene_ ) {
+		if (scene_ == title) {
+			titleScene_ = new TitleScene;
 		}
-		else if (scene == game) {
-			mainScene = new MainScene;
+		else if (scene_ == game) {
+			mainScene_ = new MainScene;
 		}
 	}
-	preScene = scene;
+	preScene_ = scene_;
 }
 
 void SceneSwitch::Update(char* keys, char* preKeys) {

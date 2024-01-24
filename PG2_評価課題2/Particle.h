@@ -38,13 +38,13 @@ public:
 	/// <param name="position"></param>
 	Vector2 SetPosition(Vector2 translate);
 
-	void Spawn(Vector2 translate,int size,unsigned int color);
+	void Spawn(Vector2 translate,float size,unsigned int color);
 
 	void Movement(unsigned int color);
 
 	void ColorSubtract(unsigned int color);
 
-	void Update(Vector2 translate,int size, unsigned int color);
+	void Update(Vector2 translate, float size, unsigned int color);
 
 #pragma region 描画
 	void MakeWorleMatrix();

@@ -169,8 +169,13 @@ public:
 	/// <returns></returns>
 	Particle* GetParticle() { return particle_; };
 
+	/// <summary>
+	/// トランスレートのゲッター
+	/// </summary>
+	/// <returns></returns>
 	Vector2 GetTranslate() { return affine_.translate; };
 
+	Vector2 GetScale() { return affine_.scale; };
 #pragma region テスト
 	//float SetPositionY() { return affine_.translate.y; };
 #pragma endregion

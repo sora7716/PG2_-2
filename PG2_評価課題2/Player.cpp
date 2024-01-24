@@ -277,5 +277,5 @@ void Player::Action(char* keys, char* preKeys, Enemy* enemy) {
 	BulletSpawn(keys, preKeys);
 	BulletMove();
 	PlayerShake(enemy);
-	particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, (int)PLAYER_SIZE, 0xF6FFB8FF);
+	particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, PLAYER_SIZE*affine_.scale.x, 0xF6FFB8FF);
 }

@@ -38,5 +38,10 @@ public:
 	/// </summary>
 	void MainLoop(char* keys, char* preKeys);
 
+	/// <summary>
+	/// プレイヤーのクラスのゲッター
+	/// </summary>
+	/// <returns></returns>
+	Player* GetPlayer() { return player_; };
 };
 
