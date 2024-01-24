@@ -15,7 +15,6 @@ typedef struct MoveObject {
 	float len;
 }MoveObject;
 
-
 class Player :public Camera
 {
 private:
@@ -52,7 +51,7 @@ private:
 	ShakeObject shake;
 
 	//包含↓
-	Bullet* bullet_;//弾
+	Bullet* bullet_[SHOT_NUM][BULLET_NUM];//弾
 	Collision* collision_;
 	Particle* particle_;
 	//包含↑
@@ -140,12 +139,17 @@ public:
 	/// <param name="texture"></param>
 	void Update(char* keys, char* preKeys,Enemy*enemy);
 
+	void BulletSpawn(char* keys, char* preKeys);
+
+	void BulletMove();
+
+	void Action(char* keys, char* preKeys, Enemy* enemy);
 		
 	/// <summary>
 	///		Bulletのインスタンスのゲッター
 	/// </summary>
 	/// <returns></returns>
-	Bullet* GetBullet() { return bullet_; };
+	Bullet* GetBullet(int i,int k) { return bullet_[i][k]; };
 
 	/// <summary>
 	/// プレイヤーのテクスチャのゲッター
@@ -165,8 +169,10 @@ public:
 	/// <returns></returns>
 	Particle* GetParticle() { return particle_; };
 
+	Vector2 GetTranslate() { return affine_.translate; };
+
 #pragma region テスト
-	float SetPositionY() { return affine_.translate.y; };
+	//float SetPositionY() { return affine_.translate.y; };
 #pragma endregion
 };
 

@@ -1,21 +1,21 @@
 ﻿#pragma once
 #include "Enemy.h"
-class EnemyDown:public Enemy
+class EnemyLeft:public Enemy
 {
 public:
 	/// <summary>
 	/// コンストラクター
 	/// </summary>
-	EnemyDown();
-	
+	EnemyLeft();
+
 	/// <summary>
 	/// デストラクター
 	/// </summary>
-	~EnemyDown();
+	~EnemyLeft();
 
 	/// <summary>
-	/// エネミーのスポーン
-	/// </summary>
+    /// エネミーのスポーン
+    /// </summary>
 	void EnemySpawn();
 
 	/// <summary>
@@ -33,7 +33,7 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void Destroy(Bullet* bullet,Vector2 translate)override;
+	void Destroy(Bullet* bullet, Vector2 translate)override;
 
 	/// <summary>
 	/// 死亡アニメーション

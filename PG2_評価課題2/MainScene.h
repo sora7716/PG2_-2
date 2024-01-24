@@ -1,12 +1,15 @@
 ﻿#pragma once
 #include "Player.h"
 #include "EnemyDown.h"
+#include "EnemyLeft.h"
 #include "Bullet.h"
 class MainScene
 {
 private:
 	Player* player_;
-	Enemy* enemy_;
+	Enemy* enemyDown_;
+	Enemy* enemyLeft_;
+	int count_;
 public:
 	/// <summary>
 	/// コンストラクター

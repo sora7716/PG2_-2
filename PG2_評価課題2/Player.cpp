@@ -46,13 +46,18 @@ Player::Player() {
 	shake.isShake = false;
 
 	//包含
-	bullet_ = new Bullet;//弾
+	for (int i = 0; i < SHOT_NUM; i++){
+		for(int j=0;j<BULLET_NUM;j++){
+			bullet_[i][j] = new Bullet;//弾
+		}
+	}
 	collision_ = new Collision;//当たり判定
-	particle_=new Particle;//パーティクル
+	particle_ = new Particle({ 0,-0.7f });//パーティクル
+
 }
 
 Player::~Player() {
-	delete bullet_;
+	delete **bullet_;
 	delete collision_;
 	delete particle_;
 }
@@ -83,31 +88,53 @@ void Player::PlayerDraw(int texture) {
 
 void Player::PlayerMove(char *keys) {
 #pragma region 移動
-	if (keys[DIK_A])
-	{
-		//affine_.translate.x -= speed_;
-		moveObject_.vector.x = -1;
-	}
-	else if (keys[DIK_D])
-	{
-		//affine_.translate.x += speed_;
-		moveObject_.vector.x = 1;
+	if (affine_.theta <= 1.5f) {
+		if (keys[DIK_A])
+		{
+			moveObject_.vector.x = -1;
+		}
+		else if (keys[DIK_D])
+		{
+			moveObject_.vector.x = 1;
+		}
+		else {
+			moveObject_.vector.x = 0;
+		}
+		if (keys[DIK_W])
+		{
+			moveObject_.vector.y = 1;
+		}
+		else if (keys[DIK_S])
+		{
+			moveObject_.vector.y = -1;
+		}
+		else {
+			moveObject_.vector.y = 0;
+		}
 	}
 	else {
-		moveObject_.vector.x = 0;
-	}
-	if (keys[DIK_W])
-	{
-		//affine_.translate.y += speed_;
-		moveObject_.vector.y = 1;
-	}
-	else if (keys[DIK_S])
-	{
-		//affine_.translate.y -= speed_;
-		moveObject_.vector.y = -1;
-	}
-	else {
-		moveObject_.vector.y = 0;
+		if (keys[DIK_A])
+		{
+			moveObject_.vector.y = -1;
+		}
+		else if (keys[DIK_D])
+		{
+			moveObject_.vector.y = 1;
+		}
+		else {
+			moveObject_.vector.y = 0;
+		}
+		if (keys[DIK_W])
+		{
+			moveObject_.vector.x = -1;
+		}
+		else if (keys[DIK_S])
+		{
+			moveObject_.vector.x = 1;
+		}
+		else {
+			moveObject_.vector.x = 0;
+		}
 	}
 #pragma endregion
 
@@ -125,11 +152,12 @@ void Player::PlayerMove(char *keys) {
 #pragma endregion
 
 #pragma region 回転
-	if (keys[DIK_C] && keys[DIK_LSHIFT]) {
-		affine_.theta -= theta_;
-	}
-	if (keys[DIK_Z] && keys[DIK_LSHIFT]) {
+	if (Camera::isRotation&&affine_.theta<=1.56f) {
 		affine_.theta += theta_;
+	}
+
+	if (keys[DIK_R]) {
+		Camera::isRotation = true;
 	}
 #pragma endregion
 }
@@ -198,7 +226,7 @@ void Player::ShakeRange() {
 
 void Player::PlayerShake(Enemy*enemy) {
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate,affine_.translate,ENEMY_SIZE, PLAYER_SIZE)) {
+		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate,affine_.translate,ENEMY_SIZE, PLAYER_SIZE)&&enemy->GetEnemyObject()[i].isAlive) {
 			shake.isShake = true;
 			shake.isScale = true;
 		}
@@ -213,12 +241,8 @@ void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
 	//レンダリングパイプライン
 	RenderingPipeline();
 
-#pragma region プレイヤー
-	Transfer(keys);//移動
-	bullet_->Attack(keys, preKeys, affine_.translate,vpVpMatrix_);//攻撃
-	PlayerShake(enemy);
-	particle_->Update({ affine_.translate.x,affine_.translate.y-32, }, (int)PLAYER_SIZE,0xF6FFB8FF);
-#pragma endregion 
+	//プレイヤーの動き
+	Action(keys, preKeys, enemy);
 
 	CameraMove(keys);//カメラの移動
 
@@ -227,4 +251,31 @@ void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
 	//後で消すやつ↑
 	
 	PlayerTransform();//ワールド座標に変換
+}
+
+void Player::BulletSpawn(char* keys, char* preKeys) {
+	for (int i = 0; i < SHOT_NUM; i++) {
+		for (int k = 0; k < BULLET_NUM; k++) {
+			if (!bullet_[i][k]->GetBulletObject().isAlive) {
+				bullet_[i][k]->IsShot(keys, preKeys, affine_.translate, i);
+				break;
+			}
+		}
+	}
+}
+
+void Player::BulletMove() {
+	for (int i = 0; i < SHOT_NUM; i++) {
+		for (int k = 0; k < BULLET_NUM; k++) {
+			bullet_[i][k]->Attack(vpVpMatrix_);//攻撃
+		}
+	}
+}
+
+void Player::Action(char* keys, char* preKeys, Enemy* enemy) {
+	Transfer(keys);//移動
+	BulletSpawn(keys, preKeys);
+	BulletMove();
+	PlayerShake(enemy);
+	particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, (int)PLAYER_SIZE, 0xF6FFB8FF);
 }

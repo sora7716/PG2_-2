@@ -2,24 +2,41 @@
 
 MainScene::MainScene() {
 	player_ = new Player;
-	enemy_ = new EnemyDown;
+	enemyDown_ = new EnemyDown;
+	enemyLeft_ = new EnemyLeft;
 }
 
 MainScene::~MainScene() {
 	delete player_;
-	delete enemy_;
+	delete enemyDown_;
+	delete enemyLeft_;
 }
 
 void MainScene::MainUpdating(char *keys,char *preKeys) {
-	player_->Update(keys, preKeys, enemy_);
+	player_->Update(keys, preKeys, enemyDown_);
+	player_->Update(keys, preKeys, enemyLeft_);
 	player_->GetParticle()->DrawParticle(player_->GetVpVpMatrix());
-	enemy_->Update(player_->GetVpVpMatrix(), player_->GetBullet());
+	for (int i = 0; i < SHOT_NUM; i++) {
+		for (int k = 0; k < BULLET_NUM; k++) {
+			enemyLeft_->Destroy(player_->GetBullet(i, k),{-2000,-2000});
+			enemyDown_->Destroy(player_->GetBullet(i, k), { -2000,-2000 });
+		}
+	}
+	enemyDown_->IsDeath();
+	enemyLeft_->IsDeath();
+	enemyDown_->Update(player_->GetVpVpMatrix());
+	enemyLeft_->Update(player_->GetVpVpMatrix());
 }
 
 void MainScene::MainDrawing() {
 	player_->PlayerDraw(player_->GetPlayerTexture());
-	player_->GetBullet()->BulletDrawSprite(player_->GetVpVpMatrix());
-	enemy_->EnemyDraw();
+	for (int i = 0; i < SHOT_NUM; i++) {
+		for (int k = 0; k < BULLET_NUM; k++) {
+	         player_->GetBullet(i,k)->BulletDrawSprite(player_->GetVpVpMatrix());
+		}
+	}
+	enemyDown_->EnemyDraw();
+	enemyLeft_->EnemyDraw();
 }
 
 void MainScene::MainLoop(char* keys, char* preKeys) {

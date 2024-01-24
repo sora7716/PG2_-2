@@ -131,10 +131,7 @@ void Camera::CameraMove(char keys[]) {
 		affine_.scale.y += scale_;
 	}
 
-	if (keys[DIK_C] && !keys[DIK_LSHIFT]) {
-		affine_.theta -= theta_;
-	}
-	if (keys[DIK_Z] && !keys[DIK_LSHIFT]) {
+	if (Camera::isRotation&&affine_.theta<=1.56f) {
 		affine_.theta += theta_;
 	}
 }

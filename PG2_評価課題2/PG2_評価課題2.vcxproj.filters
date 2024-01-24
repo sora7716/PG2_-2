@@ -88,6 +88,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Main\Game</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyLeft.cpp">
+      <Filter>Main\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="GameUpdate.h">
       <Filter>Main\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyLeft.h">
+      <Filter>Main\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

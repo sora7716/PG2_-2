@@ -4,7 +4,7 @@
 #include "Rendering.h"
 #include <Novice.h>
 
-const int PARTICLE_NUM = 5000;
+const int PARTICLE_NUM = 50;
 const int PARTICLE_SIZE = 7;
 
 typedef struct ParticleObject {
@@ -30,7 +30,7 @@ public:
 	/// <summary>
 	/// コンストラクター
 	/// </summary>
-	Particle();
+	Particle(Vector2 acceleration);
 
 	/// <summary>
 	/// パーティクルのポジションのセッター
@@ -40,7 +40,7 @@ public:
 
 	void Spawn(Vector2 translate,int size,unsigned int color);
 
-	void Movement(Vector2 translate, unsigned int color);
+	void Movement(unsigned int color);
 
 	void ColorSubtract(unsigned int color);
 

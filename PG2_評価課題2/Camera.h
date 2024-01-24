@@ -54,6 +54,10 @@ protected:
 
 public:
 
+	static bool isRotation;//画面の回転フラグ
+	/// <summary>
+	/// コンストラクター
+	/// </summary>
 	Camera();
 
 	/// <summary>
