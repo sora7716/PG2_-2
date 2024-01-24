@@ -7,11 +7,11 @@ GameUpdate::GameUpdate() {
 		keys_[i]    = { 0 };
 		preKeys_[i] = { 0 };
 	}
-	sceneManager = new SceneManager;
+	sceneSwitch = new SceneSwitch;
 }
 
 GameUpdate::~GameUpdate(){
-	delete sceneManager;
+	delete sceneSwitch;
 }
 
 void GameUpdate::GameLoop() {
@@ -22,7 +22,7 @@ void GameUpdate::GameLoop() {
 		GetHitKeyStateAll(keys_);
 
 		//ゲームのループ↓
-		sceneManager->Update(keys_,preKeys_);
+		sceneSwitch->Update(keys_,preKeys_);
 		//ゲームのループ↑
 		
 

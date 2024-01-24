@@ -14,7 +14,7 @@ Player::Player() {
 	affine_={
 		{1,1},
 		 0,
-		{},
+		{0,-200},
 	};
 
 	//移動のスピード
@@ -48,11 +48,13 @@ Player::Player() {
 	//包含
 	bullet_ = new Bullet;//弾
 	collision_ = new Collision;//当たり判定
+	particle_=new Particle;//パーティクル
 }
 
 Player::~Player() {
 	delete bullet_;
 	delete collision_;
+	delete particle_;
 }
 
 void Player::MakeWorldMatrix() {
@@ -205,22 +207,22 @@ void Player::PlayerShake(Enemy*enemy) {
 	if (shake.isShake) {
 		shake.position = { rand() % shake.range - shake.range/2,rand() % shake.range - shake.range / 2 };
 	}
-	Novice::ScreenPrintf(0, 0, "%d", shake.range);
 }
 
 void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
+	//レンダリングパイプライン
+	RenderingPipeline();
 
 #pragma region プレイヤー
 	Transfer(keys);//移動
-	bullet_->Attack(keys, preKeys, affine_.translate);//攻撃
+	bullet_->Attack(keys, preKeys, affine_.translate,vpVpMatrix_);//攻撃
 	PlayerShake(enemy);
+	particle_->Update({ affine_.translate.x,affine_.translate.y-32, }, (int)PLAYER_SIZE,0xF6FFB8FF);
 #pragma endregion 
 
 	CameraMove(keys);//カメラの移動
 
-	RenderingPipeline();
-
-	//後で消すやつ↓
+	//後で消すやつ↓(テストプレイの時だけ使ってる)
 	CameraTest();
 	//後で消すやつ↑
 	

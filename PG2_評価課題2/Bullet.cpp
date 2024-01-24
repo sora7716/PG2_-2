@@ -19,10 +19,12 @@ Bullet::Bullet() {
 		bullet_[i].wvpVpMatrix = {};
 	}
 	texture_ = Novice::LoadTexture("white1x1.png");
+	particle_ = new Particle;
+	shotTime_ = 0;
 }
 
 Bullet::~Bullet() {
-
+	delete particle_;
 }
 
 Vector2 Bullet::SetTranslate(Vector2 translate) {
@@ -30,12 +32,20 @@ Vector2 Bullet::SetTranslate(Vector2 translate) {
 	return result;
 }
 
+void Bullet::ShotTime() {
+	if (shotTime_ > 0) {
+		shotTime_--;
+	}
+}
+
 void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate) {
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+	ShotTime();
+	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]&&shotTime_<=0) {
 		for (int i = 0; i < BULLET_NUM; i++) {
 			if (!bullet_[i].isAlive) {
 				bullet_[i].isAlive = true;
 				bullet_[i].affine.translate = SetTranslate(translate);
+				shotTime_ = 10;
 				break;
 			}
 		}
@@ -47,7 +57,7 @@ void Bullet::Move() {
 		if (bullet_[i].isAlive) {
 			bullet_[i].affine.translate.y += bullet_[i].speed;
 			bullet_[i].affine.theta += bullet_[i].rotation;
-			if (bullet_[i].affine.translate.y >= 600) {
+			if (bullet_[i].affine.translate.y >= 700) {
 				bullet_[i].isAlive = false;
 				bullet_[i].affine.translate = { 0 };
 			}
@@ -55,9 +65,15 @@ void Bullet::Move() {
 	}
 }
 
-void Bullet::Attack(char* keys, char* preKeys, Vector2 translate) {
+void Bullet::Attack(char* keys, char* preKeys, Vector2 translate,Matrix3x3 vpVpMatrix) {
 	IsShot(keys,preKeys,translate);
 	Move();
+	for (int i = 0; i < BULLET_NUM; i++) {
+		if (bullet_[i].isAlive) {
+			particle_->Update(bullet_[i].affine.translate,BULLET_SIZE,0xFF7007FF);
+			particle_->DrawParticle(vpVpMatrix);
+		}
+	}
 }
 
 void Bullet::MakeWorleMatrix() {

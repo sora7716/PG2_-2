@@ -84,7 +84,7 @@ void EnemyDown::Destroy(Bullet* bullet) {
 				bullet->GetBulletObject()[j].affine.translate = { 0 };
 			}
 			if (enemy_[i].isDeath) {
-				enemy_[i].shapes.velocity = { 0,0 };
+				enemy_[i].shapes.velocity = { 0,-1 };
 				enemy_[i].affine.theta += enemy_[i].shapes.rotation;
 				if (enemy_[i].affine.scale.x > 0 && enemy_[i].affine.scale.y > 0) {
 					enemy_[i].affine.scale.x -= enemy_[i].shapes.growing;

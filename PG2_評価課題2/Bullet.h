@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <Novice.h>
 #include "Rendering.h"
+#include "Particle.h"
 
 const int BULLET_NUM  = 100;
 const int BULLET_SIZE = 16;
@@ -16,12 +17,13 @@ typedef struct BulletObject {
 	bool isAlive;
 }BulletObject;
 
-class Bullet:public Rendering
+class Bullet:public Rendering 
 {
 private:
 	int texture_;
 	BulletObject bullet_[BULLET_NUM];
-
+	int shotTime_;
+	Particle* particle_;
 public:
 	/// <summary>
 	/// コンストラクター
@@ -39,6 +41,8 @@ public:
 	/// <param name="translate"></param>
 	Vector2 SetTranslate(Vector2 translate);
 	
+	void ShotTime();
+
 	/// <summary>
 	/// 攻撃をしたかどうか
 	/// </summary>
@@ -58,7 +62,7 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="translate"></param>
-	void Attack(char* keys, char* preKeys, Vector2 translate);
+	void Attack(char* keys, char* preKeys, Vector2 translate, Matrix3x3 vpVpMatrix);
 	
 #pragma region 描画
 	void MakeWorleMatrix();

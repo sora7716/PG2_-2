@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Rendering.h"
-#include "Bullet.h"
+#include <Novice.h>
 
-const int PARTICLE_NUM = 100;
-const int PARTICLE_SIZE = 16;
+const int PARTICLE_NUM = 5000;
+const int PARTICLE_SIZE = 7;
 
 typedef struct ParticleObject {
 	Affine affine;
@@ -18,6 +18,7 @@ typedef struct ParticleObject {
 	Vertex local;
 	Vertex screen;
 	bool isAlive;
+	unsigned int color;
 }ParticleObject;
 
 class Particle:public Rendering
@@ -35,33 +36,23 @@ public:
 	/// パーティクルのポジションのセッター
 	/// </summary>
 	/// <param name="position"></param>
-	void SetPosition(BulletObject bullet);
+	Vector2 SetPosition(Vector2 translate);
 
-	/// <summary>
-	/// パーティクルの初期化
-	/// </summary>
-	/// <param name="translate"></param>
-	void Spawn(BulletObject bullet);
+	void Spawn(Vector2 translate,int size,unsigned int color);
 
-	/// <summary>
-	/// パーティクルの挙動
-	/// </summary>
-	/// <param name="bullet"></param>
-	void Effect(BulletObject bullet);
+	void Movement(Vector2 translate, unsigned int color);
+
+	void ColorSubtract(unsigned int color);
+
+	void Update(Vector2 translate,int size, unsigned int color);
 
 #pragma region 描画
 	void MakeWorleMatrix();
 	void wvpVpMatrix(Matrix3x3 vpVpMatrix);
 	void ParticleTransform();
-	void ParticleDraw();
-#pragma endregion
+	void ParticleQuad();
+#pragma endregion 
 
-	/// <summary>
-	/// パーティクルの描画処理
-	/// </summary>
-	/// <param name="vpVpMatrix"></param>
-	void ParticleDrawSprite(Matrix3x3 vpVpMatrix);
-
-	void ParticleUpdate(BulletObject bullet);
+	void DrawParticle(Matrix3x3 vpVpMatrix);
 };
 
