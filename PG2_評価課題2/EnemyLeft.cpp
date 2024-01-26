@@ -25,6 +25,7 @@ EnemyLeft::EnemyLeft() {
 	tempAddTime_ = addTime_;
 	collision_ = new Collision;
 	particle_ = new Particle({ 0,0.7f });
+	enemyBullet_ = new EnemyBullet;
 }
 
 EnemyLeft::~EnemyLeft() {
@@ -108,14 +109,21 @@ void EnemyLeft::IsDeath() {
 	}
 }
 
-void EnemyLeft::Update(Matrix3x3 vpVpMatrix){
+void EnemyLeft::Update(Matrix3x3 vpVpMatrix, Vector2 player,int coolTime){
 	AddTime();
 	EnemyAdd();
 	EnemySpawn();
 	EnemyTranslate();
+	for (int i = 0; i < ENEMY_NUM; i++) {
+		enemyBullet_->EnemyAttack(player,enemy_[i].affine.translate,coolTime);
+	}
 	MakeWorldMatrix();
 	MakeWvpVp(vpVpMatrix);
 	EnemyTransform();
-	particle_->DrawParticle(vpVpMatrix);
 }
 
+void EnemyLeft::Drawing(Matrix3x3 vpVpMatrix) {
+	particle_->DrawParticle(vpVpMatrix);
+	enemyBullet_->BulletDrawing(vpVpMatrix);
+	EnemyDraw();
+}

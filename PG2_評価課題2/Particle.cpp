@@ -45,7 +45,6 @@ void Particle::Spawn(Vector2 translate,float size,unsigned int color) {
 			break;
 		}
 	}
-	Novice::ScreenPrintf(0, 0, "%f", size);
 }
 
 void Particle::Movement(unsigned int color) {

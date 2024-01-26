@@ -4,7 +4,7 @@
 #include "Rendering.h"
 #include <Novice.h>
 
-const int PARTICLE_NUM = 50;
+const int PARTICLE_NUM = 100;
 const int PARTICLE_SIZE = 7;
 
 typedef struct ParticleObject {

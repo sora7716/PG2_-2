@@ -27,6 +27,7 @@ void SceneSwitch::Movement(char* keys, char* preKeys) {
 		scene_ = game;
 	}
 	else if (scene_ == game && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+		Camera::isRotation = false;
 		scene_ = title;
 	}
 }

@@ -9,12 +9,6 @@
 
 const float PLAYER_SIZE = 64;
 
-typedef struct MoveObject {
-	Vector2 vector;
-	Vector2 distance;
-	float len;
-}MoveObject;
-
 class Player :public Camera
 {
 private:

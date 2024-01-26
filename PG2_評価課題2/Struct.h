@@ -45,3 +45,19 @@ typedef struct Speed {
 	float rotation;
 	Vector2 velocity;
 }Speed;
+
+typedef struct MoveObject {
+	Vector2 vector;
+	Vector2 distance;
+	float len;
+}MoveObject;
+
+
+typedef struct Renderer {
+	Vertex local;
+	Affine affine;
+	Matrix3x3 worldMatrix;
+	Matrix3x3 wvpVpMatrix;
+	Vertex screen;
+}Renderer;
+	

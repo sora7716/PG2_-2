@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <Novice.h>
 #include <stdlib.h>
 #include <time.h>
 #include "Rendering.h"
@@ -7,6 +6,7 @@
 #include "Bullet.h"
 #include "Collision.h"
 #include "Particle.h"
+#include "EnemyBullet.h"
 
 const int ENEMY_NUM = 8;//エネミーの数
 
@@ -27,14 +27,15 @@ typedef struct EnemyObject {
 class Enemy :public Rendering
 {
 protected:
-	int direction_;
-	int spawnNum_;
+	int direction_;//敵の向く方向
+	int spawnNum_;//敵の数
 	int texture_;//テクスチャ1
-	Collision* collision_;
 	EnemyObject enemy_[ENEMY_NUM];//エネミーの変数
-	float addTime_;
-	float tempAddTime_;
-	Particle* particle_;
+	float addTime_;//敵を追加するための時間
+	float tempAddTime_;//時間がどれくらいあるのか
+	Collision* collision_;//コリリジョンの包含
+	Particle* particle_;//パーティクルの包含
+	EnemyBullet* enemyBullet_;//バレットの包含
 public:
 	/// <summary>
 	/// コンストラクター
@@ -73,6 +74,10 @@ public:
 	/// <param name="vpVpMatrix"></param>
 	void EnemyTransform();
 
+	/// <summary>
+	/// エネミーの動く向き
+	/// </summary>
+	/// <returns></returns>
 	int Direction();
 
 	/// <summary>
@@ -87,6 +92,9 @@ public:
 	/// <param name="translate"></param>
 	virtual void Destroy(Bullet* bullet, Vector2 translate);
 
+	/// <summary>
+	/// 死んだかどうかのバーチャル関数
+	/// </summary>
 	virtual void IsDeath();
 
 	/// <summary>
@@ -95,12 +103,24 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="vpVpMatrix"></param>
-	virtual void Update(Matrix3x3 vpVpMatrix);
+	virtual void Update(Matrix3x3 vpVpMatrix, Vector2 player, int coolTime);
+
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	/// <param name="vpVpMatirx"></param>
+	virtual void Drawing(Matrix3x3 vpVpMatirx);
 
 	/// <summary>
 	/// enemy_のゲッター
 	/// </summary>
 	/// <returns></returns>
 	EnemyObject* GetEnemyObject() { return enemy_; };
+
+	/// <summary>
+	/// enemy_のバレットのゲッター
+	/// </summary>
+	/// <returns></returns>
+	EnemyBullet* GetEnemyBullet() { return enemyBullet_; };
 };
 

@@ -231,8 +231,14 @@ void Player::ShakeRange() {
 }
 
 void Player::PlayerShake(Enemy*enemy) {
+	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
+		if (collision_->Box(affine_.translate, enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].rendering.affine.translate, PLAYER_SIZE, ENEMY_BULLET_SIZE) && enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].isAlive) {
+			shake.isShake = true;
+			shake.isScale = true;
+		}
+	}
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate,affine_.translate,ENEMY_SIZE, PLAYER_SIZE)&&enemy->GetEnemyObject()[i].isAlive) {
+		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate, affine_.translate, ENEMY_SIZE, PLAYER_SIZE)&& enemy->GetEnemyObject()[i].isAlive) {
 			shake.isShake = true;
 			shake.isScale = true;
 		}

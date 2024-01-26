@@ -75,6 +75,13 @@ void Enemy::IsDeath()
 }
 
 
-void Enemy::Update(Matrix3x3 vpVpMatrix) {
+void Enemy::Update(Matrix3x3 vpVpMatrix,Vector2 player, int coolTime) {
 		vpVpMatrix = { 100 };
+		coolTime = 30;
+		player.x++;
+}
+
+void Enemy::Drawing(Matrix3x3 vpVpMatirx)
+{
+	vpVpMatirx = { 20 };
 }

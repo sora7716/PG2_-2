@@ -16,7 +16,6 @@ MainScene::~MainScene() {
 void MainScene::MainUpdating(char *keys,char *preKeys) {
 	player_->Update(keys, preKeys, enemyDown_);
 	player_->Update(keys, preKeys, enemyLeft_);
-	player_->GetParticle()->DrawParticle(player_->GetVpVpMatrix());
 	for (int i = 0; i < SHOT_NUM; i++) {
 		for (int k = 0; k < BULLET_NUM; k++) {
 			enemyLeft_->Destroy(player_->GetBullet(i, k),{-2000,-2000});
@@ -25,28 +24,29 @@ void MainScene::MainUpdating(char *keys,char *preKeys) {
 	}
 	enemyDown_->IsDeath();
 	enemyLeft_->IsDeath();
-	enemyDown_->Update(player_->GetVpVpMatrix());
+	enemyDown_->Update(player_->GetVpVpMatrix(),player_->GetTranslate(),120);
 	if (Camera::isRotation) {
 		isEnemyLeftMove_ = true;
 	}
 	if (isEnemyLeftMove_) {
-		enemyLeft_->Update(player_->GetVpVpMatrix());
+		enemyLeft_->Update(player_->GetVpVpMatrix(), player_->GetTranslate(),60);
 
 	}
 }
 
 void MainScene::MainDrawing() {
-	player_->PlayerDraw(player_->GetPlayerTexture());
-	for (int i = 0; i < SHOT_NUM; i++) {
-		for (int k = 0; k < BULLET_NUM; k++) {
-	         player_->GetBullet(i,k)->BulletDrawSprite(player_->GetVpVpMatrix());
+		for (int i = 0; i < SHOT_NUM; i++) {
+			for (int k = 0; k < BULLET_NUM; k++) {
+				player_->GetBullet(i, k)->BulletDrawSprite(player_->GetVpVpMatrix());
+			}
 		}
-	}
-	enemyDown_->EnemyDraw();
-	enemyLeft_->EnemyDraw();
+		player_->GetParticle()->DrawParticle(player_->GetVpVpMatrix());
+		player_->PlayerDraw(player_->GetPlayerTexture());
+		enemyDown_->Drawing(player_->GetVpVpMatrix());
+		enemyLeft_->Drawing(player_->GetVpVpMatrix());
 }
 
 void MainScene::MainLoop(char* keys, char* preKeys) {
-	MainUpdating(keys,preKeys);//更新処理
+	MainUpdating(keys, preKeys);//更新処理
 	MainDrawing(); //描画処理
 }
