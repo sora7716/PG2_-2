@@ -21,7 +21,7 @@ private:
 	Affine affine_;
 
 	//移動のスピード
-	float speed_ ;
+	Vector2 speed_ ;
 	//拡縮
 	float scale_ ;
 	//角度
@@ -51,6 +51,12 @@ private:
 	//無敵時間
 	int damageCoolTime_;
 	
+	//プレイヤーが最初の位置についたか
+	bool isBestPlace_;
+
+	//回転のタイマー
+	int rotateTime_;
+
 	//包含↓
 	Bullet* bullet_[SHOT_NUM][BULLET_NUM];//弾
 	Collision* collision_;
@@ -93,7 +99,7 @@ public:
 	/// キー入力でプレイヤーを動かす
 	/// </summary>
 	/// <param name="keys"></param>
-	void PlayerMove(char *keys);
+	void PlayerMove(char *keys,Score* score);
 
 #pragma region 単位ベクトル
 	/// <summary>
@@ -115,7 +121,7 @@ public:
 	/// プレイヤーの移動をまとめてる
 	/// </summary>
 	/// <param name="keys"></param>
-	void Transfer(char* keys);
+	void Transfer(char* keys,Score* score);
 
 	/// <summary>
 	/// レンダリングパイプラインをまとめている
@@ -139,7 +145,7 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="texture"></param>
-	void Update(char* keys, char* preKeys,Enemy*enemy, Scene &scene);
+	void Update(char* keys, char* preKeys,Enemy*enemy, Scene &scene, Score* score);
 
 	/// <summary>
 	/// バレットの召喚
@@ -159,10 +165,17 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="enemy"></param>
-	void Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene);
+	void Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene,Score* score);
 		
+	/// <summary>
+	/// ダメージを食らった後の処理
+	/// </summary>
+	/// <param name="scene"></param>
 	void IsDamage(Scene &scene);
 
+	/// <summary>
+	/// 無敵時間
+	/// </summary>
 	void DamageCooolTime();
 
 	/// <summary>
@@ -195,7 +208,19 @@ public:
 	/// <returns></returns>
 	Vector2 GetTranslate() { return affine_.translate; };
 
+	/// <summary>
+	/// プレイヤーのスケールのゲッター
+	/// </summary>
+	/// <returns></returns>
 	Vector2 GetScale() { return affine_.scale; };
+
+	/// <summary>
+	/// プレイヤーがちょうどいい位置に来たかどうかのゲッター
+	/// </summary>
+	/// <returns></returns>
+	bool GetIsBestPlace() { return isBestPlace_; };
+
+	void RotateTime();
 #pragma region テスト
 	//float SetPositionY() { return affine_.translate.y; };
 #pragma endregion

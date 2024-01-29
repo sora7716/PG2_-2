@@ -2,6 +2,7 @@
 #include "TitleScene.h"
 #include "MainScene.h"
 #include "EndScene.h"
+#include "Score.h"
 class SceneSwitch
 {
 private:
@@ -10,6 +11,7 @@ private:
 	TitleScene* titleScene_;
 	MainScene*  mainScene_;
 	EndScene* endScene_;
+	Score* score_[2];
 public:
 	
 	/// <summary>

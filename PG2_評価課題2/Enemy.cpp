@@ -81,7 +81,8 @@ void Enemy::Update(Matrix3x3 vpVpMatrix,Vector2 player, int coolTime) {
 		player.x++;
 }
 
-void Enemy::Drawing(Matrix3x3 vpVpMatirx)
+void Enemy::Drawing(Matrix3x3 vpVpMatirx,Score *score)
 {
+	score->GetScore();
 	vpVpMatirx = { 20 };
 }

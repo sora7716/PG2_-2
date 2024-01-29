@@ -52,6 +52,6 @@ public:
 	/// 描画処理
 	/// </summary>
 	/// <param name="vpVpMatirx"></param>
-	void Drawing(Matrix3x3 vpVpMatirx)override;
+	void Drawing(Matrix3x3 vpVpMatirx,Score *score)override;
 };
 

@@ -23,14 +23,17 @@ EnemyDown::EnemyDown() {
 	direction_ = 0;
 	addTime_ = 2000;
 	tempAddTime_ = addTime_;
+
 	collision_ = new Collision;
 	particle_ = new Particle({0,0.7f});
 	enemyBullet_ = new EnemyBullet;
+	hud_ = new Hud;
 }
 
 EnemyDown::~EnemyDown() {
 	delete collision_;
 	delete particle_;
+	delete hud_;
 }
 
 void EnemyDown::EnemySpawn() {
@@ -40,7 +43,7 @@ void EnemyDown::EnemySpawn() {
 	for (int i = 0; i < spawnNum_; i++) {
 		if (!enemy_[i].isAlive) {
 			enemy_[i].isAlive = true;
-			enemy_[i].affine = { { 1,1 },0,{ float( ENEMY_SIZE*2 * i* direction_),500+(ENEMY_SIZE*i)}};
+			enemy_[i].affine = { { 1,1 },0,{ float( ENEMY_SIZE*2 * i* direction_),250+(ENEMY_SIZE*i)}};
 			enemy_[i].shapes.velocity = { 5 * (float)direction_,-5 };
 			enemy_[i].tempSpeed.x= fabsf(enemy_[i].shapes.velocity.x);
 			enemy_[i].tempSpeed.y= fabsf(enemy_[i].shapes.velocity.y);
@@ -89,6 +92,7 @@ void EnemyDown::Destroy(Bullet* bullet,Vector2 translate) {
 					enemy_[i].isDeath = true;
 					bullet->SetIsAlive(false);
 					bullet->SetTranslate(translate);
+					hud_->SetScoreIsAlive(true);
 				}
 			}
 		}
@@ -125,8 +129,10 @@ void EnemyDown::Update(Matrix3x3 vpVpMatrix,Vector2 player,int coolTime) {
     EnemyTransform();
 }
 
-void EnemyDown::Drawing(Matrix3x3 vpVpMatrix) {
+void EnemyDown::Drawing(Matrix3x3 vpVpMatrix,Score *score) {
 	particle_->DrawParticle(vpVpMatrix);
 	enemyBullet_->BulletDrawing(vpVpMatrix);
 	EnemyDraw();
+	hud_->ScoreUpdate(score);
+	hud_->DrawScore();
 }

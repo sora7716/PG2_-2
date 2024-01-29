@@ -100,6 +100,12 @@
     <ClCompile Include="EndScene.cpp">
       <Filter>Main\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Bg.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -224,5 +230,7 @@
     <ClInclude Include="EndScene.h">
       <Filter>Main\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="Bg.h" />
   </ItemGroup>
 </Project>

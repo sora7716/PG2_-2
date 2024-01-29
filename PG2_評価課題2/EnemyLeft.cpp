@@ -26,6 +26,7 @@ EnemyLeft::EnemyLeft() {
 	collision_ = new Collision;
 	particle_ = new Particle({ 0,0.7f });
 	enemyBullet_ = new EnemyBullet;
+	hud_ = new Hud;
 }
 
 EnemyLeft::~EnemyLeft() {
@@ -123,8 +124,10 @@ void EnemyLeft::Update(Matrix3x3 vpVpMatrix, Vector2 player,int coolTime){
 	EnemyTransform();
 }
 
-void EnemyLeft::Drawing(Matrix3x3 vpVpMatrix) {
+void EnemyLeft::Drawing(Matrix3x3 vpVpMatrix, Score* score) {
 	particle_->DrawParticle(vpVpMatrix);
 	enemyBullet_->BulletDrawing(vpVpMatrix);
 	EnemyDraw();
+	hud_->ScoreUpdate(score);
+	hud_->DrawScore();
 }

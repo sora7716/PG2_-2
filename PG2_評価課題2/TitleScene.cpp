@@ -1,5 +1,5 @@
 ﻿#include "TitleScene.h"
 
 void TitleScene::TitleDraw() {
-	Novice::DrawBox(0, 0, (int)SCREEN_WIDTH/2, (int)SCREEN_HEIGHT/2, 0.0f, WHITE, kFillModeSolid);
+	Novice::DrawBox(0, 0, (int)SCREEN_WIDTH, (int)SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 }

@@ -7,6 +7,7 @@
 #include "Collision.h"
 #include "Particle.h"
 #include "EnemyBullet.h"
+#include "Hud.h"
 
 const int ENEMY_NUM = 8;//エネミーの数
 
@@ -36,6 +37,7 @@ protected:
 	Collision* collision_;//コリリジョンの包含
 	Particle* particle_;//パーティクルの包含
 	EnemyBullet* enemyBullet_;//バレットの包含
+	Hud* hud_;
 public:
 	/// <summary>
 	/// コンストラクター
@@ -109,7 +111,7 @@ public:
 	/// 描画処理
 	/// </summary>
 	/// <param name="vpVpMatirx"></param>
-	virtual void Drawing(Matrix3x3 vpVpMatirx);
+	virtual void Drawing(Matrix3x3 vpVpMatirx,Score *score);
 
 	/// <summary>
 	/// enemy_のゲッター

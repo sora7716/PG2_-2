@@ -12,13 +12,13 @@ Player::Player() {
 	};
 	//プレイヤー 拡縮・回転・移動
 	affine_={
-		{1,1},
+		{},
 		 0,
-		{0,-200},
+		{0,-1000},
 	};
 
 	//移動のスピード
-    speed_ = 5;
+	speed_ = { 5,5 };
 	//拡縮
 	scale_ = 1.0f / 100.0f;
 	//角度
@@ -55,6 +55,10 @@ Player::Player() {
 	color_ = WHITE;
 	
 	damageCoolTime_ = 0;
+
+	isBestPlace_ = false;
+
+	rotateTime_ = 0;
 
 	collision_ = new Collision;//当たり判定
 	particle_ = new Particle({ 0,-0.7f });//パーティクル
@@ -93,84 +97,116 @@ void Player::PlayerDraw(int texture) {
 	hud_->DrawHpBar();
 }
 
-void Player::PlayerMove(char *keys) {
+void Player::PlayerMove(char *keys,Score *score) {
 #pragma region 移動
-	if (affine_.theta <= 1.5f) {
-		if (keys[DIK_A])
-		{
-			moveObject_.vector.x = -1;
-		}
-		else if (keys[DIK_D])
-		{
-			moveObject_.vector.x = 1;
-		}
-		else {
-			moveObject_.vector.x = 0;
-		}
-		if (keys[DIK_W])
-		{
-			moveObject_.vector.y = 1;
-		}
-		else if (keys[DIK_S])
-		{
-			moveObject_.vector.y = -1;
-		}
-		else {
-			moveObject_.vector.y = 0;
-		}
-	}
-	else {
-		if (keys[DIK_A])
-		{
-			moveObject_.vector.y = -1;
-		}
-		else if (keys[DIK_D])
-		{
-			moveObject_.vector.y = 1;
-		}
-		else {
-			moveObject_.vector.y = 0;
-		}
-		if (keys[DIK_W])
-		{
-			moveObject_.vector.x = -1;
-		}
-		else if (keys[DIK_S])
-		{
-			moveObject_.vector.x = 1;
+	if (isBestPlace_) {
+		if (affine_.theta <= 1.5f) {
+			if (keys[DIK_A])
+			{
+				moveObject_.vector.x = -1;
+			}
+			else if (keys[DIK_D])
+			{
+				moveObject_.vector.x = 1;
+			}
+			else {
+				moveObject_.vector.x = 0;
+			}
+			if (keys[DIK_W])
+			{
+				moveObject_.vector.y = 1;
+			}
+			else if (keys[DIK_S])
+			{
+				moveObject_.vector.y = -1;
+			}
+			else {
+				moveObject_.vector.y = 0;
+			}
+			if (affine_.translate.x - PLAYER_SIZE / 2.0f <= -640) {
+				affine_.translate.x = -640 + PLAYER_SIZE / 2.0f;
+			}
+			else if (affine_.translate.x + PLAYER_SIZE / 2.0f >= 640) {
+				affine_.translate.x = 640 - PLAYER_SIZE / 2.0f;
+			}
+			if (affine_.translate.y >= -174) {
+				affine_.translate.y = -174;
+			}
+			else if (affine_.translate.y <= -830) {
+				affine_.translate.y = -830;
+			}
 		}
 		else {
-			moveObject_.vector.x = 0;
+			if (keys[DIK_A])
+			{
+				moveObject_.vector.y = -1;
+			}
+			else if (keys[DIK_D])
+			{
+				moveObject_.vector.y = 1;
+			}
+			else {
+				moveObject_.vector.y = 0;
+			}
+			if (keys[DIK_W])
+			{
+				moveObject_.vector.x = -1;
+			}
+			else if (keys[DIK_S])
+			{
+				moveObject_.vector.x = 1;
+			}
+			else {
+				moveObject_.vector.x = 0;
+			}
+			if (affine_.translate.y >= 116) {
+				affine_.translate.y = 116;
+			}
+			else if (affine_.translate.y <= -1100) {
+				affine_.translate.y = -1100;
+			}
+			if (affine_.translate.x <= -330) {
+				affine_.translate.x = -330;
+			}
+			else if (affine_.translate.x >= 330) {
+				affine_.translate.x = 330;
+			}
 		}
+		
 	}
 #pragma endregion
 
-#pragma region 拡縮
-	if (keys[DIK_E] && keys[DIK_LSHIFT]) {
-		if (affine_.scale.x > 0 || affine_.scale.y > 0) {
-			affine_.scale.x -= scale_;
-			affine_.scale.y -= scale_;
+#pragma region ちょうどいいところ
+	if (!isBestPlace_) {
+		if (affine_.scale.x <= 1) {
+			affine_.scale.x += scale_;
+			affine_.scale.y += scale_;
 		}
-	}
-	if (keys[DIK_Q] && keys[DIK_LSHIFT]) {
-		affine_.scale.x += scale_;
-		affine_.scale.y += scale_;
+		else {
+			isBestPlace_ = true;
+		}
+		if (affine_.translate.y <= -650) {
+			affine_.translate.y += 3;
+		}
+		
 	}
 #pragma endregion
 
-#pragma region 回転
+#pragma region 画面の回転
 	if (Camera::isRotation&&affine_.theta<=1.56f) {
 		affine_.theta += theta_;
 	}
 	if (!Camera::isRotation && affine_.theta >0.0f) {
 		affine_.theta -= theta_;
 	}
-
-	if (keys[DIK_R]&& !Camera::isRotation) {
-		Camera::isRotation = true;
-	}
-	if (keys[DIK_L]&& Camera::isRotation) {
-		Camera::isRotation = false;
+	RotateTime();
+	if (score->GetScore() >= 750) {
+		if (!Camera::isRotation && rotateTime_ <= 0) {
+			Camera::isRotation = true;
+		}
+		else if (Camera::isRotation && rotateTime_ <= 0) {
+			Camera::isRotation = false;
+		}
 	}
 #pragma endregion
 }
@@ -192,12 +228,12 @@ void Player::Normalize() {
 }
 
 void Player::PlayerTranslate() {
-	affine_.translate.x += moveObject_.distance.x * speed_;
-	affine_.translate.y += moveObject_.distance.y * speed_;
+	affine_.translate.x += moveObject_.distance.x * speed_.x;
+	affine_.translate.y += moveObject_.distance.y * speed_.y;
 }
 
-void Player::Transfer(char *keys) {
-	PlayerMove(keys);
+void Player::Transfer(char *keys,Score *score) {
+	PlayerMove(keys,score);
 	Distance();
 	Length();
 	Normalize();
@@ -260,12 +296,12 @@ void Player::PlayerDamage(Enemy*enemy, Scene &scene) {
 	}
 }
 
-void Player::Update(char* keys, char* preKeys,Enemy*enemy,Scene &scene) {
+void Player::Update(char* keys, char* preKeys,Enemy*enemy,Scene &scene, Score* score) {
 	//レンダリングパイプライン
 	RenderingPipeline();
 
 	//プレイヤーの動き
-	Action(keys, preKeys, enemy,scene);
+	Action(keys, preKeys, enemy, scene,score);
 
 	CameraMove(keys);//カメラの移動
 
@@ -296,12 +332,14 @@ void Player::BulletMove() {
 	}
 }
 
-void Player::Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene) {
-	Transfer(keys);//移動
-	BulletSpawn(keys, preKeys);
-	BulletMove();
-	PlayerDamage(enemy,scene);
-	particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, PLAYER_SIZE*affine_.scale.x, 0xF6FFB8FF);
+void Player::Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene, Score* score) {
+	Transfer(keys,score);//移動
+	if (isBestPlace_) {
+		BulletSpawn(keys, preKeys);
+		BulletMove();
+		PlayerDamage(enemy, scene);
+		particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, PLAYER_SIZE * affine_.scale.x, 0xF6FFB8FF);
+	}
 }
 
 void Player::IsDamage(Scene &scene) {
@@ -318,5 +356,14 @@ void Player::DamageCooolTime() {
 	}
 	else {
 		color_ = WHITE;
+	}
+}
+
+void Player::RotateTime() {
+	if (rotateTime_ > 0) {
+		rotateTime_--;
+	}
+	else {
+		rotateTime_=rand() % 1200 + 600;
 	}
 }

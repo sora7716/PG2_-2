@@ -108,6 +108,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bg.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
@@ -131,9 +132,11 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="SceneSwitch.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bg.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Matrix4x4.h" />
@@ -176,6 +179,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rendering.h" />
     <ClInclude Include="SceneSwitch.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>

@@ -27,17 +27,17 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void MainUpdating(char *keys,char *preKeys, Scene &scene);
+	void MainUpdating(char *keys,char *preKeys, Scene &scene, Score* score);
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void MainDrawing();
+	void MainDrawing(Score* score);
 
 	/// <summary>
 	/// ゲームループ
 	/// </summary>
-	void MainLoop(char* keys, char* preKeys, Scene &scene);
+	void MainLoop(char* keys, char* preKeys, Scene &scene, Score* score);
 
 	/// <summary>
 	/// プレイヤーのクラスのゲッター
