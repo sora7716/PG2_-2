@@ -37,8 +37,9 @@ void EnemyLeft::EnemySpawn(){
 	for (int i = 0; i < spawnNum_; i++) {
 		if (!enemy_[i].isAlive) {
 			enemy_[i].isAlive = true;
-			enemy_[i].affine = { { 1,1 },0,{ float(ENEMY_SIZE * 2 * i)+400,400 + (ENEMY_SIZE * i)} };
-			enemy_[i].shapes.velocity = { 5,-5 };
+			enemy_[i].affine = { { 1,1 },0,{ float(ENEMY_SIZE * 2 * i)+400, -100 + (ENEMY_SIZE * i)} };
+			int randomX = rand() % 5 + 1;
+			enemy_[i].shapes.velocity = { (float)randomX,-20};
 			enemy_[i].tempSpeed.x = fabsf(enemy_[i].shapes.velocity.x);
 			enemy_[i].tempSpeed.y = fabsf(enemy_[i].shapes.velocity.y);
 			break;
@@ -54,7 +55,7 @@ void EnemyLeft::EnemyTranslate(){
 			if (enemy_[i].affine.translate.y <= 200) {
 				enemy_[i].shapes.velocity.y = -2;
 			}
-			if (enemy_[i].affine.translate.y <= -400 || enemy_[i].affine.translate.x >= 800 || enemy_[i].affine.translate.x < -800) {
+			if (enemy_[i].affine.translate.y <= -1200 || enemy_[i].affine.translate.x >= 800 || enemy_[i].affine.translate.x < -800) {
 				enemy_[i].isAlive = false;
 				direction_ = 0;
 			}
