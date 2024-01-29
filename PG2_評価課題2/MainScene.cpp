@@ -13,9 +13,9 @@ MainScene::~MainScene() {
 	delete enemyLeft_;
 }
 
-void MainScene::MainUpdating(char *keys,char *preKeys) {
-	player_->Update(keys, preKeys, enemyDown_);
-	player_->Update(keys, preKeys, enemyLeft_);
+void MainScene::MainUpdating(char *keys,char *preKeys, Scene &scene) {
+	player_->Update(keys, preKeys, enemyDown_,scene);
+	player_->Update(keys, preKeys, enemyLeft_,scene);
 	for (int i = 0; i < SHOT_NUM; i++) {
 		for (int k = 0; k < BULLET_NUM; k++) {
 			enemyLeft_->Destroy(player_->GetBullet(i, k),{-2000,-2000});
@@ -46,7 +46,7 @@ void MainScene::MainDrawing() {
 		enemyLeft_->Drawing(player_->GetVpVpMatrix());
 }
 
-void MainScene::MainLoop(char* keys, char* preKeys) {
-	MainUpdating(keys, preKeys);//更新処理
+void MainScene::MainLoop(char* keys, char* preKeys, Scene &scene) {
+	MainUpdating(keys, preKeys,scene);//更新処理
 	MainDrawing(); //描画処理
 }

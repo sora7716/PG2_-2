@@ -1,21 +1,17 @@
 ﻿#pragma once
 #include "TitleScene.h"
 #include "MainScene.h"
-enum Scene {
-	title,
-	game,
-	end,
-};
+#include "EndScene.h"
 class SceneSwitch
 {
 private:
 	Scene scene_;
 	Scene preScene_;
-
 	TitleScene* titleScene_;
 	MainScene*  mainScene_;
+	EndScene* endScene_;
 public:
-
+	
 	/// <summary>
 	/// コンストラクター
 	/// </summary>

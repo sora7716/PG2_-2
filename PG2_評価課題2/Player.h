@@ -132,14 +132,14 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void PlayerDamage(Enemy*enemy);
+	void PlayerDamage(Enemy*enemy, Scene &scene);
 
 	/// <summary>
 	/// 更新処理をまとめてる
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="texture"></param>
-	void Update(char* keys, char* preKeys,Enemy*enemy);
+	void Update(char* keys, char* preKeys,Enemy*enemy, Scene &scene);
 
 	/// <summary>
 	/// バレットの召喚
@@ -159,9 +159,9 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="enemy"></param>
-	void Action(char* keys, char* preKeys, Enemy* enemy);
+	void Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene);
 		
-	void IsDamage();
+	void IsDamage(Scene &scene);
 
 	void DamageCooolTime();
 

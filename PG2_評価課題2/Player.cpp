@@ -237,35 +237,35 @@ void Player::ShakeRange() {
 	}
 }
 
-void Player::PlayerDamage(Enemy*enemy) {
+void Player::PlayerDamage(Enemy*enemy, Scene &scene) {
 	DamageCooolTime();
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
 		if (collision_->Box(affine_.translate, enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].rendering.affine.translate, PLAYER_SIZE, ENEMY_BULLET_SIZE) && enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].isAlive&&color_==0xFFFFFFFF) {
 			shake.isShake = true;
 			shake.isScale = true;
-			IsDamage();
+			IsDamage(scene);
 		}
 	}
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate, affine_.translate, ENEMY_SIZE, PLAYER_SIZE)&& enemy->GetEnemyObject()[i].isAlive && color_ == 0xFFFFFFFF) {
 			shake.isShake = true;
 			shake.isScale = true;
-			IsDamage();
+			IsDamage(scene);
 			
 		}
 	}
 	ShakeRange();
-	if (shake.isShake) {
+	if (shake.isShake&& damageCoolTime_>0) {
 		shake.position = { rand() % shake.range - shake.range/2,rand() % shake.range - shake.range / 2 };
 	}
 }
 
-void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
+void Player::Update(char* keys, char* preKeys,Enemy*enemy,Scene &scene) {
 	//レンダリングパイプライン
 	RenderingPipeline();
 
 	//プレイヤーの動き
-	Action(keys, preKeys, enemy);
+	Action(keys, preKeys, enemy,scene);
 
 	CameraMove(keys);//カメラの移動
 
@@ -296,18 +296,18 @@ void Player::BulletMove() {
 	}
 }
 
-void Player::Action(char* keys, char* preKeys, Enemy* enemy) {
+void Player::Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene) {
 	Transfer(keys);//移動
 	BulletSpawn(keys, preKeys);
 	BulletMove();
-	PlayerDamage(enemy);
+	PlayerDamage(enemy,scene);
 	particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, PLAYER_SIZE*affine_.scale.x, 0xF6FFB8FF);
 }
 
-void Player::IsDamage() {
+void Player::IsDamage(Scene &scene) {
 	if (shake.isShake) {
 		color_ = 0xFFFFFF55;
-		hud_->Damage();
+		hud_->Damage(scene);
 		damageCoolTime_ = 180;
 	}
 }
@@ -315,8 +315,8 @@ void Player::IsDamage() {
 void Player::DamageCooolTime() {
 	if (damageCoolTime_ > 0) {
 		damageCoolTime_--;
-		if (damageCoolTime_ <= 0) {
-			color_ = WHITE;
-		}
+	}
+	else {
+		color_ = WHITE;
 	}
 }

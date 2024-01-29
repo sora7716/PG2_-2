@@ -19,7 +19,7 @@ private:
 public:
 	Hud();
 
-	void Damage();
+	void Damage(Scene &scene);
 
 	void DrawHpBar();
 

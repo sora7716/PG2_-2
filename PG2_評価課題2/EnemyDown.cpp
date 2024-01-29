@@ -87,7 +87,7 @@ void EnemyDown::Destroy(Bullet* bullet,Vector2 translate) {
 			if (bullet->GetBulletObject().isAlive) {
 				if (collision_->Box(enemy_[i].affine.translate, bullet->GetBulletObject().affine.translate, ENEMY_SIZE, BULLET_SIZE)) {
 					enemy_[i].isDeath = true;
-					bullet->SetIsAlive(true);
+					bullet->SetIsAlive(false);
 					bullet->SetTranslate(translate);
 				}
 			}

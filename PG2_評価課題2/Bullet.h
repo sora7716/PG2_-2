@@ -23,7 +23,6 @@ class Bullet:public Rendering
 {
 private:
 	int texture_;
-	//BulletObject bullet_[SHOT_NUM][BULLET_NUM];
 	BulletObject bullet_;
 	int shotTime_;
 	Particle* particle_;

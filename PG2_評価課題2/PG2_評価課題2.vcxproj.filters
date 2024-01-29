@@ -95,7 +95,10 @@
       <Filter>Main\Object</Filter>
     </ClCompile>
     <ClCompile Include="Hud.cpp">
-      <Filter>KamataEngine</Filter>
+      <Filter>Main\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene.cpp">
+      <Filter>Main\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +218,11 @@
     <ClInclude Include="EnemyBullet.h">
       <Filter>Main\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Hud.h" />
+    <ClInclude Include="Hud.h">
+      <Filter>Main\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene.h">
+      <Filter>Main\Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

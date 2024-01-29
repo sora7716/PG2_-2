@@ -1,15 +1,17 @@
 ﻿#include "SceneSwitch.h"
 
 SceneSwitch::SceneSwitch() {
-	scene_      = game;
+	scene_ = game;
 	preScene_   = scene_;
 	mainScene_  = new MainScene;
 	titleScene_ = new TitleScene;
+	endScene_ = new EndScene;
 }
 
 SceneSwitch::~SceneSwitch() {
-	delete mainScene_;
 	delete titleScene_;
+	delete mainScene_;
+	delete endScene_;
 }
 
 void SceneSwitch::Scene(char* keys, char* preKeys) {
@@ -18,7 +20,10 @@ void SceneSwitch::Scene(char* keys, char* preKeys) {
 		titleScene_->TitleDraw();
 	}
 	else if (scene_ == game) {
-		mainScene_->MainLoop(keys,preKeys);
+		mainScene_->MainLoop(keys,preKeys,scene_);
+	}
+	else if (scene_ == end) {
+		endScene_->Draw();
 	}
 }
 
@@ -39,6 +44,9 @@ void SceneSwitch::Ini() {
 		}
 		else if (scene_ == game) {
 			mainScene_ = new MainScene;
+		}
+		else if (scene_ == end) {
+			endScene_ = new EndScene;
 		}
 	}
 	preScene_ = scene_;

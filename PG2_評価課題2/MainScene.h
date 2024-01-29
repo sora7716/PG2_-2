@@ -27,7 +27,7 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void MainUpdating(char *keys,char *preKeys);
+	void MainUpdating(char *keys,char *preKeys, Scene &scene);
 
 	/// <summary>
 	/// 描画処理
@@ -37,7 +37,7 @@ public:
 	/// <summary>
 	/// ゲームループ
 	/// </summary>
-	void MainLoop(char* keys, char* preKeys);
+	void MainLoop(char* keys, char* preKeys, Scene &scene);
 
 	/// <summary>
 	/// プレイヤーのクラスのゲッター

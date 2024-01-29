@@ -11,9 +11,12 @@ Hud::Hud() {
 	texture_ = Novice::LoadTexture("white1x1.png");
 }
 
-void Hud::Damage() {
+void Hud::Damage(Scene &scene) {
 	HP_ -= 1;
 	hpBar_[HP_].color = RED;
+	if (hpBar_[0].color == RED) {
+		scene = game;
+	}
 }
 
 void Hud::DrawHpBar() {
