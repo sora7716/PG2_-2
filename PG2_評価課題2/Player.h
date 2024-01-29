@@ -6,6 +6,7 @@
 #include "Collision.h"
 #include "EnemyDown.h"
 #include "Particle.h"
+#include "Hud.h"
 
 const float PLAYER_SIZE = 64;
 
@@ -41,13 +42,20 @@ private:
 	//テクスチャ
 	int texture_;
 
+	//プレイヤーのカラー
+	unsigned int color_;
+
 	//シェイク用のランド
 	ShakeObject shake;
 
+	//無敵時間
+	int damageCoolTime_;
+	
 	//包含↓
 	Bullet* bullet_[SHOT_NUM][BULLET_NUM];//弾
 	Collision* collision_;
 	Particle* particle_;
+	Hud* hud_;
 	//包含↑
 
 public:
@@ -124,7 +132,7 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void PlayerShake(Enemy*enemy);
+	void PlayerDamage(Enemy*enemy);
 
 	/// <summary>
 	/// 更新処理をまとめてる
@@ -133,12 +141,30 @@ public:
 	/// <param name="texture"></param>
 	void Update(char* keys, char* preKeys,Enemy*enemy);
 
+	/// <summary>
+	/// バレットの召喚
+	/// </summary>
+	/// <param name="keys"></param>
+	/// <param name="preKeys"></param>
 	void BulletSpawn(char* keys, char* preKeys);
 
+	/// <summary>
+	/// バレットの動き
+	/// </summary>
 	void BulletMove();
 
+	/// <summary>
+	/// プレイヤーの動きをまとめた
+	/// </summary>
+	/// <param name="keys"></param>
+	/// <param name="preKeys"></param>
+	/// <param name="enemy"></param>
 	void Action(char* keys, char* preKeys, Enemy* enemy);
 		
+	void IsDamage();
+
+	void DamageCooolTime();
+
 	/// <summary>
 	///		Bulletのインスタンスのゲッター
 	/// </summary>

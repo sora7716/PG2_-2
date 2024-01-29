@@ -51,8 +51,14 @@ Player::Player() {
 			bullet_[i][j] = new Bullet;//弾
 		}
 	}
+
+	color_ = WHITE;
+	
+	damageCoolTime_ = 0;
+
 	collision_ = new Collision;//当たり判定
 	particle_ = new Particle({ 0,-0.7f });//パーティクル
+	hud_ = new Hud;
 
 }
 
@@ -83,7 +89,8 @@ void Player::PlayerDraw(int texture) {
 		(int)screen_.leftBottom.x  + shake.position.x,     (int)screen_.leftBottom.y  + shake.position.y,
 		(int)screen_.rightTop.x    + shake.position.x,     (int)screen_.rightTop.y    + shake.position.y,
 		(int)screen_.rightBottom.x + shake.position.x,     (int)screen_.rightBottom.y + shake.position.y,
-		0, 0, 1, 1, texture, WHITE);
+		0, 0, 1, 1, texture, color_);
+	hud_->DrawHpBar();
 }
 
 void Player::PlayerMove(char *keys) {
@@ -230,17 +237,21 @@ void Player::ShakeRange() {
 	}
 }
 
-void Player::PlayerShake(Enemy*enemy) {
+void Player::PlayerDamage(Enemy*enemy) {
+	DamageCooolTime();
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
-		if (collision_->Box(affine_.translate, enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].rendering.affine.translate, PLAYER_SIZE, ENEMY_BULLET_SIZE) && enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].isAlive) {
+		if (collision_->Box(affine_.translate, enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].rendering.affine.translate, PLAYER_SIZE, ENEMY_BULLET_SIZE) && enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].isAlive&&color_==0xFFFFFFFF) {
 			shake.isShake = true;
 			shake.isScale = true;
+			IsDamage();
 		}
 	}
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate, affine_.translate, ENEMY_SIZE, PLAYER_SIZE)&& enemy->GetEnemyObject()[i].isAlive) {
+		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate, affine_.translate, ENEMY_SIZE, PLAYER_SIZE)&& enemy->GetEnemyObject()[i].isAlive && color_ == 0xFFFFFFFF) {
 			shake.isShake = true;
 			shake.isScale = true;
+			IsDamage();
+			
 		}
 	}
 	ShakeRange();
@@ -263,6 +274,7 @@ void Player::Update(char* keys, char* preKeys,Enemy*enemy) {
 	//後で消すやつ↑
 	
 	PlayerTransform();//ワールド座標に変換
+
 }
 
 void Player::BulletSpawn(char* keys, char* preKeys) {
@@ -288,6 +300,23 @@ void Player::Action(char* keys, char* preKeys, Enemy* enemy) {
 	Transfer(keys);//移動
 	BulletSpawn(keys, preKeys);
 	BulletMove();
-	PlayerShake(enemy);
+	PlayerDamage(enemy);
 	particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, PLAYER_SIZE*affine_.scale.x, 0xF6FFB8FF);
+}
+
+void Player::IsDamage() {
+	if (shake.isShake) {
+		color_ = 0xFFFFFF55;
+		hud_->Damage();
+		damageCoolTime_ = 180;
+	}
+}
+
+void Player::DamageCooolTime() {
+	if (damageCoolTime_ > 0) {
+		damageCoolTime_--;
+		if (damageCoolTime_ <= 0) {
+			color_ = WHITE;
+		}
+	}
 }
