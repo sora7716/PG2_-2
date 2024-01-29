@@ -4,6 +4,7 @@ MainScene::MainScene() {
 	player_ = new Player;
 	enemyDown_ = new EnemyDown;
 	enemyLeft_ = new EnemyLeft;
+	bg_ = new Bg;
 	isEnemyLeftMove_ = false;
 }
 
@@ -11,6 +12,7 @@ MainScene::~MainScene() {
 	delete player_;
 	delete enemyDown_;
 	delete enemyLeft_;
+	delete bg_;
 }
 
 void MainScene::MainUpdating(char *keys,char *preKeys, Scene &scene, Score* score) {
@@ -37,6 +39,7 @@ void MainScene::MainUpdating(char *keys,char *preKeys, Scene &scene, Score* scor
 }
 
 void MainScene::MainDrawing(Score *score) {
+	    bg_->Update(player_->GetVpVpMatrix());
 		for (int i = 0; i < SHOT_NUM; i++) {
 			for (int k = 0; k < BULLET_NUM; k++) {
 				player_->GetBullet(i, k)->BulletDrawSprite(player_->GetVpVpMatrix());

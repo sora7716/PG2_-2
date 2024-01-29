@@ -94,6 +94,11 @@ public:
 	void CameraMove(char keys[]);
 
 	/// <summary>
+	/// レンダリングパイプラインをまとめた
+	/// </summary>
+	void CameraUpdate();
+
+	/// <summary>
 	/// カメラの更新処理
 	/// </summary>
 	/// <param name="keys"></param>

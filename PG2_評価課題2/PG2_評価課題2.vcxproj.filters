@@ -101,10 +101,13 @@
       <Filter>Main\Game</Filter>
     </ClCompile>
     <ClCompile Include="Score.cpp">
-      <Filter>KamataEngine</Filter>
+      <Filter>Main\Object</Filter>
     </ClCompile>
     <ClCompile Include="Bg.cpp">
-      <Filter>KamataEngine</Filter>
+      <Filter>Main\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Easing.cpp">
+      <Filter>Main\Process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -230,7 +233,14 @@
     <ClInclude Include="EndScene.h">
       <Filter>Main\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Score.h" />
-    <ClInclude Include="Bg.h" />
+    <ClInclude Include="Score.h">
+      <Filter>Main\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Bg.h">
+      <Filter>Main\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>Main\Process</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,12 +3,14 @@
 #include "EnemyDown.h"
 #include "EnemyLeft.h"
 #include "Bullet.h"
+#include "Bg.h"
 class MainScene
 {
 private:
 	Player* player_;
 	Enemy* enemyDown_;
 	Enemy* enemyLeft_;
+	Bg* bg_;
 	bool isEnemyLeftMove_;
 	/*int count_;*/
 public:

@@ -21,13 +21,12 @@ SceneSwitch::~SceneSwitch() {
 void SceneSwitch::Scene(char* keys, char* preKeys) {
 	preScene_ = scene_;
 	if (scene_ == title) {
-		titleScene_->TitleDraw();
+		titleScene_->Update(keys,preKeys);
 	}
 	else if (scene_ == game) {
 		mainScene_->MainLoop(keys,preKeys,scene_,score_[0]);
-		score_[0]->Update();
-		if (score_[0]->GetScore() >= score_[1]->GetScore()) {
-			score_[1]->SetScore(score_[0]->GetScore());
+		if (mainScene_->GetPlayer()->GetIsBestPlace()) {
+			score_[0]->Update();
 		}
 	}
 	else if (scene_ == end) {

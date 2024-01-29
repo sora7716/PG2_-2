@@ -89,12 +89,14 @@ void Player::PlayerTransform() {
 
 void Player::PlayerDraw(int texture) {
 	Novice::DrawQuad(
-		(int)screen_.leftTop.x     + shake.position.x,     (int)screen_.leftTop.y     + shake.position.y,
-		(int)screen_.leftBottom.x  + shake.position.x,     (int)screen_.leftBottom.y  + shake.position.y,
-		(int)screen_.rightTop.x    + shake.position.x,     (int)screen_.rightTop.y    + shake.position.y,
-		(int)screen_.rightBottom.x + shake.position.x,     (int)screen_.rightBottom.y + shake.position.y,
+		(int)screen_.leftTop.x     , (int)screen_.leftTop.y    ,
+		(int)screen_.leftBottom.x  , (int)screen_.leftBottom.y ,
+		(int)screen_.rightTop.x    , (int)screen_.rightTop.y   ,
+		(int)screen_.rightBottom.x , (int)screen_.rightBottom.y,
 		0, 0, 1, 1, texture, color_);
-	hud_->DrawHpBar();
+	if (isBestPlace_) {
+		hud_->DrawHpBar();
+	}
 }
 
 void Player::PlayerMove(char *keys,Score *score) {
@@ -364,6 +366,6 @@ void Player::RotateTime() {
 		rotateTime_--;
 	}
 	else {
-		rotateTime_=rand() % 1200 + 600;
+		rotateTime_=rand() % 300 + 600;
 	}
 }

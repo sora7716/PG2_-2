@@ -43,7 +43,7 @@ void EnemyDown::EnemySpawn() {
 	for (int i = 0; i < spawnNum_; i++) {
 		if (!enemy_[i].isAlive) {
 			enemy_[i].isAlive = true;
-			enemy_[i].affine = { { 1,1 },0,{ float( ENEMY_SIZE*2 * i* direction_),250+(ENEMY_SIZE*i)}};
+			enemy_[i].affine = { { 1,1 },0,{ float( rand()%640-640+ENEMY_SIZE*2 * i* direction_),250+(ENEMY_SIZE*i)}};
 			enemy_[i].shapes.velocity = { 5 * (float)direction_,-5 };
 			enemy_[i].tempSpeed.x= fabsf(enemy_[i].shapes.velocity.x);
 			enemy_[i].tempSpeed.y= fabsf(enemy_[i].shapes.velocity.y);

@@ -139,6 +139,14 @@ void Camera::CameraMove(char keys[]) {
 	}
 }
 
+void Camera::CameraUpdate() {
+	CameraMatrix();
+	ViewMatrix();
+	OrthoMatrix();
+	ViewportMatrix();
+	vpVpMatrix();
+}
+
 void Camera::CameraTest(){
 	CameraTransform();
 	CameraDraw();
