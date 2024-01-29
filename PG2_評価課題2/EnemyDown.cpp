@@ -40,7 +40,7 @@ void EnemyDown::EnemySpawn() {
 	for (int i = 0; i < spawnNum_; i++) {
 		if (!enemy_[i].isAlive) {
 			enemy_[i].isAlive = true;
-			enemy_[i].affine = { { 1,1 },0,{ float( ENEMY_SIZE*2 * i* direction_),1000+(ENEMY_SIZE*i)}};
+			enemy_[i].affine = { { 1,1 },0,{ float( ENEMY_SIZE*2 * i* direction_),500+(ENEMY_SIZE*i)}};
 			enemy_[i].shapes.velocity = { 5 * (float)direction_,-5 };
 			enemy_[i].tempSpeed.x= fabsf(enemy_[i].shapes.velocity.x);
 			enemy_[i].tempSpeed.y= fabsf(enemy_[i].shapes.velocity.y);
@@ -53,13 +53,13 @@ void EnemyDown::EnemyTranslate() {
 		for (int i = 0; i < spawnNum_; i++) {
 			if (enemy_[i].isAlive) {
 				enemy_[i].affine.translate.y += enemy_[i].shapes.velocity.y;
-				if (enemy_[i].affine.translate.y <= 200) {
+				if (enemy_[i].affine.translate.y <= 400) {
 					enemy_[i].shapes.velocity.y = -2;
 				}
-				if (enemy_[i].affine.translate.y <= -400) {
+				if (enemy_[i].affine.translate.y <= -700) {
 					enemy_[i].shapes.velocity.y = -5;
 				}
-				if (enemy_[i].affine.translate.y <= -650|| enemy_[i].affine.translate.x >= 640|| enemy_[i].affine.translate.x < -640) {
+				if (enemy_[i].affine.translate.y <= -1200|| enemy_[i].affine.translate.x >= 1000|| enemy_[i].affine.translate.x < -1000) {
 					enemy_[i].isAlive = false;
 					direction_ = 0;
 				}

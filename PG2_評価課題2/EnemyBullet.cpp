@@ -15,7 +15,7 @@ EnemyBullet::EnemyBullet() {
 		enemyBullet_[i].meters.distance = {};
 		enemyBullet_[i].meters.len = 0;
 		enemyBullet_[i].meters.vector = {};
-		enemyBullet_[i].velocity = { 3,-3 };
+		enemyBullet_[i].velocity = { 1,-1 };
 		enemyBullet_[i].rotateSpeed= 300.0f;
 		enemyBullet_[i].isAlive = false;
 	}
@@ -96,7 +96,7 @@ void EnemyBullet::BulletMove() {
 			enemyBullet_[i].rendering.affine.translate.y += enemyBullet_[i].velocity.y *  enemyBullet_[i].meters.vector.y;
 			//particle_->Update(enemyBullet_[i].rendering.affine.translate, ENEMY_BULLET_SIZE, GREEN);
 		}
-		if (enemyBullet_[i].rendering.affine.translate.y <= -650|| enemyBullet_[i].rendering.affine.translate.y >= 650||
+		if (enemyBullet_[i].rendering.affine.translate.y <= -650 - 500 || enemyBullet_[i].rendering.affine.translate.y >= 650 - 500 ||
 			enemyBullet_[i].rendering.affine.translate.x <= -650|| enemyBullet_[i].rendering.affine.translate.x >= 650) {
 			enemyBullet_[i].isAlive = false;
 			enemyBullet_[i].rendering.affine.translate = {};
