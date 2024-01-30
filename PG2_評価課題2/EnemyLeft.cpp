@@ -18,7 +18,7 @@ EnemyLeft::EnemyLeft() {
 		enemy_[i].tempSpeed = {};
 		enemy_[i].isDeath = false;
 	}
-	texture_ = Novice::LoadTexture("white1x1.png");
+	texture_ = Novice::LoadTexture("./resource/object/enemy.png");
 	spawnNum_ = 1;
 	direction_ = 0;
 	addTime_ = 950;
@@ -73,7 +73,7 @@ void EnemyLeft::EnemyDraw(){
 				(int)enemy_[i].screen.leftBottom.x, (int)enemy_[i].screen.leftBottom.y,
 				(int)enemy_[i].screen.rightTop.x, (int)enemy_[i].screen.rightTop.y,
 				(int)enemy_[i].screen.rightBottom.x, (int)enemy_[i].screen.rightBottom.y,
-				0, 0, 1, 1, texture_, 0x6B6B6BFF);
+				0, 0, (int)ENEMY_SIZE, (int)ENEMY_SIZE, texture_, WHITE);
 		}
 	}
 }

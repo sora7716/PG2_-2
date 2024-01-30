@@ -10,17 +10,17 @@ title_.frame = 0;
 title_.endFrame = 60;
 title_.isEasing = true;
 title_.isBack = false;
-title_.image = Novice::LoadTexture("white1x1.png");
+title_.image = Novice::LoadTexture("./resource/object/title.png");
 title_.color = WHITE;
 
-space_.position = { 1300,480 };
+space_.position = { 1300,400 };
 space_.begin = space_.position;
-space_.end = { 480,480 };
+space_.end = { 480,400 };
 space_.frame = 0;
 space_.endFrame = 60;
 space_.isEasing = true;
 space_.isBack = false;
-space_.image = Novice::LoadTexture("white1x1.png");
+space_.image = Novice::LoadTexture("./resource/object/space.png");
 space_.color = WHITE;
 
 explanation_.position = { -1280,0 };
@@ -30,8 +30,8 @@ explanation_.frame = 0;
 explanation_.endFrame = 60;
 explanation_.isEasing = true;
 explanation_.isBack = false;
-explanation_.image = Novice::LoadTexture("white1x1.png");
-explanation_.color = RED;
+explanation_.image = Novice::LoadTexture("./resource/object/controller.png");
+explanation_.color = WHITE;
 
 startTime_ = 300;
 
@@ -57,7 +57,7 @@ reTry_.frame = 0;
 reTry_.endFrame = 60;
 reTry_.isEasing = true;
 reTry_.isBack = false;
-reTry_.image = Novice::LoadTexture("white1x1.png");
+reTry_.image = Novice::LoadTexture("./resource/object/space.png");
 reTry_.color = WHITE;
 
 #pragma endregion
@@ -80,42 +80,37 @@ void SceneManager::TitleDrawing() {
 	camera_->CameraUpdate();
 	Novice::DrawBox(0, 0, (int)SCREEN_WIDTH, (int)SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 	bg_->Update(camera_->GetVpVpMatrix(), WHITE, 3);
-	FontDraw(space_, 300, 100);
-	FontDraw(title_, 600, 200);
-	FontDraw(explanation_, 1280, 720);
+	FontDraw(space_, 1, 1);
+	FontDraw(title_, 1, 1);
+	if (title_.isBack && title_.frame >= title_.endFrame) {
+		EasingFont(explanation_);
+		FontDraw(explanation_, 1, 1);
+	}
 }
 
 void SceneManager::TitleLoop(char* keys, char* preKeys, SceneType* scene) {
 	IsTitleEasing(keys, preKeys);
 	EasingFont(title_);
 	EasingFont(space_);
-	if (space_.isBack && space_.frame >= space_.endFrame) {
-		EasingFont(explanation_);
-	}
-	StarTime(scene);
 	TitleDrawing();
+	StarTime(scene);
 }
 
 void SceneManager::IsTitleEasing(char* keys, char* preKeys) {
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
-		if (!title_.isBack) {
+		space_.color = 0xFFFFFF55;
+		if (!title_.isBack && space_.isEasing && space_.frame >= space_.endFrame) {
 			Ini(title_, false, true);
 			Ini(space_, false, true);
 		}
 	}
-	if (keys[DIK_SPACE] && preKeys[DIK_SPACE]) {
-		space_.color = 0xFFFFFF55;
-	}
-	else {
-		space_.color = WHITE;
-	}
 }
 
 void SceneManager::StarTime(SceneType* scene) {
-	if (startTime_ > 0) {
+	if (startTime_ > 0&& title_.isBack&&title_.frame>=1) {
 		startTime_--;
 	}
-	else {
+	if(startTime_<=0){
 		*scene = game;
 	}
 }
@@ -198,7 +193,7 @@ void SceneManager::EndDrawing() {
 	camera_->CameraUpdate();
 	bg_->Update(camera_->GetVpVpMatrix(), RED, 3);
 	bg_->DrawBg();
-	FontDraw(reTry_, 300, 100);
+	FontDraw(reTry_, 1, 1);
 }
 
 void SceneManager::EndLoop(char* keys, char* preKeys, SceneType* scene) {

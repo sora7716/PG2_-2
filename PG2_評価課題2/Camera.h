@@ -91,7 +91,7 @@ public:
 	/// <summary>
 	/// カメラの移動
 	/// </summary>
-	void CameraMove(char keys[]);
+	void CameraMove();
 
 	/// <summary>
 	/// レンダリングパイプラインをまとめた

@@ -18,7 +18,7 @@ EnemyDown::EnemyDown() {
 		enemy_[i].tempSpeed = {};
 		enemy_[i].isDeath = false;
 	}
-	texture_ = Novice::LoadTexture("white1x1.png");
+	texture_ = Novice::LoadTexture("./resource/object/enemy2.png");
 	spawnNum_ = 1;
 	direction_ = 0;
 	addTime_ = 2000;
@@ -66,7 +66,7 @@ void EnemyDown::EnemyTranslate() {
 					enemy_[i].isAlive = false;
 					direction_ = 0;
 				}
-				particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y+16 }, ENEMY_SIZE * enemy_[i].affine.scale.x,0x7206FFFF);
+				particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y+16 }, ENEMY_SIZE * enemy_[i].affine.scale.x,WHITE);
 			}
 		}
 
@@ -80,7 +80,7 @@ void EnemyDown::EnemyDraw() {
 				(int)enemy_[i].screen.leftBottom.x, (int)enemy_[i].screen.leftBottom.y,
 				(int)enemy_[i].screen.rightTop.x, (int)enemy_[i].screen.rightTop.y,
 				(int)enemy_[i].screen.rightBottom.x, (int)enemy_[i].screen.rightBottom.y,
-				0, 0, 1, 1, texture_, 0x7D1DBDFF);
+				0, 0, (int)ENEMY_SIZE, (int)ENEMY_SIZE, texture_, WHITE);
 		}
 	}
 }

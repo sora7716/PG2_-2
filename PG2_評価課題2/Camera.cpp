@@ -106,30 +106,7 @@ void Camera::CameraDraw() {
 /// <summary>
 /// カメラの移動
 /// </summary>
-void Camera::CameraMove(char keys[]) {
-	if (keys[DIK_LEFT]) {
-		cameraAffine_.translate.x += speed_;
-	}
-	if (keys[DIK_RIGHT]) {
-		cameraAffine_.translate.x -= speed_;
-	}
-	if (keys[DIK_UP]) {
-		cameraAffine_.translate.y -= speed_;
-	}
-	if (keys[DIK_DOWN]) {
-		cameraAffine_.translate.y += speed_;
-	}
-
-	if (keys[DIK_E]&&!keys[DIK_LSHIFT]) {
-		if (cameraAffine_.scale.x > 0.3f || cameraAffine_.scale.y > 0.3f) {
-			cameraAffine_.scale.x -= scale_;
-			cameraAffine_.scale.y -= scale_;
-		}
-	}
-	if (keys[DIK_Q] && !keys[DIK_LSHIFT]) {
-		cameraAffine_.scale.x += scale_;
-		cameraAffine_.scale.y += scale_;
-	}
+void Camera::CameraMove() {
 
 	if (Camera::isRotation&&cameraAffine_.theta<=1.56f) {
 		cameraAffine_.theta += theta_;

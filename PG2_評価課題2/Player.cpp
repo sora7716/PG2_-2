@@ -307,7 +307,7 @@ void Player::Update(char* keys, char* preKeys,Enemy*enemy,SceneType &scene, Scor
 	//プレイヤーの動き
 	Action(keys, preKeys, enemy, scene,score);
 
-	CameraMove(keys);//カメラの移動
+	CameraMove();//カメラの移動
 
 	//後で消すやつ↓(テストプレイの時だけ使ってる)
 	CameraTest();

@@ -11,7 +11,7 @@
 
 const int ENEMY_NUM = 8;//エネミーの数
 
-const float ENEMY_SIZE = 32;//エネミーのピクセル数
+const float ENEMY_SIZE = 128;//エネミーのピクセル数
 //エネミーに使う型
 typedef struct EnemyObject {
 	Vertex local;
