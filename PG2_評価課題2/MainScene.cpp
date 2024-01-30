@@ -6,6 +6,8 @@ MainScene::MainScene() {
 	enemyLeft_ = new EnemyLeft;
 	bg_ = new Bg;
 	isEnemyLeftMove_ = false;
+	time_ = 0;
+	bgSpeed_ = 0;
 }
 
 MainScene::~MainScene() {
@@ -39,7 +41,7 @@ void MainScene::MainUpdating(char *keys,char *preKeys, Scene &scene, Score* scor
 }
 
 void MainScene::MainDrawing(Score *score, unsigned int color) {
-	    bg_->Update(player_->GetVpVpMatrix(),color);
+	    bg_->Update(player_->GetVpVpMatrix(),color, (float)BgSpeed());
 		for (int i = 0; i < SHOT_NUM; i++) {
 			for (int k = 0; k < BULLET_NUM; k++) {
 				player_->GetBullet(i, k)->BulletDrawSprite(player_->GetVpVpMatrix());
@@ -54,4 +56,24 @@ void MainScene::MainDrawing(Score *score, unsigned int color) {
 void MainScene::MainLoop(char* keys, char* preKeys, Scene &scene, Score* score) {
 	MainUpdating(keys, preKeys, scene,score);//更新処理
 	MainDrawing(score,WHITE); //描画処理
+}
+
+int MainScene::BgSpeed() {
+	time_++;
+	if (time_ < 1800) {
+		bgSpeed_ = 3;
+	}
+	else if (time_ < 216000) {
+		bgSpeed_ = 6;
+	}
+	else if (time_ < 216000 * 3) {
+		bgSpeed_ = 9;
+	}
+	else if (time_ < 216000 * 7) {
+		bgSpeed_ = 10;
+	}
+	else {
+		bgSpeed_ = 12;
+	}
+	return bgSpeed_;
 }

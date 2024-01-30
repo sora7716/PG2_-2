@@ -12,7 +12,8 @@ private:
 	Enemy* enemyLeft_;
 	Bg* bg_;
 	bool isEnemyLeftMove_;
-	/*int count_;*/
+	int time_;
+	int bgSpeed_;
 public:
 	/// <summary>
 	/// コンストラクター
@@ -40,6 +41,8 @@ public:
 	/// ゲームループ
 	/// </summary>
 	void MainLoop(char* keys, char* preKeys, Scene &scene, Score* score);
+
+	int BgSpeed();
 
 	/// <summary>
 	/// プレイヤーのクラスのゲッター

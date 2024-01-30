@@ -23,7 +23,7 @@ Bg::Bg() {
 	texture_ = Novice::LoadTexture("white1x1.png");
 }
 
-void Bg::BgSpawn(unsigned int color) {
+void Bg::BgSpawn(unsigned int color,float speed) {
 	for (int i = 0; i < BG_NUM; i++) {
 		if (!bg_[i].isAlive) {
 			bg_[i].isAlive = true;
@@ -32,11 +32,12 @@ void Bg::BgSpawn(unsigned int color) {
 			float size = float(rand() % 2 + 1);
 			bg_[i].rendering.affine.scale = {size,size};
 			bg_[i].color = color-0x000000FF;
+			bg_[i].speed = speed;
 			if (Camera::isRotation) {
-				bg_[i].speed = -3;
+				bg_[i].speed *= -1;
 			}
 			else {
-				bg_[i].speed = 3;
+				bg_[i].speed *= -1;
 			}
 			break;
 		}
@@ -107,9 +108,9 @@ void Bg::DrawBg() {
 	}
 }
 
-void Bg::Update(Matrix3x3 vpVpMatrix, unsigned int color) {
+void Bg::Update(Matrix3x3 vpVpMatrix, unsigned int color, float speed) {
 	Novice::DrawBox(0, 0, (int)SCREEN_WIDTH, (int)SCREEN_HEIGHT, 0.0f, 0x000000FF, kFillModeSolid);
-	BgSpawn(color);
+	BgSpawn(color,speed);
 	BgColor(color);
 	BgMove();
 	MakeWorldMatrix();

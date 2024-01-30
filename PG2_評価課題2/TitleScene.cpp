@@ -45,7 +45,7 @@ TitleScene::~TitleScene() {
 void TitleScene::Drawing() {
 	camera_->CameraUpdate();
 	Novice::DrawBox(0, 0, (int)SCREEN_WIDTH, (int)SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
-	bg_->Update(camera_->GetVpVpMatrix(), WHITE);
+	bg_->Update(camera_->GetVpVpMatrix(), WHITE,3);
 	FontDraw(space_, 300, 100);
 	FontDraw(title_, 600, 200);
 	FontDraw(explanation_,1280, 720);
@@ -63,9 +63,17 @@ void TitleScene::Update(char* keys, char* preKeys,Scene*scene) {
 }
 
 void TitleScene::IsEasing(char* keys, char* preKeys){
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && !title_.isBack) {
-		Ini(title_, false, true);
-		Ini(space_, false, true);
+	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+		if (!title_.isBack) {
+			Ini(title_, false, true);
+			Ini(space_, false, true);
+		}
+	}
+	if (keys[DIK_SPACE] && preKeys[DIK_SPACE]) {
+		space_.color = 0xFFFFFF55;
+	}
+	else {
+		space_.color = WHITE;
 	}
 }
 

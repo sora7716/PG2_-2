@@ -35,18 +35,6 @@ void SceneSwitch::Scene(char* keys, char* preKeys) {
 	}
 }
 
-void SceneSwitch::Movement(char* keys, char* preKeys) {
-	if (scene_ == title) {
-		scene_ = game;
-	}
-	else if (scene_ == game) {
-		scene_ = end;
-	}
-	else if (scene_ == end) {
-		scene_ = title;
-	}
-}
-
 void SceneSwitch::Ini() {
 	if (scene_ !=preScene_ ) {
 		if (scene_ == title) {
@@ -67,5 +55,4 @@ void SceneSwitch::Ini() {
 void SceneSwitch::Update(char* keys, char* preKeys) {
 	Ini();
 	Scene(keys, preKeys);
-	Movement(keys, preKeys);
 }

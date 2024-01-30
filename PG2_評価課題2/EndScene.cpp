@@ -27,7 +27,7 @@ void EndScene::Draw() {
 void EndScene::Drawing() {
 	Draw();
 	camera_->CameraUpdate();
-	bg_->Update(camera_->GetVpVpMatrix(), RED);
+	bg_->Update(camera_->GetVpVpMatrix(), RED,3);
 	bg_->DrawBg();
 	FontDraw(reTry_, 300, 100);
 }
@@ -42,7 +42,15 @@ void EndScene::Update(char* keys, char* preKeys,Scene*scene) {
 }
 
 void EndScene::IsEasing(char* keys, char* preKeys) {
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && !reTry_.isBack) {
-		Ini(reTry_, false, true);
+	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+		if (!reTry_.isBack) {
+			Ini(reTry_, false, true);
+		}
+	}
+	if (keys[DIK_SPACE] && preKeys[DIK_SPACE]) {
+		reTry_.color = 0xFFFFFF55;
+	}
+	else {
+		reTry_.color = WHITE;
 	}
 }
