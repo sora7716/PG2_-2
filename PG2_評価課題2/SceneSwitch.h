@@ -1,21 +1,17 @@
 ﻿#pragma once
-#include "TitleScene.h"
-#include "MainScene.h"
-enum Scene {
-	title,
-	game,
-	end,
-};
+#include "Scene.h"
+#include "Score.h"
 class SceneSwitch
 {
 private:
-	Scene scene;
-	Scene preScene;
-
-	TitleScene* titleScene;
-	MainScene*  mainScene;
+	SceneType scene_;
+	SceneType preScene_;
+	SceneManager* sceneManager;
+	Score* score_[2];
+	int BGM_[3];
+	int soundHandle_[3];
 public:
-
+	
 	/// <summary>
 	/// コンストラクター
 	/// </summary>
@@ -32,13 +28,6 @@ public:
 	void Scene(char *keys,char *preKeys);
 
 	/// <summary>
-	/// キー入力することでのシーン切り替え
-	/// </summary>
-	/// <param name="keys"></param>
-	/// <param name="preKeys"></param>
-	void Movement(char* keys, char* preKeys);
-
-	/// <summary>
 	/// 更新処理の初期化
 	/// </summary>
 	void Ini();
@@ -47,5 +36,6 @@ public:
 	/// 上記の関数をまとめた
 	/// </summary>
 	void Update(char* keys, char* prekeys);
+
 };
 

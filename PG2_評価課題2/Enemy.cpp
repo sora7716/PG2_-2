@@ -1,7 +1,34 @@
 ﻿#include "Enemy.h"
 
+Enemy::Enemy()
+{
+	direction_ = 0;
+	spawnNum_ = 0;
+	texture_ = 0;
+	collision_ = nullptr;
+	addTime_ = 0;
+	tempAddTime_ = 0;
+	particle_ = nullptr;
+}
+
 Enemy::~Enemy() {
 	delete collision_;
+	delete particle_;
+}
+
+void Enemy::AddTime() {
+	if (addTime_ > 0) {
+		addTime_--;
+	}
+}
+
+void Enemy::EnemyAdd() {
+	if (addTime_ <= 0) {
+		if (spawnNum_ < 7) {
+			spawnNum_ ++;
+		}
+		addTime_ = tempAddTime_ /= 2;
+	}
 }
 
 void Enemy::MakeWorldMatrix() {
@@ -16,8 +43,12 @@ void Enemy::MakeWvpVp(Matrix3x3 vpVpMatrix) {
 	}
 }
 
-void Enemy::EnemyDraw() {
-
+int Enemy::Direction() {
+	int random = rand() % 2;
+	if (random == 0) {
+		return -1;
+	}
+	return 1;
 }
 
 void Enemy::EnemyTransform() {
@@ -29,7 +60,29 @@ void Enemy::EnemyTransform() {
 	}
 }
 
-void Enemy::Update(Matrix3x3 vpVpMatrix, Bullet* bullet) {
+void Enemy::EnemyDraw() {
+
+}
+
+void Enemy::Destroy(Bullet* bullet,Vector2 translate)
+{
+	bullet->Attack();
+	translate = {};
+}
+
+void Enemy::IsDeath()
+{
+}
+
+
+void Enemy::Update(Matrix3x3 vpVpMatrix,Vector2 player, int coolTime) {
 		vpVpMatrix = { 100 };
-		bullet->Inverse(vpVpMatrix);
+		coolTime = 30;
+		player.x++;
+}
+
+void Enemy::Drawing(Matrix3x3 vpVpMatirx,Score *score)
+{
+	score->GetScore();
+	vpVpMatirx = { 20 };
 }

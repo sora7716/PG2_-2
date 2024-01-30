@@ -3,6 +3,7 @@
 #include "Rendering.h"
 #include "Particle.h"
 
+const int SHOT_NUM = 3;
 const int BULLET_NUM  = 100;
 const int BULLET_SIZE = 16;
 
@@ -21,7 +22,7 @@ class Bullet:public Rendering
 {
 private:
 	int texture_;
-	BulletObject bullet_[BULLET_NUM];
+	BulletObject bullet_;
 	int shotTime_;
 	Particle* particle_;
 public:
@@ -39,7 +40,7 @@ public:
 	/// セッターbulletのtranslate
 	/// </summary>
 	/// <param name="translate"></param>
-	Vector2 SetTranslate(Vector2 translate);
+	Vector2 PlayerTranslate(Vector2 translate);
 	
 	void ShotTime();
 
@@ -49,7 +50,7 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="translate"></param>
-	void IsShot(char *keys,char *preKeys, Vector2 translate);
+	void IsShot(char *keys,char *preKeys, Vector2 translate, int i);
 
 	/// <summary>
 	/// 弾の動き
@@ -62,13 +63,13 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="translate"></param>
-	void Attack(char* keys, char* preKeys, Vector2 translate, Matrix3x3 vpVpMatrix);
+	void Attack();
 	
 #pragma region 描画
 	void MakeWorleMatrix();
 	void wvpVpMatrix(Matrix3x3 vpVpMatrix);
 	void BulletTransform();
-	void BulletDraw();
+	void BulletDraw(Matrix3x3 vpVpMatrix);
 #pragma endregion
 
 	/// <summary>
@@ -80,6 +81,10 @@ public:
 	/// bulletのゲッター
 	/// </summary>
 	/// <returns></returns>
-	BulletObject* GetBulletObject() { return bullet_; };
+	BulletObject GetBulletObject() { return bullet_; };
+
+	void SetIsAlive(bool isAlive);
+
+	void SetTranslate(Vector2 translate);
 };
 

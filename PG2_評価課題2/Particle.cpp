@@ -1,10 +1,10 @@
 ﻿#include "Particle.h"
 
-Particle::Particle() {
+Particle::Particle(Vector2 acceleration) {
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		particle_[i].affine       = { {1,1},0,{0,0} };
 		particle_[i].velocity     = {};
-		particle_[i].acceleration = {0,-0.7f};
+		particle_[i].acceleration = acceleration;
 		particle_[i].radius       = 0;
 		particle_[i].random       = {};
 		particle_[i].worldMatrix  = {};
@@ -28,11 +28,14 @@ Vector2 Particle::SetPosition(Vector2 translate) {
 	return result;
 }
 
-void Particle::Spawn(Vector2 translate,int size,unsigned int color) {
+void Particle::Spawn(Vector2 translate,float size,unsigned int color) {
+	if (size < 1) {
+		size = 1.0f;
+	}
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		if (!particle_[i].isAlive) {
 			particle_[i].isAlive          = true;
-			particle_[i].velocity.y       = 0;
+			particle_[i].velocity         = {};
 			particle_[i].color            = color;
 			particle_[i].random.x         = rand() % (int)size + (int)SetPosition(translate).x - (int)size/2;
 			particle_[i].random.y         = rand() % (int)size + (int)SetPosition(translate).y - (int)size/2;
@@ -44,15 +47,16 @@ void Particle::Spawn(Vector2 translate,int size,unsigned int color) {
 	}
 }
 
-void Particle::Movement(Vector2 translate,unsigned int color) {
+void Particle::Movement(unsigned int color) {
 	for (int i = 0; i < PARTICLE_NUM; i++) {
 		if (particle_[i].isAlive) {
 			particle_[i].affine.translate.y += particle_[i].velocity.y;
-			particle_[i].velocity.y += particle_[i].acceleration.y;
+			particle_[i].velocity.y         += particle_[i].acceleration.y;
+			particle_[i].affine.translate.x += particle_[i].velocity.x;
+			particle_[i].velocity.x         += particle_[i].acceleration.x;
 			ColorSubtract(color);
 		}
 	}
-	Novice::ScreenPrintf(0, 0, "%f", translate.y);
 }
 
 void Particle::ColorSubtract(unsigned int color) {
@@ -66,9 +70,9 @@ void Particle::ColorSubtract(unsigned int color) {
 	}
 }
 
-void Particle::Update(Vector2 translate,int size,unsigned int color) {
+void Particle::Update(Vector2 translate,float size,unsigned int color) {
 	Spawn(translate,size, color);
-	Movement(translate,color);
+	Movement(color);
 }
 
 void Particle::MakeWorleMatrix() {

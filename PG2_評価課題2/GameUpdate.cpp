@@ -7,11 +7,13 @@ GameUpdate::GameUpdate() {
 		keys_[i]    = { 0 };
 		preKeys_[i] = { 0 };
 	}
-	sceneSwitch = new SceneSwitch;
+	sceneSwitch_ = new SceneSwitch;
+	fullScreen_ = new FullScreen;
 }
 
 GameUpdate::~GameUpdate(){
-	delete sceneSwitch;
+	delete sceneSwitch_;
+	delete fullScreen_;
 }
 
 void GameUpdate::GameLoop() {
@@ -21,10 +23,13 @@ void GameUpdate::GameLoop() {
 		memcpy(preKeys_, keys_, 256);
 		GetHitKeyStateAll(keys_);
 
+		//スクリーンの状態を変更↓
+		fullScreen_->Push(keys_, preKeys_);
+		//スクリーンの状態を変更↑
+
 		//ゲームのループ↓
-		sceneSwitch->Update(keys_,preKeys_);
+		sceneSwitch_->Update(keys_, preKeys_);
 		//ゲームのループ↑
-		
 
 		// フレームの終了
 		EndFrame();

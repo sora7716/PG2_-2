@@ -1,25 +1,23 @@
 ﻿#include "Bullet.h"
 
 Bullet::Bullet() {
-	for (int i = 0; i < BULLET_NUM; i++) {
-		bullet_[i].affine = { {1,1},0,{0,0} };
+	bullet_.affine = { {1,1},0,{0,0} };
 
-		bullet_[i].local = 
-		{
-		  { -BULLET_SIZE / 2.0f ,-BULLET_SIZE / 2.0f  },
-		  { -BULLET_SIZE / 2.0f , BULLET_SIZE / 2.0f  },
-		  {  BULLET_SIZE / 2.0f ,-BULLET_SIZE / 2.0f  },
-		  {  BULLET_SIZE / 2.0f , BULLET_SIZE / 2.0f  },
-		};
-		bullet_[i].speed       = 10;
-		bullet_[i].rotation    = 10.0f;
-		bullet_[i].isAlive     = false;
-		bullet_[i].worldMatrix = {};
-		bullet_[i].screen      = {};
-		bullet_[i].wvpVpMatrix = {};
-	}
+	bullet_.local =
+	{
+	  { -BULLET_SIZE / 2.0f ,-BULLET_SIZE / 2.0f  },
+	  { -BULLET_SIZE / 2.0f , BULLET_SIZE / 2.0f  },
+	  {  BULLET_SIZE / 2.0f ,-BULLET_SIZE / 2.0f  },
+	  {  BULLET_SIZE / 2.0f , BULLET_SIZE / 2.0f  },
+	};
+	bullet_.speed = 10;
+	bullet_.rotation = 10.0f;
+	bullet_.isAlive = false;
+	bullet_.worldMatrix = {};
+	bullet_.screen = {};
+	bullet_.wvpVpMatrix = {};
 	texture_ = Novice::LoadTexture("white1x1.png");
-	particle_ = new Particle;
+	particle_ = new Particle({ 0,-0.7f });
 	shotTime_ = 0;
 }
 
@@ -27,7 +25,7 @@ Bullet::~Bullet() {
 	delete particle_;
 }
 
-Vector2 Bullet::SetTranslate(Vector2 translate) {
+Vector2 Bullet::PlayerTranslate(Vector2 translate) {
 	Vector2 result = translate;
 	return result;
 }
@@ -38,76 +36,68 @@ void Bullet::ShotTime() {
 	}
 }
 
-void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate) {
+void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate,int i ){
 	ShotTime();
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]&&shotTime_<=0) {
-		for (int i = 0; i < BULLET_NUM; i++) {
-			if (!bullet_[i].isAlive) {
-				bullet_[i].isAlive = true;
-				bullet_[i].affine.translate = SetTranslate(translate);
-				shotTime_ = 10;
-				break;
+
+			bullet_.isAlive = true;
+			if (i == 0) {
+				bullet_.affine.translate = PlayerTranslate(translate);
 			}
-		}
+			else if (i == 1) {
+				bullet_.affine.translate = { PlayerTranslate(translate).x + 32,PlayerTranslate(translate).y };
+			}
+			else {
+				bullet_.affine.translate = { PlayerTranslate(translate).x - 32,PlayerTranslate(translate).y };
+			}
+			shotTime_ = 30;
 	}
 }
 
 void Bullet::Move() {
-	for (int i = 0; i < BULLET_NUM; i++) {
-		if (bullet_[i].isAlive) {
-			bullet_[i].affine.translate.y += bullet_[i].speed;
-			bullet_[i].affine.theta += bullet_[i].rotation;
-			if (bullet_[i].affine.translate.y >= 700) {
-				bullet_[i].isAlive = false;
-				bullet_[i].affine.translate = { 0 };
-			}
+	if (bullet_.isAlive) {
+		bullet_.affine.translate.y += bullet_.speed;
+		bullet_.affine.theta += bullet_.rotation;
+		if (bullet_.affine.translate.y >= 700) {
+			bullet_.isAlive = false;
+			bullet_.affine.translate = { 0 };
 		}
 	}
 }
 
-void Bullet::Attack(char* keys, char* preKeys, Vector2 translate,Matrix3x3 vpVpMatrix) {
-	IsShot(keys,preKeys,translate);
+void Bullet::Attack() {
 	Move();
-	for (int i = 0; i < BULLET_NUM; i++) {
-		if (bullet_[i].isAlive) {
-			particle_->Update(bullet_[i].affine.translate,BULLET_SIZE,0xFF7007FF);
-			particle_->DrawParticle(vpVpMatrix);
-		}
+	if (bullet_.isAlive) {
+		particle_->Update(bullet_.affine.translate, BULLET_SIZE, 0xFF7007FF);
 	}
 }
 
 void Bullet::MakeWorleMatrix() {
-	for (int i = 0; i < BULLET_NUM; i++) {
-		bullet_[i].worldMatrix = MakeAffineMatrix(bullet_[i].affine);
-	}
+	bullet_.worldMatrix = MakeAffineMatrix(bullet_.affine);
 }
 
 void Bullet::wvpVpMatrix(Matrix3x3 vpVpMatrix) {
-	for (int i = 0; i < BULLET_NUM; i++) {
-		bullet_[i].wvpVpMatrix = Multiply(bullet_[i].worldMatrix, vpVpMatrix);
-	}
+	bullet_.wvpVpMatrix = Multiply(bullet_.worldMatrix, vpVpMatrix);
 }
 
 void Bullet::BulletTransform() {
-	for (int i = 0; i < BULLET_NUM; i++) {
-		bullet_[i].screen.leftTop     = TransForm(bullet_[i].local.leftTop,     bullet_[i].wvpVpMatrix);
-		bullet_[i].screen.leftBottom  = TransForm(bullet_[i].local.leftBottom,  bullet_[i].wvpVpMatrix);
-		bullet_[i].screen.rightTop    = TransForm(bullet_[i].local.rightTop,    bullet_[i].wvpVpMatrix);
-		bullet_[i].screen.rightBottom = TransForm(bullet_[i].local.rightBottom, bullet_[i].wvpVpMatrix);
-	}
+	bullet_.screen.leftTop     = TransForm(bullet_.local.leftTop,     bullet_.wvpVpMatrix);
+	bullet_.screen.leftBottom  = TransForm(bullet_.local.leftBottom,  bullet_.wvpVpMatrix);
+	bullet_.screen.rightTop    = TransForm(bullet_.local.rightTop,    bullet_.wvpVpMatrix);
+	bullet_.screen.rightBottom = TransForm(bullet_.local.rightBottom, bullet_.wvpVpMatrix);
 }
 
-void Bullet::BulletDraw() {
-	for (int i = 0; i < BULLET_NUM; i++) {
-		if (bullet_[i].isAlive) {
-			Novice::DrawQuad(
-				(int)bullet_[i].screen.leftTop.x,     (int)bullet_[i].screen.leftTop.y,
-				(int)bullet_[i].screen.rightTop.x,    (int)bullet_[i].screen.rightTop.y,
-				(int)bullet_[i].screen.leftBottom.x,  (int)bullet_[i].screen.leftBottom.y,
-				(int)bullet_[i].screen.rightBottom.x, (int)bullet_[i].screen.rightBottom.y,
-				0, 0, 1, 1, texture_, RED
-			);
-		}
+void Bullet::BulletDraw(Matrix3x3 vpVpMatrix) {
+
+	if (bullet_.isAlive) {
+		Novice::DrawQuad(
+			(int)bullet_.screen.leftTop.x,     (int)bullet_.screen.leftTop.y,
+			(int)bullet_.screen.rightTop.x,    (int)bullet_.screen.rightTop.y,
+			(int)bullet_.screen.leftBottom.x,  (int)bullet_.screen.leftBottom.y,
+			(int)bullet_.screen.rightBottom.x, (int)bullet_.screen.rightBottom.y,
+			0, 0, 1, 1, texture_, GREEN
+		);
+		particle_->DrawParticle(vpVpMatrix);
 	}
 }
 
@@ -115,6 +105,14 @@ void Bullet::BulletDrawSprite(Matrix3x3 vpVpMatrix) {
 	MakeWorleMatrix();
 	wvpVpMatrix(vpVpMatrix);
 	BulletTransform();
-	BulletDraw();
+	BulletDraw(vpVpMatrix);
+}
+
+void Bullet::SetIsAlive(bool isAlive){
+	bullet_.isAlive = isAlive;
+}
+
+void Bullet::SetTranslate(Vector2 translate) {
+	bullet_.affine.translate = { translate.x,translate.y };
 }
 

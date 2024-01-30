@@ -25,7 +25,7 @@ protected:
 
 #pragma region 定義しないといけない
 	//カメラポジションの 拡縮・回転・移動
-	Affine affine_;
+	Affine cameraAffine_;
 	//切り取る範囲の左上と右上
 	Point vertex_;
 	//ラインの座標(ローカル座標)
@@ -54,6 +54,10 @@ protected:
 
 public:
 
+	static bool isRotation;//画面の回転フラグ
+	/// <summary>
+	/// コンストラクター
+	/// </summary>
 	Camera();
 
 	/// <summary>
@@ -87,7 +91,12 @@ public:
 	/// <summary>
 	/// カメラの移動
 	/// </summary>
-	void CameraMove(char keys[]);
+	void CameraMove();
+
+	/// <summary>
+	/// レンダリングパイプラインをまとめた
+	/// </summary>
+	void CameraUpdate();
 
 	/// <summary>
 	/// カメラの更新処理
@@ -95,5 +104,10 @@ public:
 	/// <param name="keys"></param>
 	void CameraTest();
 
+	/// <summary>
+	/// vpVpMatrixのゲッター
+	/// </summary>
+	/// <returns></returns>
+	Matrix3x3 GetVpVpMatrix() { return vpVpMatrix_; };
 };
 

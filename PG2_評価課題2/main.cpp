@@ -1,5 +1,7 @@
 #include "GameUpdate.h"
 
+bool Camera::isRotation = false;
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 

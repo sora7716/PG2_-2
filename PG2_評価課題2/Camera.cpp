@@ -1,10 +1,10 @@
 ﻿#include "Camera.h"
 
 Camera::Camera() {
-	affine_ = {
+	cameraAffine_ = {
 	   {1.0f,1.0f},
 		0,
-	   {0,0},
+	   {0,-500},
 	};
 	//画面の切り取る範囲
 	vertex_ = {
@@ -54,7 +54,7 @@ Camera::Camera() {
 /// カメラのワールドマトリックスの作成
 /// </summary>
 void Camera::CameraMatrix() {
-	cameraMatrix_ = MakeAffineMatrix(affine_);
+	cameraMatrix_ = MakeAffineMatrix(cameraAffine_);
 }
 
 /// <summary>
@@ -106,37 +106,22 @@ void Camera::CameraDraw() {
 /// <summary>
 /// カメラの移動
 /// </summary>
-void Camera::CameraMove(char keys[]) {
-	if (keys[DIK_LEFT]) {
-		affine_.translate.x += speed_;
-	}
-	if (keys[DIK_RIGHT]) {
-		affine_.translate.x -= speed_;
-	}
-	if (keys[DIK_UP]) {
-		affine_.translate.y -= speed_;
-	}
-	if (keys[DIK_DOWN]) {
-		affine_.translate.y += speed_;
-	}
+void Camera::CameraMove() {
 
-	if (keys[DIK_E]&&!keys[DIK_LSHIFT]) {
-		if (affine_.scale.x > 0.3f || affine_.scale.y > 0.3f) {
-			affine_.scale.x -= scale_;
-			affine_.scale.y -= scale_;
-		}
+	if (Camera::isRotation&&cameraAffine_.theta<=1.56f) {
+		cameraAffine_.theta += theta_;
 	}
-	if (keys[DIK_Q] && !keys[DIK_LSHIFT]) {
-		affine_.scale.x += scale_;
-		affine_.scale.y += scale_;
+	if (!Camera::isRotation && cameraAffine_.theta > 0.0f) {
+		cameraAffine_.theta -= theta_;
 	}
+}
 
-	if (keys[DIK_C] && !keys[DIK_LSHIFT]) {
-		affine_.theta -= theta_;
-	}
-	if (keys[DIK_Z] && !keys[DIK_LSHIFT]) {
-		affine_.theta += theta_;
-	}
+void Camera::CameraUpdate() {
+	CameraMatrix();
+	ViewMatrix();
+	OrthoMatrix();
+	ViewportMatrix();
+	vpVpMatrix();
 }
 
 void Camera::CameraTest(){

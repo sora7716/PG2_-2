@@ -9,6 +9,11 @@ public:
 	EnemyDown();
 	
 	/// <summary>
+	/// デストラクター
+	/// </summary>
+	~EnemyDown();
+
+	/// <summary>
 	/// エネミーのスポーン
 	/// </summary>
 	void EnemySpawn();
@@ -17,8 +22,6 @@ public:
 	/// エネミーの移動
 	/// </summary>
 	void EnemyTranslate();
-
-	int Direction();
 
 	/// <summary>
 	/// エネミーの描画
@@ -30,7 +33,12 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void Destroy(Bullet* bullet);
+	void Destroy(Bullet* bullet,Vector2 translate)override;
+
+	/// <summary>
+	/// 死亡アニメーション
+	/// </summary>
+	void IsDeath()override;
 
 	/// <summary>
 	/// 更新処理
@@ -38,6 +46,12 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="vpVpMatrix"></param>
-	void Update(Matrix3x3 vpVpMatrix,Bullet*bullet)override;
+	void Update(Matrix3x3 vpVpMatrix, Vector2 player, int coolTime)override;
+
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	/// <param name="vpVpMatirx"></param>
+	void Drawing(Matrix3x3 vpVpMatirx,Score *score)override;
 };
 
