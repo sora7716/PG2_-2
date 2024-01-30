@@ -25,7 +25,7 @@ protected:
 
 #pragma region 定義しないといけない
 	//カメラポジションの 拡縮・回転・移動
-	Affine affine_;
+	Affine cameraAffine_;
 	//切り取る範囲の左上と右上
 	Point vertex_;
 	//ラインの座標(ローカル座標)

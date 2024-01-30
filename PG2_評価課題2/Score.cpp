@@ -2,16 +2,16 @@
 
 Score::Score(){
 	score_ = { 0 };
-	score_.image[0] = Novice::LoadTexture("./number/num0.png");
-	score_.image[1] = Novice::LoadTexture("./number/num1.png");
-	score_.image[2] = Novice::LoadTexture("./number/num2.png");
-	score_.image[3] = Novice::LoadTexture("./number/num3.png");
-	score_.image[4] = Novice::LoadTexture("./number/num4.png");
-	score_.image[5] = Novice::LoadTexture("./number/num5.png");
-	score_.image[6] = Novice::LoadTexture("./number/num6.png");
-	score_.image[7] = Novice::LoadTexture("./number/num7.png");
-	score_.image[8] = Novice::LoadTexture("./number/num8.png");
-	score_.image[9] = Novice::LoadTexture("./number/num9.png");
+	score_.image[0] = Novice::LoadTexture("./resource/number/num0.png");
+	score_.image[1] = Novice::LoadTexture("./resource/number/num1.png");
+	score_.image[2] = Novice::LoadTexture("./resource/number/num2.png");
+	score_.image[3] = Novice::LoadTexture("./resource/number/num3.png");
+	score_.image[4] = Novice::LoadTexture("./resource/number/num4.png");
+	score_.image[5] = Novice::LoadTexture("./resource/number/num5.png");
+	score_.image[6] = Novice::LoadTexture("./resource/number/num6.png");
+	score_.image[7] = Novice::LoadTexture("./resource/number/num7.png");
+	score_.image[8] = Novice::LoadTexture("./resource/number/num8.png");
+	score_.image[9] = Novice::LoadTexture("./resource/number/num9.png");
 	score_.position[0].x = 60;
 	score_.position[1].x = 140;
 	score_.position[2].x = 220;
@@ -76,13 +76,13 @@ void Score::ScoreCount() {
 int Score::Time() {
 	time_++;
 	if (time_ < 1800) {
-		addTime_ = 200;
+		addTime_ = 100;
 	}
 	else if (time_ < 216000) {
-		addTime_ = 120;
+		addTime_ = 70;
 	}
 	else if (time_ < 216000*3) {
-		addTime_ = 70;
+		addTime_ = 50;
 	}
 	else if (time_ < 216000 * 7) {
 		addTime_ = 30;

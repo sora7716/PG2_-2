@@ -47,6 +47,7 @@ void Bg::BgSpawn(unsigned int color,float speed) {
 void Bg::BgMove() {
 	for (int i = 0; i < BG_NUM; i++) {
 		if (bg_[i].isAlive) {
+			bg_[i].rendering.affine.theta += 10.0f;
 			bg_[i].rendering.affine.translate.y += bg_[i].speed;
 			if (bg_[i].rendering.affine.translate.y > 100|| bg_[i].rendering.affine.translate.y<-1280) {
 				bg_[i].isAlive = false;

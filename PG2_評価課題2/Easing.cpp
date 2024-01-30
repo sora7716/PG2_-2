@@ -21,7 +21,7 @@ float Easing::InBack(float frame) {
 }
 
 float Easing::outBack(float frame) {
-	const float c1 = 1.70158f;
+	const float c1 = 3.70158f;
 	const float c3 = c1 + 1;
 
 	return float(1 + c3 * pow(frame - 1, 3) + c1 * pow(frame - 1, 2));

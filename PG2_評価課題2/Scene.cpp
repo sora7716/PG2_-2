@@ -136,12 +136,12 @@ void SceneManager::MainUpdating(char* keys, char* preKeys, SceneType& scene, Sco
 		}
 		enemyDown_->IsDeath();
 		enemyLeft_->IsDeath();
-		enemyDown_->Update(player_->GetVpVpMatrix(), player_->GetTranslate(), 120);
+		enemyDown_->Update(player_->GetVpVpMatrix(), player_->GetTranslate(), 50);
 		if (score->GetScore() >= 500) {
 			isEnemyLeftMove_ = true;
 		}
 		if (isEnemyLeftMove_) {
-			enemyLeft_->Update(player_->GetVpVpMatrix(), player_->GetTranslate(), 60);
+			enemyLeft_->Update(player_->GetVpVpMatrix(), player_->GetTranslate(), 30);
 
 		}
 	}

@@ -74,10 +74,8 @@ void EnemyBullet::ShotTime(int coolTime) {
 
 void EnemyBullet::BulletSpawn(Vector2 player,Vector2 enemy,int coolTime) {
 	ShotTime(coolTime);
+	Distance(player);
 	if (coolTime_<=0) {
-		Distance(player);
-		Length();
-		Normalize();
 		for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
 			if (!enemyBullet_[i].isAlive) {
 				enemyBullet_[i].rendering.affine.translate = EnemyPosition(enemy);
@@ -90,10 +88,12 @@ void EnemyBullet::BulletSpawn(Vector2 player,Vector2 enemy,int coolTime) {
 
 void EnemyBullet::BulletMove() {
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
+		Length();
+		Normalize();
 		enemyBullet_[i].rendering.affine.theta += enemyBullet_[i].rotateSpeed;
 		if (enemyBullet_[i].isAlive) {
-			enemyBullet_[i].rendering.affine.translate.x += enemyBullet_[i].velocity.x * -enemyBullet_[i].meters.vector.x;
-			enemyBullet_[i].rendering.affine.translate.y += enemyBullet_[i].velocity.y *  enemyBullet_[i].meters.vector.y;
+			enemyBullet_[i].rendering.affine.translate.x += enemyBullet_[i].velocity.x * enemyBullet_[i].meters.vector.x;
+			enemyBullet_[i].rendering.affine.translate.y += enemyBullet_[i].velocity.y * enemyBullet_[i].meters.vector.y;
 			//particle_->Update(enemyBullet_[i].rendering.affine.translate, ENEMY_BULLET_SIZE, GREEN);
 		}
 		if (enemyBullet_[i].rendering.affine.translate.y <= -650 - 500 || enemyBullet_[i].rendering.affine.translate.y >= 650 - 500 ||

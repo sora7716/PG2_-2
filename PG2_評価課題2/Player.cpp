@@ -2,6 +2,10 @@
 
 
 Player::Player() {
+
+	//テクスチャ
+	texture_ = Novice::LoadTexture("./resource/object/player.png");
+
 #pragma region 定義しないといけない
 	//プレイヤーのローカル座標
 	local_={
@@ -34,9 +38,6 @@ Player::Player() {
 	worldMatrix_ = {};
 	//wvpVp
 	wvpVpMatrix_ = {};
-
-	//テクスチャ
-	texture_ = Novice::LoadTexture("white1x1.png");
 
 	//シェイク
 	srand((unsigned int)time(nullptr));
@@ -93,7 +94,7 @@ void Player::PlayerDraw(int texture) {
 		(int)screen_.leftBottom.x  +shake.position.x, (int)screen_.leftBottom.y +shake.position.y,
 		(int)screen_.rightTop.x    +shake.position.x, (int)screen_.rightTop.y   +shake.position.y,
 		(int)screen_.rightBottom.x +shake.position.x, (int)screen_.rightBottom.y+shake.position.y,
-		0, 0, 1, 1, texture, color_);
+		0, 0, (int)PLAYER_SIZE, (int)PLAYER_SIZE, texture, color_);
 	if (isBestPlace_) {
 		hud_->DrawHpBar();
 	}
@@ -102,7 +103,7 @@ void Player::PlayerDraw(int texture) {
 void Player::PlayerMove(char *keys,Score *score) {
 #pragma region 移動
 	if (isBestPlace_) {
-		if (affine_.theta <= 1.5f) {
+		if (cameraAffine_.theta <= 1.5f) {
 			if (keys[DIK_A])
 			{
 				moveObject_.vector.x = -1;
@@ -195,11 +196,11 @@ void Player::PlayerMove(char *keys,Score *score) {
 #pragma endregion
 
 #pragma region 画面の回転
-	if (Camera::isRotation&&affine_.theta<=1.56f) {
-		affine_.theta += theta_;
+	if (Camera::isRotation&&affine_.theta<=-1.56f) {
+		affine_.theta -= theta_;
 	}
 	if (!Camera::isRotation && affine_.theta >0.0f) {
-		affine_.theta -= theta_;
+		affine_.theta += theta_;
 	}
 	RotateTime();
 	if (score->GetScore() >= 750) {
@@ -211,6 +212,7 @@ void Player::PlayerMove(char *keys,Score *score) {
 		}
 	}
 #pragma endregion
+
 }
 
 void Player::Distance() {
@@ -278,14 +280,14 @@ void Player::ShakeRange() {
 void Player::PlayerDamage(Enemy*enemy, SceneType &scene) {
 	DamageCooolTime();
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
-		if (collision_->Box(affine_.translate, enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].rendering.affine.translate, PLAYER_SIZE, ENEMY_BULLET_SIZE) && enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].isAlive&&color_==0xFFFFFFFF) {
+		if (collision_->Box({ affine_.translate.x + 16,affine_.translate.y - 32 }, enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].rendering.affine.translate, PLAYER_SIZE / 2.0f, ENEMY_BULLET_SIZE) && enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].isAlive && color_ == 0xFFFFFFFF) {
 			shake.isShake = true;
 			shake.isScale = true;
 			IsDamage(scene);
 		}
 	}
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate, affine_.translate, ENEMY_SIZE, PLAYER_SIZE)&& enemy->GetEnemyObject()[i].isAlive && color_ == 0xFFFFFFFF) {
+		if (collision_->Box(enemy->GetEnemyObject()[i].affine.translate, { affine_.translate.x + 16,affine_.translate.y - 32 }, ENEMY_SIZE, PLAYER_SIZE / 2.0f)&& enemy->GetEnemyObject()[i].isAlive && color_ == 0xFFFFFFFF) {
 			shake.isShake = true;
 			shake.isScale = true;
 			IsDamage(scene);
@@ -340,7 +342,7 @@ void Player::Action(char* keys, char* preKeys, Enemy* enemy, SceneType &scene, S
 		BulletSpawn(keys, preKeys);
 		BulletMove();
 		PlayerDamage(enemy, scene);
-		particle_->Update({ affine_.translate.x,affine_.translate.y - 32, }, PLAYER_SIZE * affine_.scale.x, 0xF6FFB8FF);
+		particle_->Update({ affine_.translate.x-15,affine_.translate.y - 64, }, PLAYER_SIZE/2.0f * affine_.scale.x, 0xF6FFB8FF);
 	}
 }
 

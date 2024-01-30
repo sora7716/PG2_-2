@@ -8,7 +8,7 @@
 #include "Particle.h"
 #include "Hud.h"
 
-const float PLAYER_SIZE = 64;
+const float PLAYER_SIZE = 128;
 
 class Player :public Camera
 {
