@@ -50,7 +50,7 @@ void Bullet::IsShot(char* keys, char* preKeys, Vector2 translate,int i ){
 			else {
 				bullet_.affine.translate = { PlayerTranslate(translate).x - 32,PlayerTranslate(translate).y };
 			}
-			shotTime_ = 20;
+			shotTime_ = 30;
 	}
 }
 
@@ -65,11 +65,10 @@ void Bullet::Move() {
 	}
 }
 
-void Bullet::Attack(Matrix3x3 vpVpMatrix) {
+void Bullet::Attack() {
 	Move();
 	if (bullet_.isAlive) {
 		particle_->Update(bullet_.affine.translate, BULLET_SIZE, 0xFF7007FF);
-		particle_->DrawParticle(vpVpMatrix);
 	}
 }
 
@@ -88,7 +87,7 @@ void Bullet::BulletTransform() {
 	bullet_.screen.rightBottom = TransForm(bullet_.local.rightBottom, bullet_.wvpVpMatrix);
 }
 
-void Bullet::BulletDraw() {
+void Bullet::BulletDraw(Matrix3x3 vpVpMatrix) {
 
 	if (bullet_.isAlive) {
 		Novice::DrawQuad(
@@ -96,8 +95,9 @@ void Bullet::BulletDraw() {
 			(int)bullet_.screen.rightTop.x,    (int)bullet_.screen.rightTop.y,
 			(int)bullet_.screen.leftBottom.x,  (int)bullet_.screen.leftBottom.y,
 			(int)bullet_.screen.rightBottom.x, (int)bullet_.screen.rightBottom.y,
-			0, 0, 1, 1, texture_, RED
+			0, 0, 1, 1, texture_, GREEN
 		);
+		particle_->DrawParticle(vpVpMatrix);
 	}
 }
 
@@ -105,7 +105,7 @@ void Bullet::BulletDrawSprite(Matrix3x3 vpVpMatrix) {
 	MakeWorleMatrix();
 	wvpVpMatrix(vpVpMatrix);
 	BulletTransform();
-	BulletDraw();
+	BulletDraw(vpVpMatrix);
 }
 
 void Bullet::SetIsAlive(bool isAlive){

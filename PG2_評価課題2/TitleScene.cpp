@@ -31,67 +31,50 @@ TitleScene::TitleScene() {
 	explanation_.image    = Novice::LoadTexture("white1x1.png");
 	explanation_.color    = RED;
 	
+	startTime_ = 300;
+
 	bg_     = new Bg;
-	easing_ = new Easing;
+	camera_ = new Camera;
 }
 
 TitleScene::~TitleScene() {
 	delete bg_;
-	delete easing_;
+	delete camera_;
 }
 
 void TitleScene::Drawing() {
-	CameraUpdate();
+	camera_->CameraUpdate();
 	Novice::DrawBox(0, 0, (int)SCREEN_WIDTH, (int)SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
-	bg_->Update(vpVpMatrix_);
+	bg_->Update(camera_->GetVpVpMatrix(), WHITE);
 	FontDraw(space_, 300, 100);
 	FontDraw(title_, 600, 200);
 	FontDraw(explanation_,1280, 720);
 }
 
-void TitleScene::FontDraw(Font font, float width, float height){
-	Novice::DrawSprite((int)font.position.x, (int)font.position.y, font.image, width, height, 0.0f, font.color);
-}
-
-void TitleScene::EasingFont(Font &font) {
-	if (font.frame < font.endFrame) {
-		font.frame++;
-	}
-	if (font.isEasing) {
-		font.position.x = font.begin.x + (font.end.x - font.begin.x) * easing_->outBack(font.frame / font.endFrame);
-		font.position.y = font.begin.y + (font.end.y - font.begin.y) * easing_->outBack(font.frame / font.endFrame);
-	}
-	if (font.isBack) {
-		font.position.x = font.end.x + (font.begin.x - font.end.x) * easing_->InBack(font.frame / font.endFrame);
-		font.position.y = font.end.y + (font.begin.y - font.end.y) * easing_->InBack(font.frame / font.endFrame);
-	}
-}
-
-void TitleScene::Update(char* keys, char* preKeys) {
+void TitleScene::Update(char* keys, char* preKeys,Scene*scene) {
 	IsEasing(keys, preKeys);
 	EasingFont(title_);
 	EasingFont(space_);
 	if (space_.isBack&&space_.frame>=space_.endFrame) {
 		EasingFont(explanation_);
 	}
+	StarTime(scene);
 	Drawing();
-	Novice::ScreenPrintf(0, 0, "%f", explanation_.frame);
-	Novice::ScreenPrintf(0, 20, "%f", explanation_.position.x);
 }
 
 void TitleScene::IsEasing(char* keys, char* preKeys){
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]&&!title_.isEasing) {
-		Ini(title_, true, false);
-		Ini(space_, true, false);
-	}
-	else if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && !title_.isBack) {
+	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && !title_.isBack) {
 		Ini(title_, false, true);
 		Ini(space_, false, true);
 	}
 }
 
-void TitleScene::Ini(Font& font,bool isEasing, bool isBack) {
-	font.isEasing = isEasing;
-	font.isBack = isBack;
-	font.frame = 0;
+void TitleScene::StarTime(Scene* scene) {
+	if (startTime_ > 0) {
+		startTime_--;
+	}
+	else {
+		*scene = game;
+	}
 }
+

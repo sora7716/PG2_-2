@@ -77,7 +77,7 @@ public:
 	void MakeWorleMatrix();
 	void wvpVpMatrix(Matrix3x3 vpVpMatrix);
 	void BulletTransform();
-	void BulletDraw();
+	void BulletDraw(unsigned int color);
 #pragma endregion
 
 	/// <summary>
@@ -88,7 +88,7 @@ public:
 	/// <summary>
 	/// バレットの描画処理をまとめた
 	/// </summary>
-	void BulletDrawing(Matrix3x3 vpVpMatrix);
+	void BulletDrawing(Matrix3x3 vpVpMatrix, unsigned int color);
 
 	/// <summary>
 	/// バレットのゲッター

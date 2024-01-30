@@ -66,7 +66,7 @@ void Enemy::EnemyDraw() {
 
 void Enemy::Destroy(Bullet* bullet,Vector2 translate)
 {
-	bullet->BulletDraw();
+	bullet->Attack();
 	translate = {};
 }
 

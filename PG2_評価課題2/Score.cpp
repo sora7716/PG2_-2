@@ -60,7 +60,7 @@ void Score::Update() {
 void Score::resultUpdate(int score) {
 	score_.score = score;
 	Calculate();
-	ScoreDraw(0,0);
+	ScoreDraw(360,300);
 }
 
 void Score::ScoreCount() {

@@ -104,5 +104,10 @@ public:
 	/// <param name="keys"></param>
 	void CameraTest();
 
+	/// <summary>
+	/// vpVpMatrixのゲッター
+	/// </summary>
+	/// <returns></returns>
+	Matrix3x3 GetVpVpMatrix() { return vpVpMatrix_; };
 };
 

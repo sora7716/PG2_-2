@@ -28,7 +28,7 @@ void MainScene::MainUpdating(char *keys,char *preKeys, Scene &scene, Score* scor
 	    enemyDown_->IsDeath();
 	    enemyLeft_->IsDeath();
 	    enemyDown_->Update(player_->GetVpVpMatrix(), player_->GetTranslate(), 120);
-	    if (Camera::isRotation) {
+	    if (score->GetScore()>=500) {
 	    	isEnemyLeftMove_ = true;
 	    }
 	    if (isEnemyLeftMove_) {
@@ -38,8 +38,8 @@ void MainScene::MainUpdating(char *keys,char *preKeys, Scene &scene, Score* scor
 	}
 }
 
-void MainScene::MainDrawing(Score *score) {
-	    bg_->Update(player_->GetVpVpMatrix());
+void MainScene::MainDrawing(Score *score, unsigned int color) {
+	    bg_->Update(player_->GetVpVpMatrix(),color);
 		for (int i = 0; i < SHOT_NUM; i++) {
 			for (int k = 0; k < BULLET_NUM; k++) {
 				player_->GetBullet(i, k)->BulletDrawSprite(player_->GetVpVpMatrix());
@@ -53,5 +53,5 @@ void MainScene::MainDrawing(Score *score) {
 
 void MainScene::MainLoop(char* keys, char* preKeys, Scene &scene, Score* score) {
 	MainUpdating(keys, preKeys, scene,score);//更新処理
-	MainDrawing(score); //描画処理
+	MainDrawing(score,WHITE); //描画処理
 }

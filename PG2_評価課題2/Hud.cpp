@@ -44,7 +44,7 @@ void Hud::ScoreSpawn(Score*score) {
     			killScore_[i].velocity = { 0,-3 };
     			killScore_[i].color = WHITE;
     			killScore_[i].isAlive = true;
-				score->AddScore(40);
+				score->AddScore(30);
     			break;
     		}
     	}

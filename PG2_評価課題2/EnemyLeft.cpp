@@ -60,7 +60,7 @@ void EnemyLeft::EnemyTranslate(){
 				enemy_[i].isAlive = false;
 				direction_ = 0;
 			}
-			particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y + 16 }, ENEMY_SIZE * enemy_[i].affine.scale.x, 0xFFFFFFFF);
+			particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y + 16 }, ENEMY_SIZE * enemy_[i].affine.scale.x, 0xCCCCCCFF);
 		}
 	}
 }
@@ -73,7 +73,7 @@ void EnemyLeft::EnemyDraw(){
 				(int)enemy_[i].screen.leftBottom.x, (int)enemy_[i].screen.leftBottom.y,
 				(int)enemy_[i].screen.rightTop.x, (int)enemy_[i].screen.rightTop.y,
 				(int)enemy_[i].screen.rightBottom.x, (int)enemy_[i].screen.rightBottom.y,
-				0, 0, 1, 1, texture_, BLACK);
+				0, 0, 1, 1, texture_, 0x6B6B6BFF);
 		}
 	}
 }
@@ -86,6 +86,7 @@ void EnemyLeft::Destroy(Bullet* bullet, Vector2 translate){
 				enemy_[i].isDeath = true;
 				bullet->SetIsAlive(true);
 				bullet->SetTranslate(translate);
+				hud_->SetScoreIsAlive(true);
 			}
 		}
 		
@@ -126,7 +127,7 @@ void EnemyLeft::Update(Matrix3x3 vpVpMatrix, Vector2 player,int coolTime){
 
 void EnemyLeft::Drawing(Matrix3x3 vpVpMatrix, Score* score) {
 	particle_->DrawParticle(vpVpMatrix);
-	enemyBullet_->BulletDrawing(vpVpMatrix);
+	enemyBullet_->BulletDrawing(vpVpMatrix,0x870805FF);
 	EnemyDraw();
 	hud_->ScoreUpdate(score);
 	hud_->DrawScore();

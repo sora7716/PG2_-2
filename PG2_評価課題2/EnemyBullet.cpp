@@ -126,7 +126,7 @@ void EnemyBullet::BulletTransform(){
 	}
 }
 
-void EnemyBullet::BulletDraw(){
+void EnemyBullet::BulletDraw(unsigned int color){
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
 		if (enemyBullet_[i].isAlive) {
 			Novice::DrawQuad(
@@ -134,7 +134,7 @@ void EnemyBullet::BulletDraw(){
 				(int)enemyBullet_[i].rendering.screen.rightTop.x,    (int)enemyBullet_[i].rendering.screen.rightTop.y,
 				(int)enemyBullet_[i].rendering.screen.leftBottom.x,  (int)enemyBullet_[i].rendering.screen.leftBottom.y,
 				(int)enemyBullet_[i].rendering.screen.rightBottom.x, (int)enemyBullet_[i].rendering.screen.rightBottom.y,
-				0, 0, 1, 1, texture_, GREEN
+				0, 0, 1, 1, texture_, color
 			);
 		}
 	}
@@ -145,11 +145,11 @@ void EnemyBullet::EnemyAttack(Vector2 player,Vector2 enemy, int coolTime) {
 	BulletMove();
 }
 
-void EnemyBullet::BulletDrawing(Matrix3x3 vpVpMatrix) {
+void EnemyBullet::BulletDrawing(Matrix3x3 vpVpMatrix,unsigned int color) {
 	MakeWorleMatrix();
 	wvpVpMatrix(vpVpMatrix);
 	BulletTransform();
-	BulletDraw();
+	BulletDraw(color);
 	//particle_->DrawParticle(vpVpMatrix);
 }
 

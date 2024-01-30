@@ -29,7 +29,7 @@ public:
 	/// <summary>
 	/// パーティクルの初期化
 	/// </summary>
-	void BgSpawn();
+	void BgSpawn(unsigned int color);
 
 	/// <summary>
 	/// パーティクルを上に動かす
@@ -39,7 +39,7 @@ public:
 	/// <summary>
 	/// パーティクルの色を薄くしたり濃くしたりする
 	/// </summary>
-	void BgColor();
+	void BgColor(unsigned int color);
 
 	/// <summary>
 	/// レンダリングパイプライン↓
@@ -62,6 +62,6 @@ public:
 	/// 更新処理
 	/// </summary>
 	/// <param name="vpVpMatrix"></param>
-	void Update(Matrix3x3 vpVpMatrix);
+	void Update(Matrix3x3 vpVpMatrix, unsigned int color);
 };
 

@@ -5,7 +5,7 @@
 #include "Particle.h"
 
 const int SHOT_NUM = 3;
-const int BULLET_NUM  = 50;
+const int BULLET_NUM  = 100;
 const int BULLET_SIZE = 16;
 
 typedef struct BulletObject {
@@ -64,13 +64,13 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="translate"></param>
-	void Attack(Matrix3x3 vpVpMatrix);
+	void Attack();
 	
 #pragma region 描画
 	void MakeWorleMatrix();
 	void wvpVpMatrix(Matrix3x3 vpVpMatrix);
 	void BulletTransform();
-	void BulletDraw();
+	void BulletDraw(Matrix3x3 vpVpMatrix);
 #pragma endregion
 
 	/// <summary>

@@ -34,7 +34,7 @@ public:
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void MainDrawing(Score* score);
+	void MainDrawing(Score* score, unsigned int color);
 
 	/// <summary>
 	/// ゲームループ

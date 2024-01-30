@@ -66,3 +66,15 @@ enum Scene {
 	game,
 	end,
 };
+
+typedef struct Font {
+	Vector2 position;
+	Vector2 begin;
+	Vector2 end;
+	float frame;
+	float endFrame;
+	unsigned int color;
+	bool isEasing;
+	bool isBack;
+	int image;
+}Font;

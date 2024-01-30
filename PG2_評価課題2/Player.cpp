@@ -89,10 +89,10 @@ void Player::PlayerTransform() {
 
 void Player::PlayerDraw(int texture) {
 	Novice::DrawQuad(
-		(int)screen_.leftTop.x     , (int)screen_.leftTop.y    ,
-		(int)screen_.leftBottom.x  , (int)screen_.leftBottom.y ,
-		(int)screen_.rightTop.x    , (int)screen_.rightTop.y   ,
-		(int)screen_.rightBottom.x , (int)screen_.rightBottom.y,
+		(int)screen_.leftTop.x     +shake.position.x, (int)screen_.leftTop.y    +shake.position.y,
+		(int)screen_.leftBottom.x  +shake.position.x, (int)screen_.leftBottom.y +shake.position.y,
+		(int)screen_.rightTop.x    +shake.position.x, (int)screen_.rightTop.y   +shake.position.y,
+		(int)screen_.rightBottom.x +shake.position.x, (int)screen_.rightBottom.y+shake.position.y,
 		0, 0, 1, 1, texture, color_);
 	if (isBestPlace_) {
 		hud_->DrawHpBar();
@@ -329,7 +329,7 @@ void Player::BulletSpawn(char* keys, char* preKeys) {
 void Player::BulletMove() {
 	for (int i = 0; i < SHOT_NUM; i++) {
 		for (int k = 0; k < BULLET_NUM; k++) {
-			bullet_[i][k]->Attack(vpVpMatrix_);//攻撃
+			bullet_[i][k]->Attack();//攻撃
 		}
 	}
 }

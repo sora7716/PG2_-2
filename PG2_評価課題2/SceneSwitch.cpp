@@ -21,7 +21,7 @@ SceneSwitch::~SceneSwitch() {
 void SceneSwitch::Scene(char* keys, char* preKeys) {
 	preScene_ = scene_;
 	if (scene_ == title) {
-		titleScene_->Update(keys,preKeys);
+		titleScene_->Update(keys,preKeys,&scene_);
 	}
 	else if (scene_ == game) {
 		mainScene_->MainLoop(keys,preKeys,scene_,score_[0]);
@@ -30,19 +30,19 @@ void SceneSwitch::Scene(char* keys, char* preKeys) {
 		}
 	}
 	else if (scene_ == end) {
-		endScene_->Draw();
+		endScene_->Update(keys,preKeys, &scene_);
 		score_[1]->resultUpdate(score_[0]->GetScore());
 	}
 }
 
 void SceneSwitch::Movement(char* keys, char* preKeys) {
-	if (scene_ == title && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+	if (scene_ == title) {
 		scene_ = game;
 	}
-	else if (scene_ == game && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
-		scene_ = title;
+	else if (scene_ == game) {
+		scene_ = end;
 	}
-	else if (scene_ == end && keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+	else if (scene_ == end) {
 		scene_ = title;
 	}
 }
