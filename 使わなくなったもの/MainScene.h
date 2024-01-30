@@ -30,7 +30,7 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void MainUpdating(char *keys,char *preKeys, Scene &scene, Score* score);
+	void MainUpdating(char *keys,char *preKeys, SceneType &scene, Score* score);
 
 	/// <summary>
 	/// 描画処理
@@ -40,7 +40,7 @@ public:
 	/// <summary>
 	/// ゲームループ
 	/// </summary>
-	void MainLoop(char* keys, char* preKeys, Scene &scene, Score* score);
+	void MainLoop(char* keys, char* preKeys, SceneType &scene, Score* score);
 
 	int BgSpeed();
 

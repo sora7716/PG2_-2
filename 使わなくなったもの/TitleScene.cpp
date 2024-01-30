@@ -51,7 +51,7 @@ void TitleScene::Drawing() {
 	FontDraw(explanation_,1280, 720);
 }
 
-void TitleScene::Update(char* keys, char* preKeys,Scene*scene) {
+void TitleScene::Update(char* keys, char* preKeys,SceneType*scene) {
 	IsEasing(keys, preKeys);
 	EasingFont(title_);
 	EasingFont(space_);
@@ -77,7 +77,7 @@ void TitleScene::IsEasing(char* keys, char* preKeys){
 	}
 }
 
-void TitleScene::StarTime(Scene* scene) {
+void TitleScene::StarTime(SceneType* scene) {
 	if (startTime_ > 0) {
 		startTime_--;
 	}

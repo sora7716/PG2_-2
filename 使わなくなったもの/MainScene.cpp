@@ -17,7 +17,7 @@ MainScene::~MainScene() {
 	delete bg_;
 }
 
-void MainScene::MainUpdating(char *keys,char *preKeys, Scene &scene, Score* score) {
+void MainScene::MainUpdating(char *keys,char *preKeys, SceneType &scene, Score* score) {
   player_->Update(keys, preKeys, enemyDown_, scene,score);
   player_->Update(keys, preKeys, enemyLeft_, scene,score);
 	if (player_->GetIsBestPlace()) {
@@ -53,7 +53,7 @@ void MainScene::MainDrawing(Score *score, unsigned int color) {
 		enemyLeft_->Drawing(player_->GetVpVpMatrix(),score);
 }
 
-void MainScene::MainLoop(char* keys, char* preKeys, Scene &scene, Score* score) {
+void MainScene::MainLoop(char* keys, char* preKeys, SceneType &scene, Score* score) {
 	MainUpdating(keys, preKeys, scene,score);//更新処理
 	MainDrawing(score,WHITE); //描画処理
 }

@@ -73,12 +73,6 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Main\Object</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Main\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene.cpp">
-      <Filter>Main\GameScene</Filter>
-    </ClCompile>
     <ClCompile Include="GameUpdate.cpp">
       <Filter>Main\GameScene</Filter>
     </ClCompile>
@@ -94,9 +88,6 @@
     <ClCompile Include="Hud.cpp">
       <Filter>Main\Process</Filter>
     </ClCompile>
-    <ClCompile Include="EndScene.cpp">
-      <Filter>Main\GameScene</Filter>
-    </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>Main\Object</Filter>
     </ClCompile>
@@ -110,6 +101,9 @@
       <Filter>Main\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="FontMaterial.cpp">
+      <Filter>Main\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
       <Filter>Main\GameScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -212,12 +206,6 @@
     <ClInclude Include="Particle.h">
       <Filter>Main\Object</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Main\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSwitch.h">
-      <Filter>Main\GameScene</Filter>
-    </ClInclude>
     <ClInclude Include="GameUpdate.h">
       <Filter>Main\GameScene</Filter>
     </ClInclude>
@@ -229,9 +217,6 @@
     </ClInclude>
     <ClInclude Include="Hud.h">
       <Filter>Main\Process</Filter>
-    </ClInclude>
-    <ClInclude Include="EndScene.h">
-      <Filter>Main\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Main\Object</Filter>
@@ -246,6 +231,12 @@
       <Filter>Main\Process</Filter>
     </ClInclude>
     <ClInclude Include="FontMaterial.h">
+      <Filter>Main\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSwitch.h">
+      <Filter>Main\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>Main\GameScene</Filter>
     </ClInclude>
   </ItemGroup>

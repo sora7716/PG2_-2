@@ -32,7 +32,7 @@ void EndScene::Drawing() {
 	FontDraw(reTry_, 300, 100);
 }
 
-void EndScene::Update(char* keys, char* preKeys,Scene*scene) {
+void EndScene::Update(char* keys, char* preKeys,SceneType*scene) {
 	IsEasing(keys, preKeys);
 	EasingFont(reTry_);
 	if (reTry_.isBack && reTry_.frame >= reTry_.endFrame) {

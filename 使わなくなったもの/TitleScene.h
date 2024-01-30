@@ -33,7 +33,7 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void Update(char *keys,char *preKeys, Scene* scene);
+	void Update(char *keys,char *preKeys, SceneType* scene);
 
 	/// <summary>
 	/// フラグ管理
@@ -49,6 +49,6 @@ public:
 	float GetTitleFrame() { return title_.frame; };
 
 
-	void StarTime(Scene* scene);
+	void StarTime(SceneType* scene);
 };
 

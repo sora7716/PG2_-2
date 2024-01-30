@@ -35,7 +35,7 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void Update(char* keys, char* preKeys, Scene* scene);
+	void Update(char* keys, char* preKeys, SceneType* scene);
 
 	/// <summary>
 	/// フラグ管理

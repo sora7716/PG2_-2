@@ -61,7 +61,7 @@ typedef struct Renderer {
 	Vertex screen;
 }Renderer;
 	
-enum Scene {
+enum SceneType {
 	title,
 	game,
 	end,

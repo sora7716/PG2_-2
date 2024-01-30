@@ -138,14 +138,14 @@ public:
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
-	void PlayerDamage(Enemy*enemy, Scene &scene);
+	void PlayerDamage(Enemy*enemy, SceneType &scene);
 
 	/// <summary>
 	/// 更新処理をまとめてる
 	/// </summary>
 	/// <param name="keys"></param>
 	/// <param name="texture"></param>
-	void Update(char* keys, char* preKeys,Enemy*enemy, Scene &scene, Score* score);
+	void Update(char* keys, char* preKeys,Enemy*enemy, SceneType &scene, Score* score);
 
 	/// <summary>
 	/// バレットの召喚
@@ -165,13 +165,13 @@ public:
 	/// <param name="keys"></param>
 	/// <param name="preKeys"></param>
 	/// <param name="enemy"></param>
-	void Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene,Score* score);
+	void Action(char* keys, char* preKeys, Enemy* enemy, SceneType &scene,Score* score);
 		
 	/// <summary>
 	/// ダメージを食らった後の処理
 	/// </summary>
 	/// <param name="scene"></param>
-	void IsDamage(Scene &scene);
+	void IsDamage(SceneType &scene);
 
 	/// <summary>
 	/// 無敵時間

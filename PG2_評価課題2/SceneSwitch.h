@@ -1,16 +1,12 @@
 ﻿#pragma once
-#include "TitleScene.h"
-#include "MainScene.h"
-#include "EndScene.h"
+#include "Scene.h"
 #include "Score.h"
 class SceneSwitch
 {
 private:
-	Scene scene_;
-	Scene preScene_;
-	TitleScene* titleScene_;
-	MainScene*  mainScene_;
-	EndScene* endScene_;
+	SceneType scene_;
+	SceneType preScene_;
+	SceneManager* sceneManager;
 	Score* score_[2];
 public:
 	
@@ -39,10 +35,5 @@ public:
 	/// </summary>
 	void Update(char* keys, char* prekeys);
 
-	/// <summary>
-	/// メインシーンクラスのゲッター
-	/// </summary>
-	/// <returns></returns>
-	MainScene* GetMainScene() { return mainScene_; };
 };
 

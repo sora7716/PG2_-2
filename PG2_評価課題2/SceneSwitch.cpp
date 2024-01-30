@@ -1,36 +1,32 @@
 ﻿#include "SceneSwitch.h"
 
 SceneSwitch::SceneSwitch() {
-	scene_ = title;
+	scene_      = title;
 	preScene_   = scene_;
-	mainScene_  = new MainScene;
-	titleScene_ = new TitleScene;
-	endScene_ = new EndScene;
+	sceneManager = new SceneManager;
 	for (int i = 0; i < 2; i++) {
 		score_[i] = new Score;
 	}
 }
 
 SceneSwitch::~SceneSwitch() {
-	delete titleScene_;
-	delete mainScene_;
-	delete endScene_;
+	delete sceneManager;
 	delete *score_;
 }
 
 void SceneSwitch::Scene(char* keys, char* preKeys) {
 	preScene_ = scene_;
 	if (scene_ == title) {
-		titleScene_->Update(keys,preKeys,&scene_);
+		sceneManager->TitleLoop(keys,preKeys,&scene_);
 	}
 	else if (scene_ == game) {
-		mainScene_->MainLoop(keys,preKeys,scene_,score_[0]);
-		if (mainScene_->GetPlayer()->GetIsBestPlace()) {
+		sceneManager->MainLoop(keys,preKeys,scene_,score_[0]);
+		if (sceneManager->GetPlayer()->GetIsBestPlace()) {
 			score_[0]->Update();
 		}
 	}
 	else if (scene_ == end) {
-		endScene_->Update(keys,preKeys, &scene_);
+		sceneManager->EndLoop(keys,preKeys, &scene_);
 		score_[1]->resultUpdate(score_[0]->GetScore());
 	}
 }
@@ -38,15 +34,15 @@ void SceneSwitch::Scene(char* keys, char* preKeys) {
 void SceneSwitch::Ini() {
 	if (scene_ !=preScene_ ) {
 		if (scene_ == title) {
-			titleScene_ = new TitleScene;
+			sceneManager = new SceneManager;
 		}
 		else if (scene_ == game) {
-			mainScene_ = new MainScene;
+			sceneManager = new SceneManager;
 			Camera::isRotation = false;
 			score_[0]->SetScore(0);
 		}
 		else if (scene_ == end) {
-			endScene_ = new EndScene;
+			sceneManager = new SceneManager;
 		}
 	}
 	preScene_ = scene_;

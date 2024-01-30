@@ -275,7 +275,7 @@ void Player::ShakeRange() {
 	}
 }
 
-void Player::PlayerDamage(Enemy*enemy, Scene &scene) {
+void Player::PlayerDamage(Enemy*enemy, SceneType &scene) {
 	DamageCooolTime();
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
 		if (collision_->Box(affine_.translate, enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].rendering.affine.translate, PLAYER_SIZE, ENEMY_BULLET_SIZE) && enemy->GetEnemyBullet()->GetEnemyBulletObject()[i].isAlive&&color_==0xFFFFFFFF) {
@@ -298,7 +298,7 @@ void Player::PlayerDamage(Enemy*enemy, Scene &scene) {
 	}
 }
 
-void Player::Update(char* keys, char* preKeys,Enemy*enemy,Scene &scene, Score* score) {
+void Player::Update(char* keys, char* preKeys,Enemy*enemy,SceneType &scene, Score* score) {
 	//レンダリングパイプライン
 	RenderingPipeline();
 
@@ -334,7 +334,7 @@ void Player::BulletMove() {
 	}
 }
 
-void Player::Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene, Score* score) {
+void Player::Action(char* keys, char* preKeys, Enemy* enemy, SceneType &scene, Score* score) {
 	Transfer(keys,score);//移動
 	if (isBestPlace_) {
 		BulletSpawn(keys, preKeys);
@@ -344,7 +344,7 @@ void Player::Action(char* keys, char* preKeys, Enemy* enemy, Scene &scene, Score
 	}
 }
 
-void Player::IsDamage(Scene &scene) {
+void Player::IsDamage(SceneType &scene) {
 	if (shake.isShake) {
 		color_ = 0xFFFFFF55;
 		hud_->Damage(scene);

@@ -22,7 +22,7 @@ Hud::Hud() {
 	
 }
 
-void Hud::Damage(Scene &scene) {
+void Hud::Damage(SceneType &scene) {
 	HP_ -= 1;
 	hpBar_[HP_].color = RED;
 	if (hpBar_[0].color == RED) {

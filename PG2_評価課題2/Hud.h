@@ -30,7 +30,7 @@ public:
 	/// <summary>
 	/// ダメージを食らったか
 	/// </summary>
-	void Damage(Scene &scene);
+	void Damage(SceneType &scene);
 
 	/// <summary>
 	/// HPの描画
