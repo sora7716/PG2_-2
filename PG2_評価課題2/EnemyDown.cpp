@@ -28,6 +28,7 @@ EnemyDown::EnemyDown() {
 	particle_ = new Particle({0,0.7f});
 	enemyBullet_ = new EnemyBullet;
 	hud_ = new Hud;
+	enemyHitSE_ = Novice::LoadAudio("./resource/sound/enemyHit.wav");
 }
 
 EnemyDown::~EnemyDown() {
@@ -66,7 +67,7 @@ void EnemyDown::EnemyTranslate() {
 					enemy_[i].isAlive = false;
 					direction_ = 0;
 				}
-				particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y+16 }, ENEMY_SIZE * enemy_[i].affine.scale.x,WHITE);
+				particle_->Update({ enemy_[i].affine.translate.x,enemy_[i].affine.translate.y+16 }, ENEMY_SIZE * enemy_[i].affine.scale.x, 0x4E0596FF);
 			}
 		}
 
@@ -93,6 +94,7 @@ void EnemyDown::Destroy(Bullet* bullet,Vector2 translate) {
 					bullet->SetIsAlive(false);
 					bullet->SetTranslate(translate);
 					hud_->SetScoreIsAlive(true);
+					Novice::PlayAudio(enemyHitSE_, false, 0.5f);
 				}
 			}
 		}

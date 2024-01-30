@@ -37,7 +37,8 @@ protected:
 	Collision* collision_;//コリリジョンの包含
 	Particle* particle_;//パーティクルの包含
 	EnemyBullet* enemyBullet_;//バレットの包含
-	Hud* hud_;
+	Hud* hud_;//ハッドの包含
+	int enemyHitSE_;//エネミーが倒された時の音
 public:
 	/// <summary>
 	/// コンストラクター

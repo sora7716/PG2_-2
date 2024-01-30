@@ -1,6 +1,8 @@
 ﻿#include "Scene.h"
 
 SceneManager::SceneManager() {
+//クリック音
+	clickSE_ = Novice::LoadAudio("./resource/sound/click.wav");
 #pragma region タイトル
 
 title_.position = { 340,-200 };
@@ -93,12 +95,13 @@ void SceneManager::TitleLoop(char* keys, char* preKeys, SceneType* scene) {
 	EasingFont(title_);
 	EasingFont(space_);
 	TitleDrawing();
-	StarTime(scene);
+	StartTime(scene);
 }
 
 void SceneManager::IsTitleEasing(char* keys, char* preKeys) {
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
 		space_.color = 0xFFFFFF55;
+		Novice::PlayAudio(clickSE_, false, 1.0f);
 		if (!title_.isBack && space_.isEasing && space_.frame >= space_.endFrame) {
 			Ini(title_, false, true);
 			Ini(space_, false, true);
@@ -106,7 +109,7 @@ void SceneManager::IsTitleEasing(char* keys, char* preKeys) {
 	}
 }
 
-void SceneManager::StarTime(SceneType* scene) {
+void SceneManager::StartTime(SceneType* scene) {
 	if (startTime_ > 0&& title_.isBack&&title_.frame>=1) {
 		startTime_--;
 	}
@@ -137,7 +140,6 @@ void SceneManager::MainUpdating(char* keys, char* preKeys, SceneType& scene, Sco
 		}
 		if (isEnemyLeftMove_) {
 			enemyLeft_->Update(player_->GetVpVpMatrix(), player_->GetTranslate(), 30);
-
 		}
 	}
 }
@@ -213,6 +215,7 @@ void SceneManager::IsEndEasing(char* keys, char* preKeys) {
 	}
 	if (keys[DIK_SPACE] && preKeys[DIK_SPACE]) {
 		reTry_.color = 0xFFFFFF55;
+		Novice::PlayAudio(clickSE_, false, 1.0f);
 	}
 	else {
 		reTry_.color = WHITE;

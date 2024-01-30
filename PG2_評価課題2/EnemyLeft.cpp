@@ -27,6 +27,7 @@ EnemyLeft::EnemyLeft() {
 	particle_ = new Particle({ 0,0.7f });
 	enemyBullet_ = new EnemyBullet;
 	hud_ = new Hud;
+	enemyHitSE_ = Novice::LoadAudio("./resource/sound/enemyHit.wav");
 }
 
 EnemyLeft::~EnemyLeft() {
@@ -87,6 +88,7 @@ void EnemyLeft::Destroy(Bullet* bullet, Vector2 translate){
 				bullet->SetIsAlive(true);
 				bullet->SetTranslate(translate);
 				hud_->SetScoreIsAlive(true);
+				Novice::PlayAudio(enemyHitSE_, false, 0.5f);
 			}
 		}
 		

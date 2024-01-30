@@ -6,6 +6,10 @@ Player::Player() {
 	//テクスチャ
 	texture_ = Novice::LoadTexture("./resource/object/player.png");
 
+	//サウンド
+	attackSE_ = Novice::LoadAudio("./resource/sound/attack.wav");
+	damageSE_ = Novice::LoadAudio("./resource/sound/damage.wav");
+
 #pragma region 定義しないといけない
 	//プレイヤーのローカル座標
 	local_={
@@ -322,6 +326,9 @@ void Player::BulletSpawn(char* keys, char* preKeys) {
 		for (int k = 0; k < BULLET_NUM; k++) {
 			if (!bullet_[i][k]->GetBulletObject().isAlive) {
 				bullet_[i][k]->IsShot(keys, preKeys, affine_.translate, i);
+				if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]&& bullet_[i][k]->GetBulletObject().isAlive) {
+					Novice::PlayAudio(attackSE_, false, 0.3f);
+				}
 				break;
 			}
 		}
@@ -348,9 +355,10 @@ void Player::Action(char* keys, char* preKeys, Enemy* enemy, SceneType &scene, S
 
 void Player::IsDamage(SceneType &scene) {
 	if (shake.isShake) {
-		color_ = 0xFFFFFF55;
+		color_ = 0xFFFFFF33;
 		hud_->Damage(scene);
 		damageCoolTime_ = 180;
+		Novice::PlayAudio(damageSE_, false, 0.7f);
 	}
 }
 

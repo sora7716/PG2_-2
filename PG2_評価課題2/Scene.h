@@ -10,6 +10,10 @@
 class SceneManager:FontMaterial
 {
 private:
+
+	//クリック音
+	int clickSE_;
+
 	//タイトル
 	Font title_;
 	Font space_;
@@ -71,7 +75,7 @@ public:
 	/// 始まるまでのタイマー
 	/// </summary>
 	/// <param name="scene"></param>
-	void StarTime(SceneType* scene);
+	void StartTime(SceneType* scene);
 
 #pragma endregion
 

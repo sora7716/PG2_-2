@@ -57,6 +57,10 @@ private:
 	//回転のタイマー
 	int rotateTime_;
 
+	//音
+	int attackSE_;
+	int damageSE_;
+
 	//包含↓
 	Bullet* bullet_[SHOT_NUM][BULLET_NUM];//弾
 	Collision* collision_;

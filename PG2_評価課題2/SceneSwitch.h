@@ -8,6 +8,8 @@ private:
 	SceneType preScene_;
 	SceneManager* sceneManager;
 	Score* score_[2];
+	int BGM_[3];
+	int soundHandle_[3];
 public:
 	
 	/// <summary>
