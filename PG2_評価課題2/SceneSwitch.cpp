@@ -13,15 +13,20 @@ SceneSwitch::SceneSwitch() {
 	for (int i = 0; i < 2; i++) {
 		score_[i] = new Score;
 	}
+	fullScreen_ = new FullScreen;
 }
 
 SceneSwitch::~SceneSwitch() {
 	delete sceneManager;
 	delete *score_;
+	delete fullScreen_;
 }
 
 void SceneSwitch::Scene(char* keys, char* preKeys) {
 	preScene_ = scene_;
+	//スクリーンの状態を変更↓
+	fullScreen_->Push(keys, preKeys);
+	//スクリーンの状態を変更↑
 	if (scene_ == title) {
 		if (Novice::IsPlayingAudio(soundHandle_[0]) <= 0) {
 			soundHandle_[0]= Novice::PlayAudio(BGM_[0], true, 0.5f);

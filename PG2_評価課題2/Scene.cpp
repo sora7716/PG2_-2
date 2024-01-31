@@ -100,12 +100,17 @@ void SceneManager::TitleLoop(char* keys, char* preKeys, SceneType* scene) {
 
 void SceneManager::IsTitleEasing(char* keys, char* preKeys) {
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
-		space_.color = 0xFFFFFF55;
 		Novice::PlayAudio(clickSE_, false, 1.0f);
 		if (!title_.isBack && space_.isEasing && space_.frame >= space_.endFrame) {
 			Ini(title_, false, true);
 			Ini(space_, false, true);
 		}
+	}
+	if (keys[DIK_SPACE] && preKeys[DIK_SPACE]) {
+		space_.color = 0xFFFFFF55;
+	}
+	else {
+		space_.color = 0xFFFFFFFF;
 	}
 }
 
@@ -208,7 +213,7 @@ void SceneManager::EndLoop(char* keys, char* preKeys, SceneType* scene) {
 }
 
 void SceneManager::IsEndEasing(char* keys, char* preKeys) {
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]&&reTry_.frame>=reTry_.endFrame) {
 		if (!reTry_.isBack) {
 			Ini(reTry_, false, true);
 		}

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Scene.h"
 #include "Score.h"
+#include "FullScreen.h"
 class SceneSwitch
 {
 private:
@@ -8,6 +9,7 @@ private:
 	SceneType preScene_;
 	SceneManager* sceneManager;
 	Score* score_[2];
+	FullScreen* fullScreen_;
 	int BGM_[3];
 	int soundHandle_[3];
 public:

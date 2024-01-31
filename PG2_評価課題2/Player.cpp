@@ -207,7 +207,7 @@ void Player::PlayerMove(char *keys,Score *score) {
 		affine_.theta += theta_;
 	}
 	RotateTime();
-	if (score->GetScore() >= 750) {
+	if (score->GetScore() >= 700) {
 		if (!Camera::isRotation && rotateTime_ <= 0) {
 			Camera::isRotation = true;
 		}
