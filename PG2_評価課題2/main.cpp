@@ -7,8 +7,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	GameUpdate* game = new GameUpdate;
 
-	game->GameLoop();
-
+	game->GameLoop();//ゲームの処理
+	
 	delete game;
 
 	// ライブラリの終了

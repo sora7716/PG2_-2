@@ -129,7 +129,7 @@ void EnemyLeft::Update(Matrix3x3 vpVpMatrix, Vector2 player,int coolTime){
 
 void EnemyLeft::Drawing(Matrix3x3 vpVpMatrix, Score* score) {
 	particle_->DrawParticle(vpVpMatrix);
-	enemyBullet_->BulletDrawing(vpVpMatrix,0x870805FF);
+	enemyBullet_->BulletDrawing(vpVpMatrix,RED);
 	EnemyDraw();
 	hud_->ScoreUpdate(score);
 	hud_->DrawScore();

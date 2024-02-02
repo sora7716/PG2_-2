@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SceneSwitch.h"
 
-const char kWindowTitle[] = "GC1A_01_Battle_Cipher";
+const char kWindowTitle[] = "GC1A_01_イイヅカ_ソラ_Battle_Cipher";
 
 const int KYES_NUM = 256;
 class GameUpdate:public Novice

@@ -197,6 +197,7 @@ void Player::PlayerMove(char *keys,Score *score) {
 		}
 		
 	}
+
 #pragma endregion
 
 #pragma region 画面の回転
