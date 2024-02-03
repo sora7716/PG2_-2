@@ -24,29 +24,44 @@ SceneSwitch::~SceneSwitch() {
 
 void SceneSwitch::Scene(char* keys, char* preKeys) {
 	preScene_ = scene_;
+
 	//スクリーンの状態を変更↓
 	fullScreen_->Push(keys, preKeys);
 	//スクリーンの状態を変更↑
+
 	if (scene_ == title) {
+		//音
 		if (Novice::IsPlayingAudio(soundHandle_[0]) <= 0) {
 			soundHandle_[0]= Novice::PlayAudio(BGM_[0], true, 0.5f);
 		}
+
+		//タイトルの処理
 		sceneManager->TitleLoop(keys,preKeys,&scene_);
 	}
 	else if (scene_ == game) {
+		//音
 		if (Novice::IsPlayingAudio(soundHandle_[1]) <= 0) {
 			soundHandle_[1] = Novice::PlayAudio(BGM_[1], true, 0.5f);
 		}
+
+		//ゲームの処理
 		sceneManager->MainLoop(keys,preKeys,scene_,score_[0]);
+		
+		//スコア表示
 		if (sceneManager->GetPlayer()->GetIsBestPlace()) {
 			score_[0]->Update();
 		}
 	}
 	else if (scene_ == end) {
+		//音
 		if (Novice::IsPlayingAudio(soundHandle_[2]) <= 0) {
 			soundHandle_[2] = Novice::PlayAudio(BGM_[2], true, 0.7f);
 		}
+
+		//エンドの処理
 		sceneManager->EndLoop(keys,preKeys, &scene_);
+		
+		//スコア
 		score_[1]->resultUpdate(score_[0]->GetScore());
 	}
 }
